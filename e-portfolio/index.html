@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Portfolio Kartika Wulandari</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-brand">E-Portfolio <span>PPG</span></div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#hero" class="active">Beranda</a></li>
+    <li><a href="#profil">Profil</a></li>
+    <li><a href="#analisis">Analisis</a></li>
+    <li><a href="#lampiran">Lampiran</a></li>
+    <li><a href="#galeri">Galeri</a></li>
+    <li><a href="#model">Model Guru</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <img class="hero-avatar" src="foto.jpg" alt="Foto Profil" onerror="this.outerHTML='<div class=\'hero-avatar\'>🌸</div>'" />
+    <div class="hero-badge">✨ E-Portfolio PPG Prajabatan</div>
+    <h1 id="hero-name"></h1>
+    <p class="subtitle">Mahasiswi PPG · UIN Prof. K.H. Saifuddin Zuhri Purwokerto · Tahun 2026</p>
+    <div class="hero-tags">
+      <span class="tag">📍 Cilacap, Jawa Tengah</span>
+      <span class="tag">🎓 PPG 2026</span>
+      <span class="tag">📚 Ilmu Sosial</span>
+      <span class="tag">🏫 UIN Saifuddin Zuhri Purwokerto</span>
+    </div>
+    <a href="#profil" class="btn-primary">Lihat Portofolio Saya →</a>
+  </div>
+</section>
+
+<!-- PROFIL -->
+<section id="profil">
+  <div class="section-inner">
+    <div class="fade-up">
+      <span class="section-label">01 · Profil Mahasiswa</span>
+      <h2 class="section-title">Mengenal Saya Lebih Dekat</h2>
+      <p class="section-desc">Perjalanan seorang calon pendidik yang lahir dari keyakinan bahwa setiap peserta didik menyimpan potensi luar biasa yang menunggu untuk ditemukan.</p>
+    </div>
+
+    <div class="profil-grid">
+      <!-- Identitas -->
+      <div class="card fade-up">
+        <div class="card-icon pink">👩‍🎓</div>
+        <h3>Identitas Mahasiswa</h3>
+        <table class="info-table">
+          <tr><td>Nama Lengkap</td><td>Kartika Wulandari, S.Sos</td></tr>
+          <tr><td>Program</td><td>PPG (Pendidikan Profesi Guru) 2026</td></tr>
+          <tr><td>Universitas</td><td>UIN Prof. K.H. Saifuddin Zuhri Purwokerto</td></tr>
+          <tr><td>Asal Daerah</td><td>Kabupaten Cilacap, Jawa Tengah</td></tr>
+          <tr><td>Latar Belakang</td><td>S1 Ilmu Sosial</td></tr>
+        </table>
+      </div>
+
+      <!-- Asal Daerah -->
+      <div class="card fade-up">
+        <div class="card-icon lavender">🏡</div>
+        <h3>Asal Daerah: Kabupaten Cilacap</h3>
+        <p>Saya berasal dari Kabupaten Cilacap, Jawa Tengah — sebuah daerah yang kaya akan keindahan alam, mulai dari pantai Teluk Penyu hingga hamparan hutan mangrove yang memukau. Cilacap juga dikenal sebagai kota industri yang dinamis, namun tetap menyimpan kehangatan masyarakat yang guyub dan penuh kekeluargaan.</p>
+        <p style="margin-top:0.75rem;">Tumbuh di tengah keberagaman dan kehangatan masyarakat Cilacap membentuk saya menjadi pribadi yang peka, empatik, dan mencintai keberagaman — nilai-nilai yang kini menjadi fondasi saya sebagai calon pendidik.</p>
+      </div>
+
+      <!-- Latar Belakang -->
+      <div class="card fade-up">
+        <div class="card-icon green">📖</div>
+        <h3>Latar Belakang Pendidikan</h3>
+        <p>Saya menyelesaikan pendidikan S1 Ilmu Sosial di UIN Prof. K.H. Saifuddin Zuhri Purwokerto. Bekal ilmu sosial dan nilai-nilai keislaman yang saya peroleh selama studi memperkaya perspektif saya dalam memahami dinamika masyarakat dan kebutuhan peserta didik secara holistik.</p>
+        <p style="margin-top:0.75rem;">Perpaduan antara ilmu sosial dan nilai-nilai Islam yang humanis menjadi landasan kuat bagi saya untuk hadir sebagai pendidik yang adaptif, berkarakter, dan berdampak nyata bagi perkembangan generasi muda.</p>
+      </div>
+
+      <!-- Inspirasi -->
+      <div class="card fade-up">
+        <div class="card-icon pink">💡</div>
+        <h3>Inspirasi Menjadi Guru</h3>
+        <p>Minat saya dalam dunia pendidikan lahir dari keyakinan yang tumbuh perlahan namun kuat: bahwa setiap peserta didik menyimpan potensi luar biasa yang menunggu untuk ditemukan dan dikembangkan. Bagi saya, menjadi pendidik bukan sekadar menyampaikan materi, tetapi hadir sebagai sosok yang dipercaya, menginspirasi, dan mampu menguatkan karakter peserta didik dari dalam.</p>
+      </div>
+
+      <!-- Tujuan -->
+      <div class="card full fade-up">
+        <div class="card-icon lavender">🎯</div>
+        <h3>Tujuan Menjadi Guru Profesional</h3>
+        <p>Dengan bekal ilmu sosial dan nilai-nilai keislaman dari UIN Prof. K.H. Saifuddin Zuhri Purwokerto, saya berkomitmen untuk menjadi pendidik yang adaptif, humanis, dan berdampak nyata bagi perkembangan generasi muda. Saya ingin hadir sebagai guru yang tidak hanya mengajar, tetapi juga mendampingi, menguatkan, dan menginspirasi setiap peserta didik untuk percaya pada potensi terbaik dalam diri mereka sendiri.</p>
+      </div>
+
+      <!-- Quote -->
+      <div class="quote-card fade-up">
+        <blockquote>
+          "Guru terbaik bukan yang paling banyak bicara di depan kelas — melainkan yang paling banyak meninggalkan keberanian, kepercayaan diri, dan harapan di dalam dada peserta didiknya."
+        </blockquote>
+        <cite>— Prinsip Hidup, Kartika Wulandari, S.Sos</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANALISIS ARTEFAK -->
+<section id="analisis">
+  <div class="section-inner">
+    <div class="fade-up">
+      <span class="section-label">02 · Analisis Artefak</span>
+      <h2 class="section-title">Refleksi Perangkat Pembelajaran</h2>
+      <p class="section-desc">Analisis mendalam terhadap proses penyusunan dan penerapan perangkat pembelajaran selama PPL Terbimbing.</p>
+    </div>
+
+    <div class="analisis-grid">
+      <!-- Kendala -->
+      <div class="analisis-card fade-up">
+        <h3>⚠️ Kendala dalam Penyusunan Perangkat</h3>
+        <p>Proses penyusunan perangkat pembelajaran tidak selalu berjalan mulus. Beberapa kendala yang saya hadapi antara lain:</p>
+        <ul>
+          <li>Kesulitan menyelaraskan Capaian Pembelajaran (CP) dengan kondisi riil peserta didik yang memiliki kemampuan heterogen</li>
+          <li>Keterbatasan referensi bahan ajar kontekstual yang relevan dengan kehidupan siswa di Yogyakarta</li>
+          <li>Tantangan merancang asesmen formatif yang autentik namun tetap efisien dalam pelaksanaannya</li>
+          <li>Penyesuaian alokasi waktu yang sering tidak sesuai dengan estimasi awal akibat dinamika kelas</li>
+        </ul>
+        <p style="margin-top:0.75rem;">Kendala-kendala ini justru menjadi guru terbaik saya — mendorong saya untuk lebih fleksibel dan kreatif dalam merancang pembelajaran.</p>
+      </div>
+
+      <!-- Teori Pedagogik -->
+      <div class="analisis-card fade-up">
+        <h3>📚 Teori & Konsep Pedagogik</h3>
+        <p>Dalam menyusun perangkat pembelajaran, saya berpijak pada beberapa teori pedagogik yang relevan:</p>
+        <ul>
+          <li><strong>Konstruktivisme Vygotsky</strong> — Zone of Proximal Development (ZPD) menjadi landasan dalam merancang scaffolding yang tepat bagi siswa</li>
+          <li><strong>Pembelajaran Berbasis Proyek (PjBL)</strong> — mendorong siswa menghasilkan karya nyata yang bermakna</li>
+          <li><strong>Diferensiasi Pembelajaran</strong> — mengakomodasi keberagaman gaya belajar dan kemampuan siswa</li>
+          <li><strong>Asesmen for Learning</strong> — umpan balik berkelanjutan sebagai bagian integral dari proses belajar</li>
+        </ul>
+      </div>
+
+      <!-- Faktor Keberhasilan -->
+      <div class="analisis-card fade-up">
+        <h3>✅ Faktor Keberhasilan Pembelajaran</h3>
+        <p>Refleksi saya menunjukkan beberapa faktor yang berkontribusi signifikan terhadap keberhasilan pembelajaran:</p>
+        <ul>
+          <li>Hubungan yang hangat dan saling percaya antara guru dan siswa menciptakan iklim belajar yang kondusif</li>
+          <li>Penggunaan media pembelajaran digital (video, infografis) yang meningkatkan keterlibatan siswa</li>
+          <li>Penerapan diskusi kelompok kecil yang memungkinkan setiap siswa berpartisipasi aktif</li>
+          <li>Umpan balik yang spesifik dan konstruktif mendorong siswa untuk terus berkembang</li>
+          <li>Kontekstualisasi materi dengan isu-isu aktual yang dekat dengan kehidupan siswa</li>
+        </ul>
+      </div>
+
+      <!-- Penyesuaian -->
+      <div class="analisis-card fade-up">
+        <h3>🔄 Penyesuaian untuk Kondisi Berbeda</h3>
+        <p>Pengalaman mengajar di kelas dengan karakteristik berbeda mengajarkan saya pentingnya adaptabilitas:</p>
+        <ul>
+          <li>Untuk kelas dengan kemampuan rendah: memperbanyak contoh konkret, memperlambat tempo, dan memberikan lebih banyak scaffolding verbal</li>
+          <li>Untuk kelas dengan kemampuan tinggi: menambahkan tantangan berpikir kritis dan proyek pengayaan</li>
+          <li>Untuk kelas yang ramai: menggunakan teknik "think-pair-share" untuk menyalurkan energi siswa secara produktif</li>
+          <li>Untuk kondisi keterbatasan teknologi: menyiapkan alternatif bahan ajar cetak yang tetap menarik</li>
+        </ul>
+        <p style="margin-top:0.75rem;">Fleksibilitas ini bukan berarti tidak konsisten, melainkan bentuk kepekaan profesional seorang guru terhadap kebutuhan nyata peserta didiknya.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LAMPIRAN -->
+<section id="lampiran">
+  <div class="section-inner">
+    <div class="fade-up">
+      <span class="section-label">03 · Lampiran Penilaian</span>
+      <h2 class="section-title">Dokumen & Instrumen Penilaian</h2>
+      <p class="section-desc">Kumpulan dokumen penilaian, instrumen, dan hasil evaluasi selama PPL Terbimbing.</p>
+    </div>
+
+    <div class="lampiran-grid fade-up">
+
+      <div class="lampiran-card" id="doc-card-1">
+        <div class="lampiran-icon">📋</div>
+        <h3>Instrumen Penilaian Perangkat Pembelajaran</h3>
+        <p>Rubrik penilaian RPP, modul ajar, LKPD, dan bahan ajar yang disusun selama PPL</p>
+        <div class="doc-actions" id="doc-actions-1">
+          <button class="btn-doc" onclick="openModal('modal-instrumen1')">Lihat Detail</button>
+        </div>
+        <!-- input upload, hanya muncul saat admin -->
+        <input type="file" accept=".pdf,.doc,.docx" id="doc-upload-1" class="doc-upload-input" onchange="handleUpload(this,'1')" />
+      </div>
+
+      <div class="lampiran-card" id="doc-card-2">
+        <div class="lampiran-icon">🎤</div>
+        <h3>Instrumen Penilaian Praktik Mengajar</h3>
+        <p>Rubrik observasi dan penilaian kompetensi mengajar oleh guru pamong dan dosen pembimbing</p>
+        <div class="doc-actions" id="doc-actions-2">
+          <button class="btn-doc" onclick="openModal('modal-instrumen2')">Lihat Detail</button>
+        </div>
+        <input type="file" accept=".pdf,.doc,.docx" id="doc-upload-2" class="doc-upload-input" onchange="handleUpload(this,'2')" />
+      </div>
+
+      <div class="lampiran-card" id="doc-card-3">
+        <div class="lampiran-icon">⭐</div>
+        <h3>Hasil Penilaian Guru Pamong</h3>
+        <p>Rekap nilai dan catatan reflektif dari guru pamong selama 3 siklus PPL</p>
+        <div class="doc-actions" id="doc-actions-3">
+          <button class="btn-doc" onclick="openModal('modal-pamong')">Lihat Detail</button>
+        </div>
+        <input type="file" accept=".pdf,.doc,.docx" id="doc-upload-3" class="doc-upload-input" onchange="handleUpload(this,'3')" />
+      </div>
+
+      <div class="lampiran-card" id="doc-card-4">
+        <div class="lampiran-icon">📄</div>
+        <h3>Modul Ajar & RPP</h3>
+        <p>Dokumen perangkat pembelajaran lengkap yang telah divalidasi dan digunakan dalam praktik</p>
+        <div class="doc-actions" id="doc-actions-4">
+          <span class="doc-empty-note">Belum ada dokumen</span>
+        </div>
+        <input type="file" accept=".pdf,.doc,.docx" id="doc-upload-4" class="doc-upload-input" onchange="handleUpload(this,'4')" />
+      </div>
+
+    </div>
+
+    <!-- Siklus PPL -->
+    <div style="margin-top: 3rem;" class="fade-up">
+      <h3 style="font-size:1.1rem; font-weight:700; color:var(--text-dark); margin-bottom:1rem;">📸 Dokumentasi Praktik Mengajar — 3 Siklus</h3>
+      <div class="siklus-tabs">
+        <button class="tab-btn active" onclick="showTab('siklus1', this)">Siklus 1</button>
+        <button class="tab-btn" onclick="showTab('siklus2', this)">Siklus 2</button>
+        <button class="tab-btn" onclick="showTab('siklus3', this)">Siklus 3</button>
+      </div>
+
+      <div id="siklus1" class="tab-content active">
+        <div class="siklus-card">
+          <h4>🌱 Siklus 1 — Observasi & Adaptasi (Minggu 1–2)</h4>
+          <p><strong>Topik:</strong> Teks Deskripsi — Menggambarkan Keindahan Alam Nusantara</p>
+          <p><strong>Refleksi:</strong> Pada siklus pertama, saya masih berada dalam fase adaptasi. Saya mengamati dinamika kelas, mengenali karakter setiap siswa, dan mencoba membangun rapport. Pembelajaran berjalan cukup baik, namun saya menyadari bahwa instruksi saya masih terlalu panjang dan kurang terstruktur. Beberapa siswa terlihat bingung dengan alur kegiatan.</p>
+          <p><strong>Tindak Lanjut:</strong> Saya memperbaiki cara memberikan instruksi dengan menggunakan langkah-langkah yang lebih singkat, jelas, dan divisualisasikan di papan tulis. Saya juga mulai menerapkan "check for understanding" di setiap transisi kegiatan.</p>
+          <p><strong>Nilai dari Guru Pamong:</strong> 78/100 — "Mahasiswa menunjukkan potensi yang baik, perlu meningkatkan kejelasan instruksi dan manajemen waktu."</p>
+        </div>
+      </div>
+
+      <div id="siklus2" class="tab-content">
+        <div class="siklus-card">
+          <h4>🌿 Siklus 2 — Penerapan & Perbaikan (Minggu 3–4)</h4>
+          <p><strong>Topik:</strong> Teks Narasi — Menulis Cerita Pengalaman Pribadi yang Berkesan</p>
+          <p><strong>Refleksi:</strong> Siklus kedua menjadi titik balik yang signifikan. Saya menerapkan model pembelajaran berbasis proyek di mana siswa diminta menulis dan mempresentasikan cerita pengalaman pribadi mereka. Antusiasme siswa meningkat drastis — mereka merasa dihargai karena pengalaman mereka dijadikan bahan belajar.</p>
+          <p><strong>Tindak Lanjut:</strong> Saya menyadari pentingnya memberikan waktu "menulis bebas" tanpa tekanan di awal, sebelum masuk ke tahap revisi. Pendekatan ini terbukti mengurangi kecemasan menulis (writing anxiety) pada siswa.</p>
+          <p><strong>Nilai dari Guru Pamong:</strong> 85/100 — "Peningkatan yang sangat baik. Pengelolaan kelas lebih terstruktur, siswa lebih aktif dan terlibat."</p>
+        </div>
+      </div>
+
+      <div id="siklus3" class="tab-content">
+        <div class="siklus-card">
+          <h4>🌸 Siklus 3 — Konsolidasi & Refleksi (Minggu 5–6)</h4>
+          <p><strong>Topik:</strong> Teks Eksposisi — Menyampaikan Argumen dengan Data dan Fakta</p>
+          <p><strong>Refleksi:</strong> Pada siklus terakhir, saya merasa lebih percaya diri dan mampu membaca situasi kelas dengan lebih baik. Saya mengintegrasikan asesmen formatif melalui "exit ticket" di akhir setiap pertemuan, yang memberikan data berharga tentang pemahaman siswa secara real-time.</p>
+          <p><strong>Tindak Lanjut:</strong> Data dari exit ticket membantu saya merancang pembelajaran remedial yang tepat sasaran. Saya juga mulai mengembangkan kemampuan memberikan umpan balik lisan yang lebih spesifik dan mendorong siswa untuk berpikir lebih dalam.</p>
+          <p><strong>Nilai dari Guru Pamong:</strong> 91/100 — "Mahasiswa telah berkembang menjadi calon guru yang reflektif dan profesional. Sangat direkomendasikan."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERI -->
+<section id="galeri">
+  <div class="section-inner">
+    <div class="fade-up">
+      <span class="section-label">04 · Galeri Kegiatan</span>
+      <h2 class="section-title">Momen Berharga PPL Terbimbing</h2>
+      <p class="section-desc">Dokumentasi perjalanan belajar mengajar yang penuh makna dan kenangan tak terlupakan.</p>
+    </div>
+
+    <div class="galeri-grid fade-up" id="galeri-grid">
+      <div class="galeri-item" data-galeri-id="1">
+        <span class="galeri-emoji">📸</span>
+        <div class="galeri-overlay">Observasi Kelas Perdana</div>
+      </div>
+      <div class="galeri-item" data-galeri-id="2">
+        <span class="galeri-emoji">🎓</span>
+        <div class="galeri-overlay">Diskusi dengan Guru Pamong</div>
+      </div>
+      <div class="galeri-item" data-galeri-id="3">
+        <span class="galeri-emoji">✏️</span>
+        <div class="galeri-overlay">Siklus 1 — Praktik Mengajar</div>
+      </div>
+      <div class="galeri-item" data-galeri-id="4">
+        <span class="galeri-emoji">📖</span>
+        <div class="galeri-overlay">Kegiatan Literasi Kelas</div>
+      </div>
+      <div class="galeri-item" data-galeri-id="5">
+        <span class="galeri-emoji">🎤</span>
+        <div class="galeri-overlay">Presentasi Siswa Siklus 2</div>
+      </div>
+      <div class="galeri-item" data-galeri-id="6">
+        <span class="galeri-emoji">🌸</span>
+        <div class="galeri-overlay">Siklus 3 — Teks Eksposisi</div>
+      </div>
+      <div class="galeri-item" data-galeri-id="7">
+        <span class="galeri-emoji">👩‍🏫</span>
+        <div class="galeri-overlay">Bimbingan Dosen Pembimbing</div>
+      </div>
+      <div class="galeri-item" data-galeri-id="8">
+        <span class="galeri-emoji">🏆</span>
+        <div class="galeri-overlay">Penutupan PPL Terbimbing</div>
+      </div>
+    </div>
+
+    <div id="galeri-admin-bar" style="display:none; text-align:center; margin-top:1.5rem;">
+      <button class="btn-primary" onclick="handleGaleriAdd()" style="font-size:0.85rem; padding:0.6rem 1.5rem;">
+        ➕ Tambah Foto (URL)
+      </button>
+      <p style="margin-top:0.75rem; font-size:0.78rem; color:var(--text-light);">Klik foto untuk ganti · Klik kanan foto tambahan untuk hapus</p>
+    </div>
+  </div>
+</section>
+
+<!-- MODEL GURU -->
+<section id="model">
+  <div class="section-inner">
+    <div class="fade-up">
+      <span class="section-label">05 · Model Guru yang Dituju</span>
+      <h2 class="section-title">Visi Saya sebagai Calon Guru Profesional</h2>
+      <p class="section-desc">Gambaran utuh tentang guru seperti apa yang ingin saya wujudkan — bukan hanya cita-cita, tetapi komitmen.</p>
+    </div>
+
+    <div class="model-grid">
+      <div class="model-card visi fade-up">
+        <h3>🌟 Visi</h3>
+        <p>Menjadi guru Bahasa Indonesia yang inspiratif, inovatif, dan humanis — yang mampu menumbuhkan kecintaan siswa terhadap bahasa dan sastra sebagai cermin budaya bangsa, sekaligus membekali mereka dengan kemampuan komunikasi yang kuat untuk menghadapi tantangan abad ke-21.</p>
+      </div>
+
+      <div class="model-card misi fade-up">
+        <h3>🎯 Misi</h3>
+        <ul>
+          <li>Menciptakan lingkungan belajar yang aman, inklusif, dan menyenangkan</li>
+          <li>Merancang pembelajaran yang kontekstual, bermakna, dan berpusat pada siswa</li>
+          <li>Mengintegrasikan teknologi secara bijak untuk memperkaya pengalaman belajar</li>
+          <li>Membangun budaya literasi yang kuat di lingkungan sekolah</li>
+          <li>Terus belajar dan berkembang sebagai pendidik yang reflektif dan adaptif</li>
+        </ul>
+      </div>
+
+      <div class="model-card kompetensi fade-up">
+        <h3>💪 Kompetensi yang Ingin Dikembangkan</h3>
+        <ul>
+          <li><strong>Pedagogik:</strong> Penguasaan strategi diferensiasi dan asesmen autentik</li>
+          <li><strong>Profesional:</strong> Pemahaman mendalam tentang linguistik terapan dan sastra kontemporer</li>
+          <li><strong>Sosial:</strong> Kemampuan membangun kolaborasi dengan orang tua dan komunitas</li>
+          <li><strong>Kepribadian:</strong> Keteguhan nilai, empati, dan keteladanan dalam keseharian</li>
+          <li><strong>Digital:</strong> Literasi teknologi untuk pembelajaran abad ke-21</li>
+        </ul>
+      </div>
+
+      <div class="model-card karakter fade-up">
+        <h3>🌺 Karakter yang Ingin Dibangun</h3>
+        <ul>
+          <li>Sabar dan penuh kasih sayang tanpa kehilangan ketegasan</li>
+          <li>Jujur dan konsisten antara ucapan dan tindakan</li>
+          <li>Rendah hati untuk terus belajar dari siapa pun, termasuk dari siswa</li>
+          <li>Kreatif dalam menghadapi keterbatasan dan tantangan</li>
+          <li>Berkomitmen pada keadilan dan kesetaraan dalam pendidikan</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Penutup -->
+    <div class="quote-card fade-up" style="margin-top:2rem; background: linear-gradient(135deg, var(--lavender-light), var(--pink-light));">
+      <blockquote>
+        "PPL Terbimbing ini bukan sekadar praktik mengajar — ini adalah proses menemukan diri saya sebagai pendidik. Setiap tantangan yang saya hadapi, setiap momen ketika mata siswa berbinar karena memahami sesuatu, semakin memperkuat keyakinan saya: inilah jalan yang benar untuk saya."
+      </blockquote>
+      <cite>— Refleksi Akhir PPL Terbimbing, Kartika Wulandari, S.Sos · 2026</cite>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <span>Kartika Wulandari, S.Sos</span> · E-Portfolio PPG</p>
+  <p style="margin-top:0.4rem; font-size:0.75rem;">UIN Prof. K.H. Saifuddin Zuhri Purwokerto</p>
+</footer>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modal-instrumen1">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-instrumen1')">✕</button>
+    <h3>📋 Instrumen Penilaian Perangkat Pembelajaran</h3>
+    <p><strong>Komponen yang Dinilai:</strong></p>
+    <ul style="margin:0.75rem 0 0.75rem 1.2rem; font-size:0.87rem; color:var(--text-mid); line-height:1.8;">
+      <li>Kesesuaian CP, TP, dan ATP (bobot 20%)</li>
+      <li>Kelengkapan komponen modul ajar (bobot 20%)</li>
+      <li>Kualitas LKPD dan bahan ajar (bobot 20%)</li>
+      <li>Kesesuaian asesmen dengan tujuan pembelajaran (bobot 20%)</li>
+      <li>Kreativitas dan inovasi perangkat (bobot 20%)</li>
+    </ul>
+    <p style="font-size:0.87rem; color:var(--text-mid);">Nilai Akhir Perangkat: <strong style="color:var(--pink-dark);">87/100</strong></p>
+    <p style="font-size:0.82rem; color:var(--text-light); margin-top:0.5rem;">Ganti konten ini dengan PDF viewer atau link ke dokumen asli Anda.</p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-instrumen2">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-instrumen2')">✕</button>
+    <h3>🎤 Instrumen Penilaian Praktik Mengajar</h3>
+    <p><strong>Aspek yang Dinilai:</strong></p>
+    <ul style="margin:0.75rem 0 0.75rem 1.2rem; font-size:0.87rem; color:var(--text-mid); line-height:1.8;">
+      <li>Penguasaan materi dan konsep (bobot 25%)</li>
+      <li>Kemampuan mengelola kelas (bobot 20%)</li>
+      <li>Penggunaan metode dan media pembelajaran (bobot 20%)</li>
+      <li>Interaksi dan komunikasi dengan siswa (bobot 20%)</li>
+      <li>Pelaksanaan asesmen formatif (bobot 15%)</li>
+    </ul>
+    <p style="font-size:0.87rem; color:var(--text-mid);">Nilai Akhir Praktik: <strong style="color:var(--pink-dark);">89/100</strong></p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-pamong">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-pamong')">✕</button>
+    <h3>⭐ Penilaian Guru Pamong</h3>
+    <p style="font-size:0.87rem; color:var(--text-mid); margin-bottom:0.75rem;"><em>Dra. Sri Wahyuni, M.Pd. — SMP Negeri 3 Yogyakarta</em></p>
+    <table style="width:100%; font-size:0.85rem; border-collapse:collapse;">
+      <tr style="background:var(--pink-light);">
+        <td style="padding:0.5rem; font-weight:600;">Siklus</td>
+        <td style="padding:0.5rem; font-weight:600;">Nilai</td>
+        <td style="padding:0.5rem; font-weight:600;">Catatan</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--pink-light);">
+        <td style="padding:0.5rem;">Siklus 1</td>
+        <td style="padding:0.5rem; color:var(--pink-dark); font-weight:700;">78</td>
+        <td style="padding:0.5rem; color:var(--text-mid);">Perlu perbaikan instruksi</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--pink-light);">
+        <td style="padding:0.5rem;">Siklus 2</td>
+        <td style="padding:0.5rem; color:var(--pink-dark); font-weight:700;">85</td>
+        <td style="padding:0.5rem; color:var(--text-mid);">Peningkatan signifikan</td>
+      </tr>
+      <tr>
+        <td style="padding:0.5rem;">Siklus 3</td>
+        <td style="padding:0.5rem; color:var(--pink-dark); font-weight:700;">91</td>
+        <td style="padding:0.5rem; color:var(--text-mid);">Sangat direkomendasikan</td>
+      </tr>
+    </table>
+    <p style="font-size:0.87rem; color:var(--text-mid); margin-top:0.75rem;">Rata-rata: <strong style="color:var(--pink-dark);">84.7/100</strong></p>
+  </div>
+</div>
+
+<script type="module" src="script.js"></script>
+</body>
+</html>
