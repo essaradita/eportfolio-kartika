@@ -43,6 +43,7 @@ window.addEventListener('scroll', () => {
 });
 
 function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+document.getElementById('hamburger-btn').addEventListener('click', toggleMenu);
 document.querySelectorAll('.nav-links a').forEach(l =>
   l.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'))
 );
@@ -73,10 +74,13 @@ function showTab(id, btn) {
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
 }
+window.showTab = showTab;
 
 // ===== MODAL =====
 function openModal(id) { document.getElementById(id).classList.add('open'); document.body.style.overflow = 'hidden'; }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; }
+window.openModal = openModal;
+window.closeModal = closeModal;
 document.querySelectorAll('.modal-overlay').forEach(o =>
   o.addEventListener('click', e => { if (e.target === o) { o.classList.remove('open'); document.body.style.overflow = ''; } })
 );
@@ -257,3 +261,7 @@ function initGaleriAdmin() {
 renderDocs();
 renderGaleri();
 if (isAdmin) { initDocAdmin(); initGaleriAdmin(); }
+
+// Expose ke window untuk onclick di HTML
+window.handleDeleteDoc = handleDeleteDoc;
+window.handleGaleriAdd = handleGaleriAdd;
