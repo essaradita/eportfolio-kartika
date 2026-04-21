@@ -16,6 +16,23 @@ const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
 const isAdmin = sessionStorage.getItem('ppg_admin') === 'true';
 
+// ===== CLOUDINARY =====
+const CLOUD_NAME   = 'dsy1ynttp';
+const UPLOAD_PRESET = 'eportfolio';
+
+async function uploadToCloudinary(file) {
+  const fd = new FormData();
+  fd.append('file', file);
+  fd.append('upload_preset', UPLOAD_PRESET);
+  fd.append('folder', 'eportfolio');
+  const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`, {
+    method: 'POST', body: fd
+  });
+  if (!res.ok) throw new Error('Upload gagal');
+  const data = await res.json();
+  return data.secure_url;
+}
+
 // ===== TYPEWRITER =====
 const heroName = document.getElementById('hero-name');
 const part1 = 'Kartika ';
@@ -153,22 +170,31 @@ function setDocLink(id, name, url) {
   actions.innerHTML = detailHTML + `<a class="btn-doc btn-doc-file" href="${url}" target="_blank">📥 ${name}</a>` + delBtn;
 }
 
-// Admin: input URL dokumen (Google Drive / link apapun)
+// Admin: input file dokumen langsung upload ke Cloudinary
 function initDocAdmin() {
   for (let id = 1; id <= 4; id++) {
     const actions = document.getElementById('doc-actions-' + id);
     if (!actions) continue;
     const btn = document.createElement('button');
     btn.className = 'btn-doc btn-upload-trigger';
-    btn.innerHTML = '🔗 Tambah Link';
+    btn.innerHTML = '� Upload Dokumen';
     btn.onclick = (function(i) {
-      return async () => {
-        const url = prompt('Paste link dokumen (Google Drive / PDF URL):');
-        if (!url) return;
-        const name = prompt('Nama dokumen:', 'Dokumen PPL') || 'Dokumen PPL';
-        await setDoc(doc(db, 'dokumen', String(i)), { name, url });
-        setDocLink(String(i), name, url);
-        showToast('✅ Dokumen disimpan');
+      return () => {
+        const inp = document.createElement('input');
+        inp.type = 'file'; inp.accept = '.pdf,.doc,.docx,.ppt,.pptx';
+        inp.onchange = async () => {
+          const file = inp.files[0];
+          if (!file) return;
+          if (file.size > 20 * 1024 * 1024) { alert('❌ Maksimal 20MB'); return; }
+          showToast('⏳ Mengupload dokumen...');
+          try {
+            const url = await uploadToCloudinary(file);
+            await setDoc(doc(db, 'dokumen', String(i)), { name: file.name, url });
+            setDocLink(String(i), file.name, url);
+            showToast('✅ Dokumen berhasil diupload');
+          } catch(e) { showToast('❌ Gagal: ' + e.message); }
+        };
+        inp.click();
       };
     })(id);
     actions.appendChild(btn);
@@ -220,12 +246,21 @@ function bindGaleriAdmin(item) {
   const id = item.dataset.galeriId;
   item.style.cursor = 'pointer';
   item.addEventListener('click', async () => {
-    const url = prompt('Paste URL foto (Google Drive, Imgur, dll):\n\nTips Google Drive: klik kanan foto → Get link → ubah ke:\nhttps://drive.google.com/uc?id=FILE_ID');
-    if (!url) return;
-    const caption = prompt('Keterangan foto:', item.querySelector('.galeri-overlay')?.textContent || '') || 'Dokumentasi PPL';
-    await setDoc(doc(db, 'galeri', String(id)), { url, caption, order: parseInt(id) });
-    applyGaleriPhoto(item, url, caption);
-    showToast('✅ Foto disimpan');
+    const inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'image/*';
+    inp.onchange = async () => {
+      const file = inp.files[0];
+      if (!file) return;
+      const caption = prompt('Keterangan foto:', item.querySelector('.galeri-overlay')?.textContent || '') || 'Dokumentasi PPL';
+      showToast('⏳ Mengupload foto...');
+      try {
+        const url = await uploadToCloudinary(file);
+        await setDoc(doc(db, 'galeri', String(id)), { url, caption, order: parseInt(id) });
+        applyGaleriPhoto(item, url, caption);
+        showToast('✅ Foto berhasil diupload');
+      } catch(e) { showToast('❌ Gagal: ' + e.message); }
+    };
+    inp.click();
   });
 
   if (parseInt(id) >= 9) {
@@ -240,13 +275,22 @@ function bindGaleriAdmin(item) {
 }
 
 async function handleGaleriAdd() {
-  const url = prompt('Paste URL foto:');
-  if (!url) return;
-  const caption = prompt('Keterangan foto:') || 'Dokumentasi PPL';
-  const id = String(galeriNextId++);
-  await setDoc(doc(db, 'galeri', id), { url, caption, order: parseInt(id) });
-  addGaleriItem(id, url, caption);
-  showToast('✅ Foto ditambahkan');
+  const inp = document.createElement('input');
+  inp.type = 'file'; inp.accept = 'image/*'; inp.multiple = true;
+  inp.onchange = async () => {
+    for (const file of Array.from(inp.files)) {
+      const caption = prompt('Keterangan foto:', file.name.replace(/\.[^.]+$/, '')) || 'Dokumentasi PPL';
+      const id = String(galeriNextId++);
+      showToast('⏳ Mengupload foto...');
+      try {
+        const url = await uploadToCloudinary(file);
+        await setDoc(doc(db, 'galeri', id), { url, caption, order: parseInt(id) });
+        addGaleriItem(id, url, caption);
+        showToast('✅ Foto ditambahkan');
+      } catch(e) { showToast('❌ Gagal: ' + e.message); }
+    }
+  };
+  inp.click();
 }
 
 function initGaleriAdmin() {
