@@ -972,3 +972,274 @@ footer span { color: var(--pink); }
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
+
+/* ===== PROFIL LAYOUT ===== */
+.profil-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* ===== ID CARD ===== */
+.id-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+}
+
+.id-card-string {
+  width: 2px;
+  height: 40px;
+  background: linear-gradient(to bottom, #ccc, var(--pink));
+  margin-bottom: -2px;
+  position: relative;
+  z-index: 1;
+}
+
+.id-card-string::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 12px; height: 12px;
+  background: #ddd;
+  border-radius: 50%;
+  border: 2px solid #bbb;
+}
+
+.id-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.25rem 1rem;
+  width: 200px;
+  box-shadow: 0 8px 32px rgba(200,150,180,0.25), 0 2px 8px rgba(0,0,0,0.08);
+  border: 1px solid var(--pink-light);
+  cursor: grab;
+  transition: box-shadow 0.3s, transform 0.1s;
+  position: relative;
+  text-align: center;
+}
+
+.id-card:active { cursor: grabbing; }
+.id-card.dragging { box-shadow: 0 16px 48px rgba(200,150,180,0.4); transform: rotate(2deg) scale(1.02); }
+
+.id-card-header {
+  background: linear-gradient(135deg, var(--pink-dark), var(--lavender));
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.id-card-photo-wrap {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  margin: 0 auto 0.75rem;
+  border: 3px solid var(--pink-light);
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(200,150,180,0.3);
+}
+
+.id-card-photo {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+.id-card-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 0.2rem;
+}
+
+.id-card-title {
+  font-size: 0.72rem;
+  color: var(--pink-dark);
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.id-card-univ {
+  font-size: 0.65rem;
+  color: var(--text-light);
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+}
+
+.id-card-divider {
+  height: 1px;
+  background: var(--pink-light);
+  margin-bottom: 0.75rem;
+}
+
+.id-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.68rem;
+  color: var(--text-mid);
+}
+
+.id-card-drag-hint {
+  margin-top: 0.75rem;
+  font-size: 0.62rem;
+  color: var(--text-light);
+  letter-spacing: 0.5px;
+  animation: pulse-hint 2s ease-in-out infinite;
+}
+
+@keyframes pulse-hint {
+  0%,100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* ===== PROFIL TABS ===== */
+.profil-tabs-wrap {
+  background: var(--cream);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(248,180,200,0.2);
+}
+
+.profil-tab-btns {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.profil-tab-btn {
+  background: white;
+  border: 2px solid var(--pink-light);
+  color: var(--text-mid);
+  padding: 0.45rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s;
+  font-family: 'Poppins', sans-serif;
+}
+
+.profil-tab-btn:hover,
+.profil-tab-btn.active {
+  background: var(--pink-dark);
+  border-color: var(--pink-dark);
+  color: white;
+}
+
+.profil-tab-content { display: none; }
+.profil-tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== HOBI GRID ===== */
+.hobi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.hobi-item {
+  background: white;
+  border-radius: 12px;
+  padding: 0.75rem 0.5rem;
+  text-align: center;
+  font-size: 1.5rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  transition: transform 0.2s;
+}
+
+.hobi-item:hover { transform: translateY(-3px); }
+
+.hobi-item span {
+  font-size: 0.72rem;
+  color: var(--text-mid);
+  font-weight: 600;
+}
+
+/* ===== RIWAYAT TIMELINE ===== */
+.riwayat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--pink-light);
+}
+
+.riwayat-item {
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 1.25rem;
+  position: relative;
+}
+
+.riwayat-dot {
+  width: 12px; height: 12px;
+  background: var(--pink-dark);
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px var(--pink);
+  position: absolute;
+  left: -1.45rem;
+  top: 4px;
+  flex-shrink: 0;
+}
+
+.riwayat-tahun {
+  font-size: 0.72rem;
+  color: var(--pink-dark);
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+
+.riwayat-judul {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.riwayat-tempat {
+  font-size: 0.78rem;
+  color: var(--text-light);
+}
+
+/* ===== RESPONSIVE PROFIL ===== */
+@media (max-width: 768px) {
+  .profil-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .id-card-wrapper {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .id-card-string {
+    width: 40px; height: 2px;
+    background: linear-gradient(to right, #ccc, var(--pink));
+    margin-bottom: 0;
+  }
+
+  .id-card-string::before {
+    top: 50%; left: 0;
+    transform: translateY(-50%);
+  }
+
+  .id-card { width: 100%; }
+  .hobi-grid { grid-template-columns: repeat(3, 1fr); }
+}
