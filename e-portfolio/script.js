@@ -453,21 +453,25 @@ function openHobiModal(id) {
   document.getElementById('hobi-modal-title').textContent = data.emoji + ' ' + data.nama;
   document.getElementById('hobi-modal-desc').textContent = data.desc;
 
-  // Load 3 foto dari Firestore
   const gallery = document.getElementById('hobi-gallery');
   gallery.innerHTML = '';
   for (let slot = 1; slot <= 3; slot++) {
     const item = document.createElement('div');
     item.className = 'hobi-gallery-item';
     item.dataset.slot = slot;
-    item.innerHTML = `<span class="hobi-gallery-placeholder">📷</span>${isAdmin ? '<div class="hobi-gallery-upload-hint">📎 Upload Foto</div>' : ''}`;
+    item.innerHTML = `
+      <span class="hobi-gallery-placeholder">📷</span>
+      ${isAdmin ? '<div class="hobi-gallery-upload-hint">📎 Upload Foto</div>' : ''}
+    `;
     if (isAdmin) {
-      item.addEventListener('click', () => uploadHobiPhoto(id, slot, item));
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        uploadHobiPhoto(id, slot, item);
+      });
     }
     gallery.appendChild(item);
   }
 
-  // Load foto dari Firestore
   loadHobiGallery(id);
   openModal('modal-hobi');
 }
@@ -558,26 +562,7 @@ if (isAdmin) initIdCardAdmin();
 
 // ===== HOBI CLICK HANDLER =====
 function hobiClick(id) {
-  if (sessionStorage.getItem('ppg_admin') === 'true') {
-    // Admin: langsung upload cover foto
-    const inp = document.createElement('input');
-    inp.type = 'file'; inp.accept = 'image/*';
-    inp.onchange = async () => {
-      const file = inp.files[0];
-      if (!file) return;
-      showToast('⏳ Mengupload foto hobi...');
-      try {
-        const url = await uploadToCloudinary(file);
-        await setDoc(doc(db, 'hobi', id), { id, coverUrl: url });
-        const wrap = document.querySelector(`.hobi-item[data-hobi-id="${id}"] .hobi-photo-wrap`);
-        if (wrap) wrap.innerHTML = `<img src="${url}" alt="${hobiData[id]?.nama}" /><div class="hobi-upload-overlay">🔄 Ganti</div>`;
-        showToast('✅ Foto hobi diupload');
-      } catch(e) { showToast('❌ Gagal: ' + e.message); }
-    };
-    inp.click();
-  } else {
-    // Pengunjung: buka modal
-    openHobiModal(id);
-  }
+  // Selalu buka modal — admin bisa upload dari dalam modal
+  openHobiModal(id);
 }
 window.hobiClick = hobiClick;
