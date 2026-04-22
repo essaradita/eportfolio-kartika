@@ -1448,10 +1448,40 @@ footer span { color: var(--pink); }
   background: white;
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(200,150,180,0.25), 0 4px 16px rgba(0,0,0,0.08);
+  box-shadow: 
+    0 0 0 1px rgba(248,180,200,0.3),
+    0 8px 32px rgba(200,150,180,0.3),
+    0 20px 60px rgba(200,150,180,0.2),
+    0 0 80px rgba(232,120,154,0.15);
   max-width: 260px;
   margin-left: auto;
   position: relative;
+  animation: floatCard 4s ease-in-out infinite;
+}
+
+/* Glow ring di belakang card */
+.hero-card::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 27px;
+  background: linear-gradient(135deg, var(--pink), var(--lavender), var(--pink-dark), var(--green));
+  background-size: 300% 300%;
+  animation: glowRotate 4s linear infinite;
+  z-index: -1;
+  opacity: 0.7;
+  filter: blur(8px);
+}
+
+@keyframes floatCard {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+@keyframes glowRotate {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .hero-card-img-wrap {
