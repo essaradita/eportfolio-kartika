@@ -319,50 +319,102 @@ function switchProfilTab(id, btn) {
 }
 window.switchProfilTab = switchProfilTab;
 
-// ===== ID CARD DRAG =====
+// ===== ID CARD DRAG + ELASTIC LANYARD =====
 const card = document.getElementById('idCard');
-if (card) {
-  let isDragging = false, startX, startY, origX = 0, origY = 0, curX = 0, curY = 0;
+const wrapper = card ? card.closest('.id-card-wrapper') : null;
 
-  card.addEventListener('mousedown', e => {
+if (card && wrapper) {
+  // Ganti string statis dengan SVG canvas untuk tali elastis
+  const stringEl = wrapper.querySelector('.id-card-string');
+  if (stringEl) stringEl.style.display = 'none';
+
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.id = 'lanyard-svg';
+  svg.style.cssText = 'position:absolute;top:0;left:50%;transform:translateX(-50%);pointer-events:none;overflow:visible;z-index:0;';
+  svg.setAttribute('width', '40');
+  svg.setAttribute('height', '80');
+  wrapper.style.position = 'relative';
+  wrapper.insertBefore(svg, card);
+
+  // Klip logam
+  const clip = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+  clip.setAttribute('cx', '20'); clip.setAttribute('cy', '8');
+  clip.setAttribute('rx', '8'); clip.setAttribute('ry', '6');
+  clip.setAttribute('fill', 'none');
+  clip.setAttribute('stroke', '#b0b0b0');
+  clip.setAttribute('stroke-width', '3');
+  svg.appendChild(clip);
+
+  // Tali
+  const rope = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  rope.setAttribute('stroke', '#e8789a');
+  rope.setAttribute('stroke-width', '8');
+  rope.setAttribute('stroke-linecap', 'round');
+  rope.setAttribute('fill', 'none');
+  rope.setAttribute('opacity', '0.85');
+  svg.appendChild(rope);
+
+  // Tali highlight
+  const ropeHL = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  ropeHL.setAttribute('stroke', '#ffc0d4');
+  ropeHL.setAttribute('stroke-width', '3');
+  ropeHL.setAttribute('stroke-linecap', 'round');
+  ropeHL.setAttribute('fill', 'none');
+  ropeHL.setAttribute('opacity', '0.6');
+  svg.appendChild(ropeHL);
+
+  function updateRope(offsetY) {
+    const h = Math.max(60, 60 + offsetY * 0.5);
+    svg.setAttribute('height', h + 20);
+    const d = `M 20 14 Q 20 ${h * 0.6} 20 ${h}`;
+    rope.setAttribute('d', d);
+    ropeHL.setAttribute('d', d);
+  }
+
+  updateRope(0);
+
+  let isDragging = false, startX, startY, curX = 0, curY = 0;
+
+  const onStart = (cx, cy) => {
     isDragging = true;
-    startX = e.clientX - curX;
-    startY = e.clientY - curY;
+    startX = cx - curX;
+    startY = cy - curY;
     card.classList.add('dragging');
-  });
+    card.style.transition = '';
+  };
 
-  card.addEventListener('touchstart', e => {
-    isDragging = true;
-    startX = e.touches[0].clientX - curX;
-    startY = e.touches[0].clientY - curY;
-    card.classList.add('dragging');
-  }, { passive: true });
-
-  document.addEventListener('mousemove', e => {
+  const onMove = (cx, cy) => {
     if (!isDragging) return;
-    curX = e.clientX - startX;
-    curY = e.clientY - startY;
-    card.style.transform = `translate(${curX}px, ${curY}px) rotate(${curX * 0.03}deg)`;
-  });
+    curX = cx - startX;
+    curY = cy - startY;
+    card.style.transform = `translate(${curX}px, ${curY}px) rotate(${curX * 0.04}deg)`;
+    updateRope(Math.max(0, curY));
+  };
 
-  document.addEventListener('touchmove', e => {
-    if (!isDragging) return;
-    curX = e.touches[0].clientX - startX;
-    curY = e.touches[0].clientY - startY;
-    card.style.transform = `translate(${curX}px, ${curY}px) rotate(${curX * 0.03}deg)`;
-  }, { passive: true });
-
-  const stopDrag = () => {
+  const onEnd = () => {
     if (!isDragging) return;
     isDragging = false;
     card.classList.remove('dragging');
-    // Snap back dengan animasi
-    card.style.transition = 'transform 0.5s cubic-bezier(0.34,1.56,0.64,1)';
+    card.style.transition = 'transform 0.6s cubic-bezier(0.34,1.56,0.64,1)';
     card.style.transform = 'translate(0,0) rotate(0deg)';
     curX = 0; curY = 0;
-    setTimeout(() => card.style.transition = '', 500);
+
+    // Animasi tali balik
+    let t = 0;
+    const animRope = setInterval(() => {
+      t += 0.1;
+      const bounce = Math.sin(t * Math.PI) * 20 * Math.exp(-t * 0.8);
+      updateRope(Math.max(0, bounce));
+      if (t > 3) { clearInterval(animRope); updateRope(0); }
+    }, 16);
+
+    setTimeout(() => card.style.transition = '', 600);
   };
 
-  document.addEventListener('mouseup', stopDrag);
-  document.addEventListener('touchend', stopDrag);
+  card.addEventListener('mousedown', e => onStart(e.clientX, e.clientY));
+  card.addEventListener('touchstart', e => onStart(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+  document.addEventListener('mousemove', e => onMove(e.clientX, e.clientY));
+  document.addEventListener('touchmove', e => onMove(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+  document.addEventListener('mouseup', onEnd);
+  document.addEventListener('touchend', onEnd);
 }
