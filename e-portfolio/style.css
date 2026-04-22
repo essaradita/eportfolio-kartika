@@ -1442,3 +1442,121 @@ footer span { color: var(--pink); }
   display: block;
   width: 100%;
 }
+
+/* ===== HERO CARD ===== */
+.hero-card {
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(200,150,180,0.25), 0 4px 16px rgba(0,0,0,0.08);
+  max-width: 320px;
+  margin-left: auto;
+  position: relative;
+}
+
+.hero-card-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  background: var(--pink-light);
+}
+
+.hero-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+
+.hero-card-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  padding: 1.25rem;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, transparent 100%);
+}
+
+.hero-card-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  margin-bottom: 0.2rem;
+}
+
+.hero-card-role {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.85);
+  font-weight: 500;
+}
+
+.hero-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1rem;
+  background: white;
+  gap: 0.75rem;
+}
+
+.hero-card-footer-left {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.hero-card-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--pink-light);
+}
+
+.hero-card-username {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.hero-card-status {
+  font-size: 0.68rem;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.status-dot {
+  width: 7px; height: 7px;
+  background: #25d366;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.hero-card-contact {
+  background: linear-gradient(135deg, var(--pink-dark), var(--lavender));
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.45rem 1rem;
+  border-radius: 20px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+
+.hero-card-contact:hover { opacity: 0.85; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-card {
+    max-width: 260px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-card { max-width: 220px; }
+  .hero-card-name { font-size: 0.9rem; }
+}
