@@ -15,6 +15,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
 const isAdmin = sessionStorage.getItem('ppg_admin') === 'true';
+if (isAdmin) document.body.classList.add('ppg-admin');
 
 // ===== CLOUDINARY =====
 const CLOUD_NAME   = 'dsy1ynttp';
@@ -418,3 +419,165 @@ if (card && wrapper) {
   document.addEventListener('mouseup', onEnd);
   document.addEventListener('touchend', onEnd);
 }
+
+// ===== HOBI FOTO =====
+const hobiData = {
+  '1': { nama: 'Membaca', emoji: '📚', desc: 'Membaca adalah jendela dunia. Saya gemar membaca buku-buku pendidikan, sastra, dan pengembangan diri yang memperkaya wawasan saya sebagai calon pendidik.' },
+  '2': { nama: 'Menulis', emoji: '✍️', desc: 'Menulis adalah cara saya mengekspresikan pikiran dan perasaan. Dari jurnal harian hingga esai pendidikan, menulis membantu saya merefleksikan pengalaman belajar.' },
+  '3': { nama: 'Menggambar', emoji: '🎨', desc: 'Menggambar melatih kreativitas dan kesabaran. Saya sering membuat ilustrasi sederhana untuk media pembelajaran yang lebih menarik bagi siswa.' },
+  '4': { nama: 'Berkebun', emoji: '🌿', desc: 'Berkebun mengajarkan saya tentang kesabaran dan ketekunan. Merawat tanaman adalah metafora indah untuk mendidik — keduanya butuh perhatian dan kasih sayang.' },
+  '5': { nama: 'Mendengarkan Musik', emoji: '🎵', desc: 'Musik adalah teman setia saat belajar dan bekerja. Saya percaya musik dapat menciptakan suasana belajar yang lebih nyaman dan menyenangkan.' },
+  '6': { nama: 'Memasak', emoji: '🧁', desc: 'Memasak adalah seni yang mengajarkan kreativitas dan ketelitian. Seperti merancang pembelajaran, memasak butuh perencanaan yang matang dan sentuhan personal.' }
+};
+
+let currentHobiId = null;
+
+async function loadHobiPhotos() {
+  try {
+    const snap = await getDocs(collection(db, 'hobi'));
+    snap.forEach(d => {
+      const { id, photos, coverUrl } = d.data();
+      // Update cover di grid
+      const item = document.querySelector(`.hobi-item[data-hobi-id="${id}"]`);
+      if (item && coverUrl) {
+        const wrap = item.querySelector('.hobi-photo-wrap');
+        wrap.innerHTML = `<img src="${coverUrl}" alt="${hobiData[id]?.nama}" /><div class="hobi-upload-overlay">🔍</div>`;
+      }
+    });
+  } catch(e) { console.log('Hobi load:', e.message); }
+}
+
+function openHobiModal(id) {
+  currentHobiId = id;
+  const data = hobiData[id];
+  document.getElementById('hobi-modal-title').textContent = data.emoji + ' ' + data.nama;
+  document.getElementById('hobi-modal-desc').textContent = data.desc;
+
+  // Load 3 foto dari Firestore
+  const gallery = document.getElementById('hobi-gallery');
+  gallery.innerHTML = '';
+  for (let slot = 1; slot <= 3; slot++) {
+    const item = document.createElement('div');
+    item.className = 'hobi-gallery-item';
+    item.dataset.slot = slot;
+    item.innerHTML = `<span class="hobi-gallery-placeholder">📷</span>${isAdmin ? '<div class="hobi-gallery-upload-hint">📎 Upload Foto</div>' : ''}`;
+    if (isAdmin) {
+      item.addEventListener('click', () => uploadHobiPhoto(id, slot, item));
+    }
+    gallery.appendChild(item);
+  }
+
+  // Load foto dari Firestore
+  loadHobiGallery(id);
+  openModal('modal-hobi');
+}
+window.openHobiModal = openHobiModal;
+
+async function loadHobiGallery(id) {
+  try {
+    const snap = await getDocs(collection(db, `hobi_photos_${id}`));
+    snap.forEach(d => {
+      const { slot, url } = d.data();
+      const item = document.querySelector(`#hobi-gallery [data-slot="${slot}"]`);
+      if (item) {
+        item.innerHTML = `<img src="${url}" alt="Hobi ${slot}" />${isAdmin ? '<div class="hobi-gallery-upload-hint">🔄 Ganti Foto</div>' : ''}`;
+      }
+    });
+  } catch(e) {}
+}
+
+async function uploadHobiPhoto(hobiId, slot, itemEl) {
+  const inp = document.createElement('input');
+  inp.type = 'file'; inp.accept = 'image/*';
+  inp.onchange = async () => {
+    const file = inp.files[0];
+    if (!file) return;
+    showToast('⏳ Mengupload foto...');
+    try {
+      const url = await uploadToCloudinary(file);
+      await setDoc(doc(db, `hobi_photos_${hobiId}`, String(slot)), { slot, url });
+      itemEl.innerHTML = `<img src="${url}" alt="Hobi ${slot}" /><div class="hobi-gallery-upload-hint">🔄 Ganti Foto</div>`;
+
+      // Update cover jika slot 1
+      if (slot === 1) {
+        await setDoc(doc(db, 'hobi', hobiId), { id: hobiId, coverUrl: url });
+        const gridItem = document.querySelector(`.hobi-item[data-hobi-id="${hobiId}"] .hobi-photo-wrap`);
+        if (gridItem) gridItem.innerHTML = `<img src="${url}" alt="${hobiData[hobiId]?.nama}" /><div class="hobi-upload-overlay">🔍</div>`;
+      }
+      showToast('✅ Foto berhasil diupload');
+    } catch(e) { showToast('❌ Gagal: ' + e.message); }
+  };
+  inp.click();
+}
+
+// ===== ID CARD GANTI FOTO (admin) =====
+function initIdCardAdmin() {
+  const card = document.getElementById('idCard');
+  if (!card) return;
+
+  // Tambah hint overlay
+  const hint = document.createElement('div');
+  hint.className = 'id-card-change-hint';
+  hint.innerHTML = '📷 Ganti Foto';
+  card.insertBefore(hint, card.firstChild);
+
+  hint.addEventListener('click', async () => {
+    const inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'image/*';
+    inp.onchange = async () => {
+      const file = inp.files[0];
+      if (!file) return;
+      showToast('⏳ Mengupload foto...');
+      try {
+        const url = await uploadToCloudinary(file);
+        await setDoc(doc(db, 'settings', 'idcard'), { photoUrl: url });
+        document.getElementById('id-card-img').src = url;
+        showToast('✅ Foto ID card diperbarui');
+      } catch(e) { showToast('❌ Gagal: ' + e.message); }
+    };
+    inp.click();
+  });
+}
+
+async function loadIdCardPhoto() {
+  try {
+    const snap = await getDocs(collection(db, 'settings'));
+    snap.forEach(d => {
+      if (d.id === 'idcard' && d.data().photoUrl) {
+        const img = document.getElementById('id-card-img');
+        if (img) img.src = d.data().photoUrl;
+      }
+    });
+  } catch(e) {}
+}
+
+// Init
+loadHobiPhotos();
+loadIdCardPhoto();
+if (isAdmin) initIdCardAdmin();
+
+// ===== HOBI CLICK HANDLER =====
+function hobiClick(id) {
+  if (sessionStorage.getItem('ppg_admin') === 'true') {
+    // Admin: langsung upload cover foto
+    const inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'image/*';
+    inp.onchange = async () => {
+      const file = inp.files[0];
+      if (!file) return;
+      showToast('⏳ Mengupload foto hobi...');
+      try {
+        const url = await uploadToCloudinary(file);
+        await setDoc(doc(db, 'hobi', id), { id, coverUrl: url });
+        const wrap = document.querySelector(`.hobi-item[data-hobi-id="${id}"] .hobi-photo-wrap`);
+        if (wrap) wrap.innerHTML = `<img src="${url}" alt="${hobiData[id]?.nama}" /><div class="hobi-upload-overlay">🔄 Ganti</div>`;
+        showToast('✅ Foto hobi diupload');
+      } catch(e) { showToast('❌ Gagal: ' + e.message); }
+    };
+    inp.click();
+  } else {
+    // Pengunjung: buka modal
+    openHobiModal(id);
+  }
+}
+window.hobiClick = hobiClick;
