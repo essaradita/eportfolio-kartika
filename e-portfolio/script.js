@@ -309,3 +309,60 @@ if (isAdmin) { initDocAdmin(); initGaleriAdmin(); }
 // Expose ke window untuk onclick di HTML
 window.handleDeleteDoc = handleDeleteDoc;
 window.handleGaleriAdd = handleGaleriAdd;
+
+// ===== PROFIL TABS =====
+function switchProfilTab(id, btn) {
+  document.querySelectorAll('.profil-tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.profil-tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+window.switchProfilTab = switchProfilTab;
+
+// ===== ID CARD DRAG =====
+const card = document.getElementById('idCard');
+if (card) {
+  let isDragging = false, startX, startY, origX = 0, origY = 0, curX = 0, curY = 0;
+
+  card.addEventListener('mousedown', e => {
+    isDragging = true;
+    startX = e.clientX - curX;
+    startY = e.clientY - curY;
+    card.classList.add('dragging');
+  });
+
+  card.addEventListener('touchstart', e => {
+    isDragging = true;
+    startX = e.touches[0].clientX - curX;
+    startY = e.touches[0].clientY - curY;
+    card.classList.add('dragging');
+  }, { passive: true });
+
+  document.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    curX = e.clientX - startX;
+    curY = e.clientY - startY;
+    card.style.transform = `translate(${curX}px, ${curY}px) rotate(${curX * 0.03}deg)`;
+  });
+
+  document.addEventListener('touchmove', e => {
+    if (!isDragging) return;
+    curX = e.touches[0].clientX - startX;
+    curY = e.touches[0].clientY - startY;
+    card.style.transform = `translate(${curX}px, ${curY}px) rotate(${curX * 0.03}deg)`;
+  }, { passive: true });
+
+  const stopDrag = () => {
+    if (!isDragging) return;
+    isDragging = false;
+    card.classList.remove('dragging');
+    // Snap back dengan animasi
+    card.style.transition = 'transform 0.5s cubic-bezier(0.34,1.56,0.64,1)';
+    card.style.transform = 'translate(0,0) rotate(0deg)';
+    curX = 0; curY = 0;
+    setTimeout(() => card.style.transition = '', 500);
+  };
+
+  document.addEventListener('mouseup', stopDrag);
+  document.addEventListener('touchend', stopDrag);
+}
