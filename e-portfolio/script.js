@@ -422,7 +422,7 @@ if (card && wrapper) {
 
 // ===== HOBI FOTO =====
 const hobiData = {
-  '1': { nama: 'Membaca', emoji: '📚', desc: 'Membaca adalah jendela dunia. Saya gemar membaca buku-buku pendidikan, sastra, dan pengembangan diri yang memperkaya wawasan saya sebagai calon pendidik.' },
+  '1': { nama: 'Running', emoji: '🏃‍♀️', desc: 'Running adalah cara saya menjaga kesehatan fisik dan mental. Berlari setiap pagi membantu saya memulai hari dengan semangat dan pikiran yang jernih — energi yang sangat saya butuhkan sebagai calon pendidik.' },
   '2': { nama: 'Menulis', emoji: '✍️', desc: 'Menulis adalah cara saya mengekspresikan pikiran dan perasaan. Dari jurnal harian hingga esai pendidikan, menulis membantu saya merefleksikan pengalaman belajar.' },
   '3': { nama: 'Menggambar', emoji: '🎨', desc: 'Menggambar melatih kreativitas dan kesabaran. Saya sering membuat ilustrasi sederhana untuk media pembelajaran yang lebih menarik bagi siswa.' },
   '4': { nama: 'Berkebun', emoji: '🌿', desc: 'Berkebun mengajarkan saya tentang kesabaran dan ketekunan. Merawat tanaman adalah metafora indah untuk mendidik — keduanya butuh perhatian dan kasih sayang.' },
