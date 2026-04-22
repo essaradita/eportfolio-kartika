@@ -187,13 +187,15 @@ nav {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   text-decoration: none;
   transition: all 0.25s;
   box-shadow: var(--shadow);
 }
+
+.sosmed-btn svg { width: 16px; height: 16px; }
 
 .sosmed-btn.ig {
   background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
