@@ -423,11 +423,11 @@ if (card && wrapper) {
 // ===== HOBI FOTO =====
 const hobiData = {
   '1': { nama: 'Running', emoji: '🏃‍♀️', desc: 'Running adalah cara saya menjaga kesehatan fisik dan mental. Berlari setiap pagi membantu saya memulai hari dengan semangat dan pikiran yang jernih — energi yang sangat saya butuhkan sebagai calon pendidik.' },
-  '2': { nama: 'Menulis', emoji: '✍️', desc: 'Menulis adalah cara saya mengekspresikan pikiran dan perasaan. Dari jurnal harian hingga esai pendidikan, menulis membantu saya merefleksikan pengalaman belajar.' },
-  '3': { nama: 'Menggambar', emoji: '🎨', desc: 'Menggambar melatih kreativitas dan kesabaran. Saya sering membuat ilustrasi sederhana untuk media pembelajaran yang lebih menarik bagi siswa.' },
-  '4': { nama: 'Berkebun', emoji: '🌿', desc: 'Berkebun mengajarkan saya tentang kesabaran dan ketekunan. Merawat tanaman adalah metafora indah untuk mendidik — keduanya butuh perhatian dan kasih sayang.' },
-  '5': { nama: 'Mendengarkan Musik', emoji: '🎵', desc: 'Musik adalah teman setia saat belajar dan bekerja. Saya percaya musik dapat menciptakan suasana belajar yang lebih nyaman dan menyenangkan.' },
-  '6': { nama: 'Memasak', emoji: '🧁', desc: 'Memasak adalah seni yang mengajarkan kreativitas dan ketelitian. Seperti merancang pembelajaran, memasak butuh perencanaan yang matang dan sentuhan personal.' }
+  '2': { nama: 'Hiking', emoji: '🥾', desc: 'Hiking mengajarkan saya tentang ketekunan dan menikmati proses. Setiap pendakian adalah metafora perjalanan belajar — penuh tantangan, namun pemandangan di puncak selalu sepadan dengan perjuangan.' },
+  '3': { nama: 'Gym', emoji: '💪', desc: 'Gym adalah ruang saya melatih disiplin dan konsistensi. Tubuh yang sehat adalah modal utama seorang pendidik yang aktif dan bersemangat di depan kelas setiap harinya.' },
+  '4': { nama: 'Berkebun', emoji: '🌿', desc: 'Berkebun mengajarkan saya tentang kesabaran dan ketekunan. Merawat tanaman adalah metafora indah untuk mendidik — keduanya butuh perhatian, kasih sayang, dan waktu untuk tumbuh.' },
+  '5': { nama: 'Mendengarkan Musik', emoji: '🎵', desc: 'Musik adalah teman setia saat belajar dan bekerja. Saya percaya musik dapat menciptakan suasana belajar yang lebih nyaman dan menyenangkan bagi peserta didik.' },
+  '6': { nama: 'Memasak', emoji: '🧁', desc: 'Memasak adalah seni yang mengajarkan kreativitas dan ketelitian. Seperti merancang pembelajaran, memasak butuh perencanaan yang matang dan sentuhan personal yang hangat.' }
 };
 
 let currentHobiId = null;
