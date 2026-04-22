@@ -1451,37 +1451,18 @@ footer span { color: var(--pink); }
   animation: floatCard 4s ease-in-out infinite;
 }
 
-.hero-card-glow::before {
-  content: '';
-  position: absolute;
-  inset: -4px;
-  border-radius: 28px;
-  background: linear-gradient(135deg, #f8b4c8, #c9b8e8, #e8789a, #b8e0c8, #f8b4c8);
-  background-size: 300% 300%;
-  animation: glowRotate 3s linear infinite;
-  z-index: 0;
-  filter: blur(10px);
-  opacity: 0.85;
-}
-
 .hero-card {
   background: white;
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(200,150,180,0.2);
+  box-shadow: 0 20px 60px rgba(200,150,180,0.3), 0 4px 16px rgba(0,0,0,0.08);
   position: relative;
   z-index: 1;
 }
 
 @keyframes floatCard {
   0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-10px); }
-}
-
-@keyframes glowRotate {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  50%       { transform: translateY(-8px); }
 }
 
 .hero-card-img-wrap {
