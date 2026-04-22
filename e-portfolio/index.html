@@ -52,57 +52,109 @@
       <p class="section-desc">Perjalanan seorang calon pendidik yang lahir dari keyakinan bahwa setiap peserta didik menyimpan potensi luar biasa yang menunggu untuk ditemukan.</p>
     </div>
 
-    <div class="profil-grid">
-      <!-- Identitas -->
-      <div class="card fade-up">
-        <div class="card-icon pink">👩‍🎓</div>
-        <h3>Identitas Mahasiswa</h3>
-        <table class="info-table">
-          <tr><td>Nama Lengkap</td><td>Kartika Wulandari, S.Sos</td></tr>
-          <tr><td>Program</td><td>PPG (Pendidikan Profesi Guru) 2026</td></tr>
-          <tr><td>Universitas</td><td>UIN Prof. K.H. Saifuddin Zuhri Purwokerto</td></tr>
-          <tr><td>Asal Daerah</td><td>Kabupaten Cilacap, Jawa Tengah</td></tr>
-          <tr><td>Latar Belakang</td><td>S1 Ilmu Sosial</td></tr>
-        </table>
+    <!-- PROFIL LAYOUT: ID CARD + TABS -->
+    <div class="profil-layout fade-up">
+
+      <!-- ID CARD GANTUNG -->
+      <div class="id-card-wrapper">
+        <div class="id-card-string"></div>
+        <div class="id-card" id="idCard">
+          <div class="id-card-header">
+            <span class="id-card-logo">🌸 PPG 2026</span>
+          </div>
+          <div class="id-card-photo-wrap">
+            <img src="foto.jpg" alt="Kartika Wulandari" class="id-card-photo"
+              onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23fde8f0%22 width=%22100%22 height=%22100%22/><text y=%2260%22 x=%2250%22 text-anchor=%22middle%22 font-size=%2240%22>🌸</text></svg>'" />
+          </div>
+          <div class="id-card-name">Kartika Wulandari</div>
+          <div class="id-card-title">S.Sos · PPG 2026</div>
+          <div class="id-card-univ">UIN Prof. K.H. Saifuddin Zuhri Purwokerto</div>
+          <div class="id-card-divider"></div>
+          <div class="id-card-info">
+            <span>📍 Cilacap, Jawa Tengah</span>
+            <span>📚 Ilmu Sosial</span>
+          </div>
+          <div class="id-card-drag-hint">✦ tarik kartu ini ✦</div>
+        </div>
       </div>
 
-      <!-- Asal Daerah -->
-      <div class="card fade-up">
-        <div class="card-icon lavender">🏡</div>
-        <h3>Asal Daerah: Kabupaten Cilacap</h3>
-        <p>Saya berasal dari Kabupaten Cilacap, Jawa Tengah — sebuah daerah yang kaya akan keindahan alam, mulai dari pantai Teluk Penyu hingga hamparan hutan mangrove yang memukau. Cilacap juga dikenal sebagai kota industri yang dinamis, namun tetap menyimpan kehangatan masyarakat yang guyub dan penuh kekeluargaan.</p>
-        <p style="margin-top:0.75rem;">Tumbuh di tengah keberagaman dan kehangatan masyarakat Cilacap membentuk saya menjadi pribadi yang peka, empatik, dan mencintai keberagaman — nilai-nilai yang kini menjadi fondasi saya sebagai calon pendidik.</p>
-      </div>
+      <!-- TABS PROFIL -->
+      <div class="profil-tabs-wrap">
+        <div class="profil-tab-btns">
+          <button class="profil-tab-btn active" onclick="switchProfilTab('tab-identitas', this)">👩‍🎓 Identitas</button>
+          <button class="profil-tab-btn" onclick="switchProfilTab('tab-hobi', this)">🎨 Hobi</button>
+          <button class="profil-tab-btn" onclick="switchProfilTab('tab-riwayat', this)">📖 Riwayat</button>
+          <button class="profil-tab-btn" onclick="switchProfilTab('tab-inspirasi', this)">💡 Inspirasi</button>
+        </div>
 
-      <!-- Latar Belakang -->
-      <div class="card fade-up">
-        <div class="card-icon green">📖</div>
-        <h3>Latar Belakang Pendidikan</h3>
-        <p>Saya menyelesaikan pendidikan S1 Ilmu Sosial di UIN Prof. K.H. Saifuddin Zuhri Purwokerto. Bekal ilmu sosial dan nilai-nilai keislaman yang saya peroleh selama studi memperkaya perspektif saya dalam memahami dinamika masyarakat dan kebutuhan peserta didik secara holistik.</p>
-        <p style="margin-top:0.75rem;">Perpaduan antara ilmu sosial dan nilai-nilai Islam yang humanis menjadi landasan kuat bagi saya untuk hadir sebagai pendidik yang adaptif, berkarakter, dan berdampak nyata bagi perkembangan generasi muda.</p>
-      </div>
+        <div class="profil-tab-content active" id="tab-identitas">
+          <table class="info-table">
+            <tr><td>Nama Lengkap</td><td>Kartika Wulandari, S.Sos</td></tr>
+            <tr><td>Program</td><td>PPG (Pendidikan Profesi Guru) 2026</td></tr>
+            <tr><td>Universitas</td><td>UIN Prof. K.H. Saifuddin Zuhri Purwokerto</td></tr>
+            <tr><td>Asal Daerah</td><td>Kabupaten Cilacap, Jawa Tengah</td></tr>
+            <tr><td>Latar Belakang</td><td>S1 Ilmu Sosial</td></tr>
+          </table>
+          <div style="margin-top:1rem; padding:1rem; background:var(--pink-light); border-radius:12px;">
+            <p style="font-size:0.87rem; color:var(--text-mid);">Saya berasal dari Kabupaten Cilacap, Jawa Tengah — sebuah daerah yang kaya akan keindahan alam, mulai dari pantai Teluk Penyu hingga hamparan hutan mangrove yang memukau. Tumbuh di sana membentuk saya menjadi pribadi yang peka, empatik, dan mencintai keberagaman.</p>
+          </div>
+        </div>
 
-      <!-- Inspirasi -->
-      <div class="card fade-up">
-        <div class="card-icon pink">💡</div>
-        <h3>Inspirasi Menjadi Guru</h3>
-        <p>Minat saya dalam dunia pendidikan lahir dari keyakinan yang tumbuh perlahan namun kuat: bahwa setiap peserta didik menyimpan potensi luar biasa yang menunggu untuk ditemukan dan dikembangkan. Bagi saya, menjadi pendidik bukan sekadar menyampaikan materi, tetapi hadir sebagai sosok yang dipercaya, menginspirasi, dan mampu menguatkan karakter peserta didik dari dalam.</p>
-      </div>
+        <div class="profil-tab-content" id="tab-hobi">
+          <div class="hobi-grid">
+            <div class="hobi-item">📚<span>Membaca</span></div>
+            <div class="hobi-item">✍️<span>Menulis</span></div>
+            <div class="hobi-item">🎨<span>Menggambar</span></div>
+            <div class="hobi-item">🌿<span>Berkebun</span></div>
+            <div class="hobi-item">🎵<span>Mendengarkan Musik</span></div>
+            <div class="hobi-item">🧁<span>Memasak</span></div>
+          </div>
+          <p style="font-size:0.87rem; color:var(--text-mid); margin-top:1rem;">Hobi-hobi ini bukan sekadar pengisi waktu luang — bagi saya, setiap aktivitas kreatif adalah cara untuk terus belajar dan menemukan inspirasi baru yang kelak bisa saya bawa ke dalam kelas.</p>
+        </div>
 
-      <!-- Tujuan -->
-      <div class="card full fade-up">
-        <div class="card-icon lavender">🎯</div>
-        <h3>Tujuan Menjadi Guru Profesional</h3>
-        <p>Dengan bekal ilmu sosial dan nilai-nilai keislaman dari UIN Prof. K.H. Saifuddin Zuhri Purwokerto, saya berkomitmen untuk menjadi pendidik yang adaptif, humanis, dan berdampak nyata bagi perkembangan generasi muda. Saya ingin hadir sebagai guru yang tidak hanya mengajar, tetapi juga mendampingi, menguatkan, dan menginspirasi setiap peserta didik untuk percaya pada potensi terbaik dalam diri mereka sendiri.</p>
-      </div>
+        <div class="profil-tab-content" id="tab-riwayat">
+          <div class="riwayat-list">
+            <div class="riwayat-item">
+              <div class="riwayat-dot"></div>
+              <div>
+                <div class="riwayat-tahun">2026 — Sekarang</div>
+                <div class="riwayat-judul">PPG (Pendidikan Profesi Guru)</div>
+                <div class="riwayat-tempat">UIN Prof. K.H. Saifuddin Zuhri Purwokerto</div>
+              </div>
+            </div>
+            <div class="riwayat-item">
+              <div class="riwayat-dot"></div>
+              <div>
+                <div class="riwayat-tahun">2020 — 2024</div>
+                <div class="riwayat-judul">S1 Ilmu Sosial</div>
+                <div class="riwayat-tempat">UIN Prof. K.H. Saifuddin Zuhri Purwokerto</div>
+              </div>
+            </div>
+            <div class="riwayat-item">
+              <div class="riwayat-dot"></div>
+              <div>
+                <div class="riwayat-tahun">2017 — 2020</div>
+                <div class="riwayat-judul">SMA/MA</div>
+                <div class="riwayat-tempat">Kabupaten Cilacap</div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-      <!-- Quote -->
-      <div class="quote-card fade-up">
-        <blockquote>
-          "Guru terbaik bukan yang paling banyak bicara di depan kelas — melainkan yang paling banyak meninggalkan keberanian, kepercayaan diri, dan harapan di dalam dada peserta didiknya."
-        </blockquote>
-        <cite>— Prinsip Hidup, Kartika Wulandari, S.Sos</cite>
+        <div class="profil-tab-content" id="tab-inspirasi">
+          <p style="font-size:0.9rem; color:var(--text-mid); line-height:1.8;">Minat saya dalam dunia pendidikan lahir dari keyakinan yang tumbuh perlahan namun kuat: bahwa setiap peserta didik menyimpan potensi luar biasa yang menunggu untuk ditemukan dan dikembangkan.</p>
+          <p style="font-size:0.9rem; color:var(--text-mid); line-height:1.8; margin-top:0.75rem;">Bagi saya, menjadi pendidik bukan sekadar menyampaikan materi, tetapi hadir sebagai sosok yang dipercaya, menginspirasi, dan mampu menguatkan karakter peserta didik dari dalam.</p>
+          <div style="margin-top:1.25rem; padding:1.25rem; background:linear-gradient(135deg,var(--pink-light),var(--lavender-light)); border-radius:14px; text-align:center;">
+            <p style="font-size:0.92rem; font-style:italic; color:var(--text-dark); font-weight:500;">"Guru terbaik bukan yang paling banyak bicara di depan kelas — melainkan yang paling banyak meninggalkan keberanian, kepercayaan diri, dan harapan di dalam dada peserta didiknya."</p>
+          </div>
+        </div>
       </div>
+    </div>
+
+    <!-- Quote -->
+    <div class="quote-card fade-up" style="margin-top:2rem;">
+      <blockquote>"Guru terbaik bukan yang paling banyak bicara di depan kelas — melainkan yang paling banyak meninggalkan keberanian, kepercayaan diri, dan harapan di dalam dada peserta didiknya."</blockquote>
+      <cite>— Prinsip Hidup, Kartika Wulandari, S.Sos</cite>
     </div>
   </div>
 </section>
