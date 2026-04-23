@@ -1645,3 +1645,42 @@ footer span { color: var(--pink); }
 }
 
 .btn-video:hover { opacity: 0.85; transform: translateY(-1px); }
+
+/* ===== MODAL DOC VIEW ===== */
+.modal-doc-view {
+  margin-top: 1rem;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.modal-doc-empty {
+  color: var(--text-light);
+  font-size: 0.87rem;
+  text-align: center;
+  padding: 2rem;
+  background: var(--cream);
+  border-radius: 12px;
+  width: 100%;
+}
+
+.modal-doc-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--green-light);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  width: 100%;
+  text-decoration: none;
+  color: var(--text-dark);
+  font-weight: 600;
+  font-size: 0.88rem;
+  transition: all 0.2s;
+}
+
+.modal-doc-link:hover { background: var(--green); color: white; }
+.modal-doc-link span { font-size: 1.5rem; }
