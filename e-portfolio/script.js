@@ -34,23 +34,38 @@ async function uploadToCloudinary(file) {
   return data.secure_url;
 }
 
-// ===== TYPEWRITER =====
+// ===== TYPEWRITER LOOP =====
 const heroName = document.getElementById('hero-name');
-const part1 = 'Kartika ';
-const part2 = 'Wulandari, S.Sos';
-let i = 0;
-function type() {
-  if (i < part1.length + part2.length) {
-    heroName.innerHTML = i < part1.length
-      ? part1.slice(0, i + 1) + '<span></span>'
-      : part1 + '<span>' + part2.slice(0, i - part1.length + 1) + '</span>';
-    i++;
-    setTimeout(type, i === 1 ? 400 : 80);
+const texts = [
+  { p1: 'Kartika ', p2: 'Wulandari, S.Sos' },
+  { p1: 'Calon ', p2: 'Guru Profesional' },
+  { p1: 'PPG ', p2: 'Prajabatan 2026' },
+  { p1: 'Pendidik ', p2: 'yang Berdampak' },
+];
+let tIdx = 0, charIdx = 0, deleting = false;
+
+function typeLoop() {
+  const { p1, p2 } = texts[tIdx];
+  const full = p1 + p2;
+  if (!deleting) {
+    charIdx++;
+    const cur = full.slice(0, charIdx);
+    heroName.innerHTML = charIdx > p1.length
+      ? p1 + '<span>' + cur.slice(p1.length) + '</span>'
+      : cur + '<span></span>';
+    if (charIdx === full.length) { setTimeout(() => { deleting = true; typeLoop(); }, 2000); return; }
+    setTimeout(typeLoop, 80);
   } else {
-    heroName.innerHTML = part1 + '<span>' + part2 + '<span class="cursor">|</span></span>';
+    charIdx--;
+    const cur = full.slice(0, charIdx);
+    heroName.innerHTML = charIdx > p1.length
+      ? p1 + '<span>' + cur.slice(p1.length) + '</span>'
+      : cur + '<span></span>';
+    if (charIdx === 0) { deleting = false; tIdx = (tIdx + 1) % texts.length; setTimeout(typeLoop, 400); return; }
+    setTimeout(typeLoop, 40);
   }
 }
-type();
+typeLoop();
 
 // ===== NAVBAR =====
 const navbar = document.getElementById('navbar');
@@ -173,21 +188,14 @@ function setDocLink(id, name, url) {
   // Update modal: preview iframe + tombol download terpisah
   const modalView = document.getElementById('modal-doc-view-' + id);
   if (modalView) {
-    const isPdf = url.toLowerCase().includes('.pdf') || url.includes('cloudinary');
-    modalView.innerHTML = `
-      <div class="modal-doc-preview">
-        ${isPdf
-          ? `<iframe src="${url}" style="width:100%;height:420px;border:none;border-radius:10px;"></iframe>`
-          : `<div class="modal-doc-empty" style="padding:1.5rem;">
-               <span style="font-size:2rem;">📄</span>
-               <p style="margin-top:0.5rem;">${name}</p>
-               <p style="font-size:0.75rem;color:var(--text-light);">Preview tidak tersedia untuk format ini</p>
-             </div>`
-        }
+      modalView.innerHTML = `
+      <div class="modal-doc-file-info">
+        <span class="modal-doc-icon">📄</span>
+        <div class="modal-doc-filename">${name}</div>
       </div>
-      <div style="display:flex;gap:0.75rem;justify-content:center;margin-top:1rem;flex-wrap:wrap;">
+      <div style="display:flex;gap:0.75rem;justify-content:center;margin-top:1.25rem;flex-wrap:wrap;">
         <a href="${url}" target="_blank" class="btn-doc" style="background:var(--lavender-light);color:#7b5ea7;">
-          👁️ Buka di Tab Baru
+          👁️ Buka Dokumen
         </a>
         <a href="${url}" download="${name}" class="btn-doc btn-doc-file">
           📥 Download
