@@ -1684,3 +1684,16 @@ footer span { color: var(--pink); }
 
 .modal-doc-link:hover { background: var(--green); color: white; }
 .modal-doc-link span { font-size: 1.5rem; }
+
+.modal-doc-preview {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--pink-light);
+  background: var(--cream);
+  min-height: 80px;
+}
+
+/* Modal lebih lebar untuk preview dokumen */
+.modal-box {
+  max-width: 640px !important;
+}
