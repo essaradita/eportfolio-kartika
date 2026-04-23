@@ -1716,3 +1716,75 @@ footer span { color: var(--pink); }
   color: var(--text-dark);
   word-break: break-all;
 }
+
+/* ===== RPL SIKLUS GRID ===== */
+.rpl-siklus-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.rpl-siklus-card {
+  background: var(--cream);
+  border-radius: 14px;
+  padding: 1rem 0.75rem;
+  text-align: center;
+  border: 1px solid var(--pink-light);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.rpl-siklus-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.rpl-siklus-status {
+  font-size: 0.72rem;
+  color: var(--text-light);
+  font-style: italic;
+  min-height: 1.2rem;
+}
+
+.rpl-siklus-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+@media (max-width: 480px) {
+  .rpl-siklus-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== SIKLUS POIN ===== */
+.siklus-poin {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(248,180,200,0.15);
+  align-items: flex-start;
+}
+
+.siklus-poin:last-child { border-bottom: none; }
+
+.siklus-poin span {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  min-width: 110px;
+  flex-shrink: 0;
+}
+
+.siklus-poin p {
+  font-size: 0.85rem;
+  color: var(--text-mid);
+  line-height: 1.65;
+  margin: 0;
+}
+
+.siklus-poin.nilai span { color: var(--pink-dark); }
+.siklus-poin.nilai p { font-style: italic; }
