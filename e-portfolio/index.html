@@ -364,6 +364,7 @@
           </div>
         </div>
         <div class="doc-actions" id="video-actions" style="margin-top:0.75rem;">
+          <button class="btn-video" id="btn-add-video" style="display:none" onclick="addVideo()">➕ Tambah Video</button>
         </div>
       </div>
 
@@ -533,17 +534,10 @@
 <div class="modal-overlay" id="modal-instrumen1">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal('modal-instrumen1')">✕</button>
-    <h3>📋 Instrumen Penilaian Perangkat Pembelajaran</h3>
-    <p><strong>Komponen yang Dinilai:</strong></p>
-    <ul style="margin:0.75rem 0 0.75rem 1.2rem; font-size:0.87rem; color:var(--text-mid); line-height:1.8;">
-      <li>Kesesuaian CP, TP, dan ATP (bobot 20%)</li>
-      <li>Kelengkapan komponen modul ajar (bobot 20%)</li>
-      <li>Kualitas LKPD dan bahan ajar (bobot 20%)</li>
-      <li>Kesesuaian asesmen dengan tujuan pembelajaran (bobot 20%)</li>
-      <li>Kreativitas dan inovasi perangkat (bobot 20%)</li>
-    </ul>
-    <p style="font-size:0.87rem; color:var(--text-mid);">Nilai Akhir Perangkat: <strong style="color:var(--pink-dark);">87/100</strong></p>
-    <p style="font-size:0.82rem; color:var(--text-light); margin-top:0.5rem;">Ganti konten ini dengan PDF viewer atau link ke dokumen asli Anda.</p>
+    <h3>📋 Instrumen Penilaian Penyusunan RPL</h3>
+    <div id="modal-doc-view-1" class="modal-doc-view">
+      <div class="modal-doc-empty">📄 Belum ada dokumen diupload</div>
+    </div>
   </div>
 </div>
 
@@ -551,46 +545,19 @@
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal('modal-instrumen2')">✕</button>
     <h3>🎤 Instrumen Penilaian Praktik Mengajar</h3>
-    <p><strong>Aspek yang Dinilai:</strong></p>
-    <ul style="margin:0.75rem 0 0.75rem 1.2rem; font-size:0.87rem; color:var(--text-mid); line-height:1.8;">
-      <li>Penguasaan materi dan konsep (bobot 25%)</li>
-      <li>Kemampuan mengelola kelas (bobot 20%)</li>
-      <li>Penggunaan metode dan media pembelajaran (bobot 20%)</li>
-      <li>Interaksi dan komunikasi dengan siswa (bobot 20%)</li>
-      <li>Pelaksanaan asesmen formatif (bobot 15%)</li>
-    </ul>
-    <p style="font-size:0.87rem; color:var(--text-mid);">Nilai Akhir Praktik: <strong style="color:var(--pink-dark);">89/100</strong></p>
+    <div id="modal-doc-view-2" class="modal-doc-view">
+      <div class="modal-doc-empty">📄 Belum ada dokumen diupload</div>
+    </div>
   </div>
 </div>
 
 <div class="modal-overlay" id="modal-pamong">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal('modal-pamong')">✕</button>
-    <h3>⭐ Penilaian Guru Pamong</h3>
-    <p style="font-size:0.87rem; color:var(--text-mid); margin-bottom:0.75rem;"><em>Dra. Sri Wahyuni, M.Pd. — SMP Negeri 3 Yogyakarta</em></p>
-    <table style="width:100%; font-size:0.85rem; border-collapse:collapse;">
-      <tr style="background:var(--pink-light);">
-        <td style="padding:0.5rem; font-weight:600;">Siklus</td>
-        <td style="padding:0.5rem; font-weight:600;">Nilai</td>
-        <td style="padding:0.5rem; font-weight:600;">Catatan</td>
-      </tr>
-      <tr style="border-bottom:1px solid var(--pink-light);">
-        <td style="padding:0.5rem;">Siklus 1</td>
-        <td style="padding:0.5rem; color:var(--pink-dark); font-weight:700;">78</td>
-        <td style="padding:0.5rem; color:var(--text-mid);">Perlu perbaikan instruksi</td>
-      </tr>
-      <tr style="border-bottom:1px solid var(--pink-light);">
-        <td style="padding:0.5rem;">Siklus 2</td>
-        <td style="padding:0.5rem; color:var(--pink-dark); font-weight:700;">85</td>
-        <td style="padding:0.5rem; color:var(--text-mid);">Peningkatan signifikan</td>
-      </tr>
-      <tr>
-        <td style="padding:0.5rem;">Siklus 3</td>
-        <td style="padding:0.5rem; color:var(--pink-dark); font-weight:700;">91</td>
-        <td style="padding:0.5rem; color:var(--text-mid);">Sangat direkomendasikan</td>
-      </tr>
-    </table>
-    <p style="font-size:0.87rem; color:var(--text-mid); margin-top:0.75rem;">Rata-rata: <strong style="color:var(--pink-dark);">84.7/100</strong></p>
+    <h3>⭐ Hasil Penilaian Guru Pamong</h3>
+    <div id="modal-doc-view-3" class="modal-doc-view">
+      <div class="modal-doc-empty">📄 Belum ada dokumen diupload</div>
+    </div>
   </div>
 </div>
 
