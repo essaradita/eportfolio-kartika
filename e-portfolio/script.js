@@ -36,32 +36,25 @@ async function uploadToCloudinary(file) {
 
 // ===== TYPEWRITER LOOP =====
 const heroName = document.getElementById('hero-name');
-const texts = [
-  { p1: 'Kartika ', p2: 'Wulandari, S.Sos' },
-  { p1: 'Calon ', p2: 'Guru Profesional' },
-  { p1: 'PPG ', p2: 'Prajabatan 2026' },
-  { p1: 'Pendidik ', p2: 'yang Berdampak' },
+const loopTexts = [
+  'Wulandari, S.Sos',
+  'Calon Guru Profesional',
+  'PPG Prajabatan 2026',
+  'Pendidik yang Berdampak',
 ];
 let tIdx = 0, charIdx = 0, deleting = false;
 
 function typeLoop() {
-  const { p1, p2 } = texts[tIdx];
-  const full = p1 + p2;
+  const text = loopTexts[tIdx];
   if (!deleting) {
     charIdx++;
-    const cur = full.slice(0, charIdx);
-    heroName.innerHTML = charIdx > p1.length
-      ? p1 + '<span>' + cur.slice(p1.length) + '</span>'
-      : cur + '<span></span>';
-    if (charIdx === full.length) { setTimeout(() => { deleting = true; typeLoop(); }, 2000); return; }
+    heroName.innerHTML = 'Kartika <span>' + text.slice(0, charIdx) + '</span>';
+    if (charIdx === text.length) { setTimeout(() => { deleting = true; typeLoop(); }, 2000); return; }
     setTimeout(typeLoop, 80);
   } else {
     charIdx--;
-    const cur = full.slice(0, charIdx);
-    heroName.innerHTML = charIdx > p1.length
-      ? p1 + '<span>' + cur.slice(p1.length) + '</span>'
-      : cur + '<span></span>';
-    if (charIdx === 0) { deleting = false; tIdx = (tIdx + 1) % texts.length; setTimeout(typeLoop, 400); return; }
+    heroName.innerHTML = 'Kartika <span>' + text.slice(0, charIdx) + '</span>';
+    if (charIdx === 0) { deleting = false; tIdx = (tIdx + 1) % loopTexts.length; setTimeout(typeLoop, 400); return; }
     setTimeout(typeLoop, 40);
   }
 }
