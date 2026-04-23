@@ -675,3 +675,83 @@ window.openModal = function(id) {
   origOpenModal(id);
   if (id === 'modal-video') initVideo();
 };
+
+// ===== RPL SIKLUS DOCS =====
+async function loadRplDocs() {
+  for (let s = 1; s <= 3; s++) {
+    try {
+      const snap = await getDocs(collection(db, 'rpl_docs'));
+      snap.forEach(d => {
+        if (d.id === String(s)) setRplDoc(String(s), d.data().name, d.data().url);
+      });
+    } catch(e) {}
+  }
+  // Tampil tombol upload untuk admin
+  if (isAdmin) {
+    for (let s = 1; s <= 3; s++) {
+      const actions = document.getElementById('rpl-actions-' + s);
+      if (actions && !actions.querySelector('.btn-upload-trigger')) {
+        const btn = document.createElement('button');
+        btn.className = 'btn-doc btn-upload-trigger';
+        btn.innerHTML = '📎 Upload';
+        btn.onclick = (function(i){ return () => document.getElementById('rpl-upload-' + i).click(); })(s);
+        actions.appendChild(btn);
+      }
+    }
+  }
+}
+
+function setRplDoc(siklus, name, url) {
+  const status = document.getElementById('rpl-status-' + siklus);
+  const actions = document.getElementById('rpl-actions-' + siklus);
+  if (status) status.innerHTML = `<span style="color:var(--text-mid);font-style:normal;">📄 ${name.length > 18 ? name.slice(0,18)+'...' : name}</span>`;
+  if (actions) {
+    // Hapus tombol lihat lama kalau ada
+    const old = actions.querySelector('.btn-doc-file');
+    if (old) old.remove();
+    const delOld = actions.querySelector('.btn-doc-del');
+    if (delOld) delOld.remove();
+
+    const lihat = document.createElement('a');
+    lihat.className = 'btn-doc btn-doc-file';
+    lihat.href = url; lihat.target = '_blank';
+    lihat.innerHTML = '👁️ Lihat';
+    actions.appendChild(lihat);
+
+    if (isAdmin) {
+      const del = document.createElement('button');
+      del.className = 'btn-doc btn-doc-del';
+      del.innerHTML = '🗑️';
+      del.onclick = async () => {
+        if (!confirm('Hapus dokumen siklus ' + siklus + '?')) return;
+        await deleteDoc(doc(db, 'rpl_docs', String(siklus)));
+        if (status) status.textContent = 'Belum ada dokumen';
+        lihat.remove(); del.remove();
+        showToast('🗑️ Dihapus');
+      };
+      actions.appendChild(del);
+    }
+  }
+}
+
+async function uploadRplDoc(input, siklus) {
+  const file = input.files[0];
+  if (!file) return;
+  showToast('⏳ Mengupload...');
+  try {
+    const url = await uploadToCloudinary(file);
+    await setDoc(doc(db, 'rpl_docs', String(siklus)), { name: file.name, url });
+    setRplDoc(String(siklus), file.name, url);
+    showToast('✅ Dokumen Siklus ' + siklus + ' diupload');
+  } catch(e) { showToast('❌ Gagal: ' + e.message); }
+  input.value = '';
+}
+window.uploadRplDoc = uploadRplDoc;
+
+// Load saat modal RPL dibuka
+const _origOpen = window.openModal;
+window.openModal = function(id) {
+  _origOpen(id);
+  if (id === 'modal-rpl') loadRplDocs();
+  if (id === 'modal-video') initVideo();
+};
