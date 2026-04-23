@@ -614,6 +614,20 @@ async function syncHobiNames() {
 syncHobiNames();
 
 // ===== VIDEO MODAL INIT =====
+function getYoutubeId(url) {
+  const patterns = [
+    /youtu\.be\/([^?&\s]+)/,
+    /youtube\.com\/watch\?v=([^&\s]+)/,
+    /youtube\.com\/embed\/([^?&\s]+)/,
+    /youtube\.com\/shorts\/([^?&\s]+)/
+  ];
+  for (const p of patterns) {
+    const m = url.match(p);
+    if (m) return m[1];
+  }
+  return null;
+}
+
 async function initVideo() {
   // Tampil tombol admin
   const addBtn = document.getElementById('btn-add-video');
