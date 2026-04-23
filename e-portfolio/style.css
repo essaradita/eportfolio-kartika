@@ -1599,3 +1599,49 @@ footer span { color: var(--pink); }
 }
 
 .ppg-admin .hobi-item:hover .hobi-photo-wrap::after { opacity: 1; }
+
+/* ===== VIDEO CARD ===== */
+.video-preview {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--cream);
+  margin-top: 0.75rem;
+  aspect-ratio: 16/9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-preview iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.video-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-light);
+}
+
+.video-empty span { font-size: 2rem; }
+.video-empty p { font-size: 0.78rem; }
+
+.btn-video {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 0.45rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.25s;
+}
+
+.btn-video:hover { opacity: 0.85; transform: translateY(-1px); }
