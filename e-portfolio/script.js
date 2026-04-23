@@ -566,3 +566,28 @@ function hobiClick(id) {
   openHobiModal(id);
 }
 window.hobiClick = hobiClick;
+
+// ===== SYNC NAMA HOBI KE FIRESTORE =====
+// Jalankan sekali untuk update nama yang salah
+async function syncHobiNames() {
+  for (const [id, data] of Object.entries(hobiData)) {
+    try {
+      const existing = await getDocs(collection(db, 'hobi'));
+      let found = false;
+      existing.forEach(d => { if (d.id === id) found = true; });
+      if (found) {
+        // Update nama & emoji tanpa hapus coverUrl
+        const ref = doc(db, 'hobi', id);
+        const snap = await getDocs(collection(db, 'hobi'));
+        snap.forEach(async d => {
+          if (d.id === id) {
+            await setDoc(ref, { ...d.data(), nama: data.nama, emoji: data.emoji });
+          }
+        });
+      }
+    } catch(e) {}
+  }
+}
+
+// Jalankan sync saat halaman load
+syncHobiNames();
