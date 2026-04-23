@@ -669,13 +669,6 @@ async function deleteVideo() {
 window.addVideo = addVideo;
 window.deleteVideo = deleteVideo;
 
-// Panggil saat modal video dibuka
-const origOpenModal = window.openModal;
-window.openModal = function(id) {
-  origOpenModal(id);
-  if (id === 'modal-video') initVideo();
-};
-
 // ===== RPL SIKLUS DOCS =====
 async function loadRplDocs() {
   for (let s = 1; s <= 3; s++) {
@@ -748,7 +741,7 @@ async function uploadRplDoc(input, siklus) {
 }
 window.uploadRplDoc = uploadRplDoc;
 
-// Load saat modal RPL dibuka
+// Satu override openModal untuk semua modal
 const _origOpen = window.openModal;
 window.openModal = function(id) {
   _origOpen(id);
