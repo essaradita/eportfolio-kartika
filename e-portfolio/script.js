@@ -171,7 +171,7 @@ function setDocLink(id, name, url) {
   const detailBtn = actions.querySelector('.btn-doc:not(.btn-doc-file):not(.btn-doc-del):not(.btn-upload-trigger)');
   const detailHTML = detailBtn ? detailBtn.outerHTML : '';
   const delBtn = isAdmin ? `<button class="btn-doc btn-doc-del" onclick="handleDeleteDoc('${id}')">🗑️</button>` : '';
-  actions.innerHTML = detailHTML + `<span class="btn-doc btn-doc-file" style="cursor:default;">📄 ${name}</span>` + delBtn;
+  actions.innerHTML = detailHTML + delBtn;
 
   // Update modal: preview iframe + tombol download terpisah
   const modalView = document.getElementById('modal-doc-view-' + id);
