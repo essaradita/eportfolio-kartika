@@ -43,12 +43,12 @@ function typeLoop() {
   const text = loopTexts[tIdx];
   if (!deleting) {
     charIdx++;
-    heroName.innerHTML = 'Kartika <span>' + text.slice(0, charIdx) + '</span>';
+    heroName.innerHTML = 'Kartika<br><span>' + text.slice(0, charIdx) + '</span>';
     if (charIdx === text.length) { setTimeout(() => { deleting = true; typeLoop(); }, 2500); return; }
     setTimeout(typeLoop, 80);
   } else {
     charIdx--;
-    heroName.innerHTML = 'Kartika <span>' + text.slice(0, charIdx) + '</span>';
+    heroName.innerHTML = 'Kartika<br><span>' + text.slice(0, charIdx) + '</span>';
     if (charIdx === 0) { deleting = false; setTimeout(typeLoop, 400); return; }
     setTimeout(typeLoop, 40);
   }
