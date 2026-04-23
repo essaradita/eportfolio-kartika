@@ -168,19 +168,31 @@ function setDocLink(id, name, url) {
   const detailBtn = actions.querySelector('.btn-doc:not(.btn-doc-file):not(.btn-doc-del):not(.btn-upload-trigger)');
   const detailHTML = detailBtn ? detailBtn.outerHTML : '';
   const delBtn = isAdmin ? `<button class="btn-doc btn-doc-del" onclick="handleDeleteDoc('${id}')">🗑️</button>` : '';
-  actions.innerHTML = detailHTML + `<a class="btn-doc btn-doc-file" href="${url}" target="_blank">📥 ${name}</a>` + delBtn;
+  actions.innerHTML = detailHTML + `<span class="btn-doc btn-doc-file" style="cursor:default;">📄 ${name}</span>` + delBtn;
 
-  // Update isi modal juga
+  // Update modal: preview iframe + tombol download terpisah
   const modalView = document.getElementById('modal-doc-view-' + id);
   if (modalView) {
+    const isPdf = url.toLowerCase().includes('.pdf') || url.includes('cloudinary');
     modalView.innerHTML = `
-      <a class="modal-doc-link" href="${url}" target="_blank">
-        <span>📄</span>
-        <div>
-          <div>${name}</div>
-          <div style="font-size:0.75rem;font-weight:400;color:var(--text-light);margin-top:0.2rem;">Klik untuk buka dokumen</div>
-        </div>
-      </a>`;
+      <div class="modal-doc-preview">
+        ${isPdf
+          ? `<iframe src="${url}" style="width:100%;height:420px;border:none;border-radius:10px;"></iframe>`
+          : `<div class="modal-doc-empty" style="padding:1.5rem;">
+               <span style="font-size:2rem;">📄</span>
+               <p style="margin-top:0.5rem;">${name}</p>
+               <p style="font-size:0.75rem;color:var(--text-light);">Preview tidak tersedia untuk format ini</p>
+             </div>`
+        }
+      </div>
+      <div style="display:flex;gap:0.75rem;justify-content:center;margin-top:1rem;flex-wrap:wrap;">
+        <a href="${url}" target="_blank" class="btn-doc" style="background:var(--lavender-light);color:#7b5ea7;">
+          👁️ Buka di Tab Baru
+        </a>
+        <a href="${url}" download="${name}" class="btn-doc btn-doc-file">
+          📥 Download
+        </a>
+      </div>`;
   }
 }
 
@@ -604,3 +616,66 @@ async function syncHobiNames() {
 
 // Jalankan sync saat halaman load
 syncHobiNames();
+
+// ===== VIDEO MODAL INIT =====
+async function initVideo() {
+  // Tampil tombol admin
+  const addBtn = document.getElementById('btn-add-video');
+  const delBtn = document.getElementById('btn-del-video');
+  if (isAdmin && addBtn) addBtn.style.display = 'inline-block';
+
+  try {
+    const snap = await getDocs(collection(db, 'settings'));
+    snap.forEach(d => {
+      if (d.id === 'video' && d.data().url) {
+        const preview = document.getElementById('video-preview');
+        const ytId = getYoutubeId(d.data().url);
+        if (preview) {
+          if (ytId) {
+            preview.innerHTML = `<iframe src="https://www.youtube.com/embed/${ytId}" allowfullscreen style="width:100%;aspect-ratio:16/9;border:none;border-radius:12px;display:block;"></iframe>`;
+          } else {
+            preview.innerHTML = `<video controls style="width:100%;border-radius:12px;"><source src="${d.data().url}" /></video>`;
+          }
+        }
+        if (isAdmin && delBtn) delBtn.style.display = 'inline-block';
+      }
+    });
+  } catch(e) { console.log('Video init:', e.message); }
+}
+
+async function addVideo() {
+  const url = prompt('Paste link YouTube:\n\nContoh:\nhttps://youtu.be/xxxxx\nhttps://www.youtube.com/watch?v=xxxxx');
+  if (!url) return;
+  const title = prompt('Judul video:', 'Video Pembelajaran PPL') || 'Video Pembelajaran PPL';
+  try {
+    await setDoc(doc(db, 'settings', 'video'), { url, title });
+    const preview = document.getElementById('video-preview');
+    const ytId = getYoutubeId(url);
+    if (preview && ytId) {
+      preview.innerHTML = `<iframe src="https://www.youtube.com/embed/${ytId}" allowfullscreen style="width:100%;aspect-ratio:16/9;border:none;border-radius:12px;display:block;"></iframe>`;
+    }
+    const delBtn = document.getElementById('btn-del-video');
+    if (delBtn) delBtn.style.display = 'inline-block';
+    showToast('✅ Video berhasil ditambahkan');
+  } catch(e) { showToast('❌ Gagal: ' + e.message); }
+}
+
+async function deleteVideo() {
+  if (!confirm('Hapus video ini?')) return;
+  await deleteDoc(doc(db, 'settings', 'video'));
+  const preview = document.getElementById('video-preview');
+  if (preview) preview.innerHTML = `<div class="video-empty"><span>▶️</span><p>Belum ada video</p></div>`;
+  const delBtn = document.getElementById('btn-del-video');
+  if (delBtn) delBtn.style.display = 'none';
+  showToast('🗑️ Video dihapus');
+}
+
+window.addVideo = addVideo;
+window.deleteVideo = deleteVideo;
+
+// Panggil saat modal video dibuka
+const origOpenModal = window.openModal;
+window.openModal = function(id) {
+  origOpenModal(id);
+  if (id === 'modal-video') initVideo();
+};
