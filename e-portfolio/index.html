@@ -357,13 +357,8 @@
         <div class="lampiran-icon">🎬</div>
         <h3>Video Pembelajaran</h3>
         <p>Dokumentasi video praktik mengajar di kelas</p>
-        <div class="video-preview" id="video-preview">
-          <div class="video-empty">
-            <span>▶️</span>
-            <p>Belum ada video</p>
-          </div>
-        </div>
         <div class="doc-actions" id="video-actions" style="margin-top:0.75rem;">
+          <button class="btn-doc" onclick="openModal('modal-video')">Lihat Video</button>
           <button class="btn-video" id="btn-add-video" style="display:none" onclick="addVideo()">➕ Tambah Video</button>
         </div>
       </div>
@@ -578,6 +573,24 @@
       </div>
     </div>
     <p id="hobi-modal-desc" style="font-size:0.87rem; color:var(--text-mid); margin-top:1rem; line-height:1.7;"></p>
+  </div>
+</div>
+
+<!-- MODAL VIDEO -->
+<div class="modal-overlay" id="modal-video">
+  <div class="modal-box" style="max-width:600px;">
+    <button class="modal-close" onclick="closeModal('modal-video')">✕</button>
+    <h3>🎬 Video Pembelajaran</h3>
+    <div class="video-preview" id="video-preview" style="margin-top:1rem;">
+      <div class="video-empty">
+        <span>▶️</span>
+        <p>Belum ada video</p>
+      </div>
+    </div>
+    <div style="margin-top:0.75rem; text-align:center;">
+      <button class="btn-video" id="btn-add-video" style="display:none" onclick="addVideo()">➕ Tambah / Ganti Video</button>
+      <button class="btn-doc btn-doc-del" id="btn-del-video" style="display:none" onclick="deleteVideo()">🗑️ Hapus</button>
+    </div>
   </div>
 </div>
 
