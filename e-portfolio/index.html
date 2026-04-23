@@ -347,7 +347,7 @@
         <h3>RPL & Media Pembelajaran</h3>
         <p>Dokumen perangkat pembelajaran lengkap yang telah divalidasi dan digunakan dalam praktik</p>
         <div class="doc-actions" id="doc-actions-4">
-          <span class="doc-empty-note">Belum ada dokumen</span>
+          <button class="btn-doc" onclick="openModal('modal-rpl')">Lihat Dokumen</button>
         </div>
         <input type="file" accept=".pdf,.doc,.docx" id="doc-upload-4" class="doc-upload-input" onchange="handleUpload(this,'4')" />
       </div>
@@ -573,6 +573,17 @@
       </div>
     </div>
     <p id="hobi-modal-desc" style="font-size:0.87rem; color:var(--text-mid); margin-top:1rem; line-height:1.7;"></p>
+  </div>
+</div>
+
+<!-- MODAL VIDEO -->
+<div class="modal-overlay" id="modal-rpl">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-rpl')">✕</button>
+    <h3>📄 RPL & Media Pembelajaran</h3>
+    <div id="modal-doc-view-4" class="modal-doc-view">
+      <div class="modal-doc-empty">📄 Belum ada dokumen diupload</div>
+    </div>
   </div>
 </div>
 
