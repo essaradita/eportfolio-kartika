@@ -36,12 +36,7 @@ async function uploadToCloudinary(file) {
 
 // ===== TYPEWRITER LOOP =====
 const heroName = document.getElementById('hero-name');
-const loopTexts = [
-  'Wulandari, S.Sos',
-  'Calon Guru Profesional',
-  'PPG Prajabatan 2026',
-  'Pendidik yang Berdampak',
-];
+const loopTexts = ['Wulandari, S.Sos'];
 let tIdx = 0, charIdx = 0, deleting = false;
 
 function typeLoop() {
@@ -49,12 +44,12 @@ function typeLoop() {
   if (!deleting) {
     charIdx++;
     heroName.innerHTML = 'Kartika <span>' + text.slice(0, charIdx) + '</span>';
-    if (charIdx === text.length) { setTimeout(() => { deleting = true; typeLoop(); }, 2000); return; }
+    if (charIdx === text.length) { setTimeout(() => { deleting = true; typeLoop(); }, 2500); return; }
     setTimeout(typeLoop, 80);
   } else {
     charIdx--;
     heroName.innerHTML = 'Kartika <span>' + text.slice(0, charIdx) + '</span>';
-    if (charIdx === 0) { deleting = false; tIdx = (tIdx + 1) % loopTexts.length; setTimeout(typeLoop, 400); return; }
+    if (charIdx === 0) { deleting = false; setTimeout(typeLoop, 400); return; }
     setTimeout(typeLoop, 40);
   }
 }
