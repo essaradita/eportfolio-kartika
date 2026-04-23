@@ -169,6 +169,19 @@ function setDocLink(id, name, url) {
   const detailHTML = detailBtn ? detailBtn.outerHTML : '';
   const delBtn = isAdmin ? `<button class="btn-doc btn-doc-del" onclick="handleDeleteDoc('${id}')">🗑️</button>` : '';
   actions.innerHTML = detailHTML + `<a class="btn-doc btn-doc-file" href="${url}" target="_blank">📥 ${name}</a>` + delBtn;
+
+  // Update isi modal juga
+  const modalView = document.getElementById('modal-doc-view-' + id);
+  if (modalView) {
+    modalView.innerHTML = `
+      <a class="modal-doc-link" href="${url}" target="_blank">
+        <span>📄</span>
+        <div>
+          <div>${name}</div>
+          <div style="font-size:0.75rem;font-weight:400;color:var(--text-light);margin-top:0.2rem;">Klik untuk buka dokumen</div>
+        </div>
+      </a>`;
+  }
 }
 
 // Admin: input file dokumen langsung upload ke Cloudinary
