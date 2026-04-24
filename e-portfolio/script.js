@@ -587,3 +587,72 @@ renderGaleri();
 loadHobiPhotos();
 loadSettings();
 if (isAdmin) { initDocAdmin(); initGaleriAdmin(); initIdCardAdmin(); }
+
+// ===== ANALISIS SUB-TAB =====
+function switchAnalisisTab(id, btn) {
+  const card = btn.closest('.analisis-siklus-card');
+  card.querySelectorAll('.analisis-subtab-content').forEach(t => t.classList.remove('active'));
+  card.querySelectorAll('.analisis-subtab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+window.switchAnalisisTab = switchAnalisisTab;
+
+// ===== MEDIA PEMBELAJARAN =====
+async function loadMedia(siklus) {
+  const grid = document.getElementById('media-grid-' + siklus);
+  if (!grid) return;
+  try {
+    const snap = await getDocs(collection(db, 'media_' + siklus));
+    snap.forEach(d => addMediaItem(grid, d.id, d.data().url, d.data().name, d.data().type, siklus));
+  } catch(e) {}
+  if (isAdmin) {
+    const adminDiv = document.getElementById('media-admin-' + siklus);
+    if (adminDiv) adminDiv.style.display = 'block';
+  }
+}
+
+function addMediaItem(grid, id, url, name, type, siklus) {
+  const div = document.createElement('div');
+  div.className = 'media-item';
+  const isImg = type && type.startsWith('image');
+  div.innerHTML = `
+    ${isImg ? `<img src="${url}" alt="${name}" />` : `<div class="media-item-icon">${type?.includes('pdf') ? '📄' : '📊'}</div>`}
+    <div class="media-item-name">${name}</div>
+    <a href="${url}" target="_blank" style="font-size:0.7rem;color:var(--pink-dark);text-decoration:none;">👁️ Lihat</a>
+    <button class="media-item-del" onclick="deleteMedia('${id}','${siklus}',this.closest('.media-item'))">✕</button>
+  `;
+  grid.appendChild(div);
+}
+
+function uploadMedia(siklus) {
+  document.getElementById('media-input-' + siklus).click();
+}
+window.uploadMedia = uploadMedia;
+
+async function handleMediaUpload(input, siklus) {
+  const grid = document.getElementById('media-grid-' + siklus);
+  for (const file of Array.from(input.files)) {
+    showToast('⏳ Mengupload ' + file.name + '...');
+    try {
+      const url = await uploadToCloudinary(file);
+      const id = Date.now() + '_' + Math.random().toString(36).slice(2);
+      await setDoc(doc(db, 'media_' + siklus, id), { url, name: file.name, type: file.type });
+      addMediaItem(grid, id, url, file.name, file.type, siklus);
+      showToast('✅ ' + file.name + ' diupload');
+    } catch(e) { showToast('❌ Gagal: ' + e.message); }
+  }
+  input.value = '';
+}
+window.handleMediaUpload = handleMediaUpload;
+
+async function deleteMedia(id, siklus, el) {
+  if (!confirm('Hapus media ini?')) return;
+  await deleteDoc(doc(db, 'media_' + siklus, id));
+  el.remove();
+  showToast('🗑️ Media dihapus');
+}
+window.deleteMedia = deleteMedia;
+
+// Load media saat halaman load
+loadMedia('s1');
