@@ -697,6 +697,10 @@ async function deleteMedia(id, siklus, el) {
 window.deleteMedia = deleteMedia;
 
 // Load media saat halaman load
-loadMedia('s1');
-loadMedia('s2');
-loadMedia('s3');
+const allMediaKeys = [
+  's1','s2','s3',
+  's1-inst-rpl','s1-inst-praktik','s1-pamong','s1-rpl',
+  's2-inst-rpl','s2-inst-praktik','s2-pamong','s2-rpl',
+  's3-inst-rpl','s3-inst-praktik','s3-pamong','s3-rpl'
+];
+allMediaKeys.forEach(k => loadMedia(k));
