@@ -616,14 +616,56 @@ function addMediaItem(grid, id, url, name, type, siklus) {
   const div = document.createElement('div');
   div.className = 'media-item';
   const isImg = type && type.startsWith('image');
+  const isPdf = type && type.includes('pdf');
+  const isPpt = name && (name.endsWith('.ppt') || name.endsWith('.pptx'));
+
+  let previewUrl = url;
+  if (isPpt) previewUrl = `https://docs.google.com/gview?url=${encodeURIComponent(url)}&embedded=true`;
+  else if (isPdf) previewUrl = url;
+
   div.innerHTML = `
-    ${isImg ? `<img src="${url}" alt="${name}" />` : `<div class="media-item-icon">${type?.includes('pdf') ? '📄' : '📊'}</div>`}
+    ${isImg
+      ? `<img src="${url}" alt="${name}" style="cursor:pointer" onclick="openMediaPreview('${url}','${name}','image')" />`
+      : `<div class="media-item-icon" style="cursor:pointer" onclick="openMediaPreview('${previewUrl}','${name}','${isPdf?'pdf':'ppt'}')">${isPdf ? '📄' : isPpt ? '📊' : '📁'}</div>`
+    }
     <div class="media-item-name">${name}</div>
-    <a href="${url}" target="_blank" style="font-size:0.7rem;color:var(--pink-dark);text-decoration:none;">👁️ Lihat</a>
     <button class="media-item-del" onclick="deleteMedia('${id}','${siklus}',this.closest('.media-item'))">✕</button>
   `;
   grid.appendChild(div);
 }
+
+// ===== MEDIA PREVIEW MODAL =====
+function openMediaPreview(url, name, type) {
+  let content = '';
+  if (type === 'image') {
+    content = `<img src="${url}" alt="${name}" style="width:100%;border-radius:10px;" />`;
+  } else if (type === 'pdf') {
+    content = `<iframe src="${url}" style="width:100%;height:500px;border:none;border-radius:10px;"></iframe>`;
+  } else {
+    // PPT via Google Docs Viewer
+    content = `<iframe src="${url}" style="width:100%;height:500px;border:none;border-radius:10px;"></iframe>
+    <p style="font-size:0.78rem;color:var(--text-light);text-align:center;margin-top:0.5rem;">Jika tidak tampil, <a href="${url}" target="_blank" style="color:var(--pink-dark);">buka di tab baru</a></p>`;
+  }
+
+  let modal = document.getElementById('modal-media-preview');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'modal-media-preview';
+    modal.className = 'modal-overlay';
+    modal.innerHTML = `<div class="modal-box" style="max-width:700px;">
+      <button class="modal-close" onclick="closeModal('modal-media-preview')">✕</button>
+      <h3 id="media-preview-title"></h3>
+      <div id="media-preview-body" style="margin-top:1rem;"></div>
+    </div>`;
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal('modal-media-preview'); });
+    document.body.appendChild(modal);
+  }
+
+  document.getElementById('media-preview-title').textContent = name;
+  document.getElementById('media-preview-body').innerHTML = content;
+  openModal('modal-media-preview');
+}
+window.openMediaPreview = openMediaPreview;
 
 function uploadMedia(siklus) {
   document.getElementById('media-input-' + siklus).click();
