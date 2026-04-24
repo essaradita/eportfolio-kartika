@@ -110,9 +110,10 @@
       <div class="profil-tabs-wrap">
         <div class="profil-tab-btns">
           <button class="profil-tab-btn active" onclick="switchProfilTab('tab-identitas', this)">👩‍🎓 Identitas</button>
+          <button class="profil-tab-btn" onclick="switchProfilTab('tab-daerah', this)">🏡 Asal Daerah</button>
           <button class="profil-tab-btn" onclick="switchProfilTab('tab-hobi', this)">🎨 Hobi</button>
           <button class="profil-tab-btn" onclick="switchProfilTab('tab-riwayat', this)">📖 Riwayat</button>
-          <button class="profil-tab-btn" onclick="switchProfilTab('tab-inspirasi', this)">💡 Inspirasi</button>
+          <button class="profil-tab-btn" onclick="switchProfilTab('tab-inspirasi', this)">💡 Inspirasi & Tujuan</button>
           <button class="profil-tab-btn" onclick="switchProfilTab('tab-lokasi', this)">📍 Lokasi</button>
         </div>
 
@@ -126,6 +127,22 @@
           </table>
           <div style="margin-top:1rem; padding:1rem; background:var(--pink-light); border-radius:12px;">
             <p style="font-size:0.87rem; color:var(--text-mid);">Saya berasal dari Kabupaten Cilacap, Jawa Tengah — sebuah daerah yang kaya akan keindahan alam, mulai dari pantai Teluk Penyu hingga hamparan hutan mangrove yang memukau. Tumbuh di sana membentuk saya menjadi pribadi yang peka, empatik, dan mencintai keberagaman.</p>
+          </div>
+        </div>
+
+        <div class="profil-tab-content" id="tab-daerah">
+          <div class="daerah-layout">
+            <div class="daerah-text">
+              <h3 style="font-size:1rem; font-weight:700; color:var(--text-dark); margin-bottom:0.75rem;">🏡 Kabupaten Cilacap, Jawa Tengah</h3>
+              <p style="font-size:0.87rem; color:var(--text-mid); line-height:1.8; margin-bottom:0.75rem;">Cilacap adalah kabupaten terluas di Jawa Tengah yang terletak di pesisir selatan, berbatasan langsung dengan Samudra Hindia. Kota ini dikenal sebagai kota industri strategis sekaligus menyimpan keindahan alam yang memukau.</p>
+              <p style="font-size:0.87rem; color:var(--text-mid); line-height:1.8; margin-bottom:0.75rem;">Beberapa keistimewaan Cilacap antara lain Pantai Teluk Penyu yang indah, Benteng Pendem peninggalan kolonial Belanda, serta Pulau Nusakambangan yang misterius. Masyarakatnya dikenal hangat, guyub, dan menjunjung tinggi nilai gotong royong.</p>
+              <p style="font-size:0.87rem; color:var(--text-mid); line-height:1.8;">Tumbuh di Cilacap membentuk saya menjadi pribadi yang peka terhadap keberagaman, mencintai alam, dan memiliki semangat untuk berkontribusi bagi masyarakat — nilai-nilai yang kini menjadi fondasi saya sebagai calon pendidik.</p>
+            </div>
+            <div class="daerah-foto">
+              <img src="cilacap.jpg" alt="Cilacap" class="daerah-img"
+                onerror="this.style.background='var(--pink-light)'; this.style.display='flex'; this.alt=''" />
+              <p class="daerah-caption">📍 Kabupaten Cilacap, Jawa Tengah</p>
+            </div>
           </div>
         </div>
 
