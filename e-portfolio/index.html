@@ -17,7 +17,6 @@
     <li><a href="#hero" class="active">Beranda</a></li>
     <li><a href="#profil">Profil</a></li>
     <li><a href="#analisis">Analisis</a></li>
-    <li><a href="#lampiran">Artefak</a></li>
     <li><a href="#galeri">Galeri</a></li>
     <li><a href="#model">Model Guru</a></li>
   </ul>
@@ -400,86 +399,6 @@
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- LAMPIRAN -->
-<section id="lampiran">
-  <div class="section-inner">
-    <div class="fade-up">
-      <span class="section-label">ARTEFAK PRODUK</span>
-      <h2 class="section-title">Dokumen & Instrumen Penilaian</h2>
-      <p class="section-desc">Kumpulan dokumen penilaian, instrumen, dan hasil evaluasi selama PPL Terbimbing.</p>
-    </div>
-
-    <div class="lampiran-grid fade-up">
-
-      <div class="lampiran-card" id="doc-card-1">
-        <div class="lampiran-icon">📋</div>
-        <h3>Instrumen Penilaian Penyusunan RPL</h3>
-        <p>Lampiran 7</p>
-        <div class="doc-actions" id="doc-actions-1">
-          <button class="btn-doc" onclick="openModal('modal-instrumen1')">Lihat Detail</button>
-        </div>
-        <!-- input upload, hanya muncul saat admin -->
-        <input type="file" accept=".pdf,.doc,.docx" id="doc-upload-1" class="doc-upload-input" onchange="handleUpload(this,'1')" />
-      </div>
-
-      <div class="lampiran-card" id="doc-card-2">
-        <div class="lampiran-icon">🎤</div>
-        <h3>Instrumen Penilaian Praktik Mengajar</h3>
-        <p>Lampiran 8</p>
-        <div class="doc-actions" id="doc-actions-2">
-          <button class="btn-doc" onclick="openModal('modal-instrumen2')">Lihat Detail</button>
-        </div>
-        <input type="file" accept=".pdf,.doc,.docx" id="doc-upload-2" class="doc-upload-input" onchange="handleUpload(this,'2')" />
-      </div>
-
-      <div class="lampiran-card" id="doc-card-3">
-        <div class="lampiran-icon">⭐</div>
-        <h3>Hasil Penilaian Guru Pamong</h3>
-        <p>Rekap nilai dan catatan reflektif dari guru pamong selama 3 siklus PPL</p>
-        <div class="doc-actions" id="doc-actions-3">
-          <button class="btn-doc" onclick="openModal('modal-pamong')">Lihat Detail</button>
-        </div>
-        <input type="file" accept=".pdf,.doc,.docx" id="doc-upload-3" class="doc-upload-input" onchange="handleUpload(this,'3')" />
-      </div>
-
-      <div class="lampiran-card" id="doc-card-4">
-        <div class="lampiran-icon">📄</div>
-        <h3>RPL</h3>
-        <p>Rencana Pelaksanaan Layanan yang telah divalidasi dan digunakan dalam praktik</p>
-        <div class="doc-actions" id="doc-actions-4">
-          <button class="btn-doc" onclick="openModal('modal-rpl')">Lihat Dokumen</button>
-        </div>
-        <input type="file" accept=".pdf,.doc,.docx" id="doc-upload-4" class="doc-upload-input" onchange="handleUpload(this,'4')" />
-      </div>
-
-      <!-- CARD MEDIA PEMBELAJARAN -->
-      <div class="lampiran-card" id="doc-card-5">
-        <div class="lampiran-icon">🎨</div>
-        <h3>Media Pembelajaran</h3>
-        <p>Media dan bahan ajar yang digunakan dalam praktik mengajar di kelas</p>
-        <div class="doc-actions" id="doc-actions-5">
-          <button class="btn-doc" onclick="openModal('modal-media')">Lihat Dokumen</button>
-        </div>
-        <input type="file" accept=".pdf,.doc,.docx,.ppt,.pptx" id="doc-upload-5" class="doc-upload-input" onchange="handleUpload(this,'5')" />
-      </div>
-
-      <!-- CARD VIDEO PEMBELAJARAN -->
-      <div class="lampiran-card" id="video-card">
-        <div class="lampiran-icon">🎬</div>
-        <h3>Video Pembelajaran</h3>
-        <p>Dokumentasi video praktik mengajar di kelas</p>
-        <div class="doc-actions" id="video-actions" style="margin-top:0.75rem;">
-          <button class="btn-doc" onclick="openModal('modal-video')">Lihat Video</button>
-          <button class="btn-video" id="btn-add-video" style="display:none" onclick="addVideo()">➕ Tambah Video</button>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Siklus PPL -->
   </div>
 </section>
 
