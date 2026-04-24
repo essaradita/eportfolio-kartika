@@ -267,12 +267,14 @@
         <div class="analisis-siklus-card">
           <div class="analisis-block">
             <div class="analisis-block-title">📋 Artefak</div>
-            <div class="siklus-poin"><span>Nama Artifak</span><p>RPL Bimbingan Klasikal — "Penguatan Rasa Percaya Diri (Self Confidence)"</p></div>
-            <div class="siklus-poin"><span>Konteks</span><p>Dibuat pada kegiatan PPL di SMP N 7 Tegal, digunakan untuk kelas VIII F semester genap dengan topik penguatan rasa percaya diri berdasarkan hasil angket kebutuhan peserta didik.</p></div>
-            <div class="siklus-poin"><span>Tujuan</span><p>Membantu peserta didik memahami, menerima, dan mengembangkan potensi diri secara positif sehingga mampu bersikap percaya diri dalam kehidupan sehari-hari.</p></div>
-            <div class="siklus-poin"><span>Kelebihan</span><p>Metode pembelajaran yang variatif dan berpusat pada siswa, didukung media Kartu Percaya Diri dan sistem reward, membuat peserta didik lebih aktif, berani, dan antusias dalam mengikuti layanan.</p></div>
-            <div class="siklus-poin"><span>Kekurangan</span><p>Alokasi waktu per kegiatan tidak dirinci sehingga pelaksanaan berisiko kurang proporsional.</p></div>
-            <div class="siklus-poin"><span>Kajian Teori</span><p>Artefak ini mengacu pada teori Self-Efficacy Bandura yang menekankan pentingnya keyakinan diri, serta pendekatan konstruktivisme Vygotsky yang berpusat pada pembelajaran melalui interaksi sosial dan pengalaman langsung.</p></div>
+            <table class="info-table">
+              <tr><td>Nama Artifak</td><td>RPL Bimbingan Klasikal — "Penguatan Rasa Percaya Diri (Self Confidence)"</td></tr>
+              <tr><td>Konteks</td><td>Dibuat pada kegiatan PPL di SMP N 7 Tegal, digunakan untuk kelas VIII F semester genap dengan topik penguatan rasa percaya diri berdasarkan hasil angket kebutuhan peserta didik.</td></tr>
+              <tr><td>Tujuan</td><td>Membantu peserta didik memahami, menerima, dan mengembangkan potensi diri secara positif sehingga mampu bersikap percaya diri dalam kehidupan sehari-hari.</td></tr>
+              <tr><td>Kelebihan</td><td>Metode pembelajaran yang variatif dan berpusat pada siswa, didukung media Kartu Percaya Diri dan sistem reward, membuat peserta didik lebih aktif, berani, dan antusias dalam mengikuti layanan.</td></tr>
+              <tr><td>Kekurangan</td><td>Alokasi waktu per kegiatan tidak dirinci sehingga pelaksanaan berisiko kurang proporsional.</td></tr>
+              <tr><td>Kajian Teori</td><td>Artefak ini mengacu pada teori Self-Efficacy Bandura yang menekankan pentingnya keyakinan diri, serta pendekatan konstruktivisme Vygotsky yang berpusat pada pembelajaran melalui interaksi sosial dan pengalaman langsung.</td></tr>
+            </table>
           </div>
           <div class="analisis-block">
             <div class="analisis-block-title">⚠️ Kendala</div>
@@ -351,12 +353,23 @@
 
       <div class="lampiran-card" id="doc-card-4">
         <div class="lampiran-icon">📄</div>
-        <h3>RPL & Media Pembelajaran</h3>
-        <p>Dokumen perangkat pembelajaran lengkap yang telah divalidasi dan digunakan dalam praktik</p>
+        <h3>RPL</h3>
+        <p>Rencana Pelaksanaan Layanan yang telah divalidasi dan digunakan dalam praktik</p>
         <div class="doc-actions" id="doc-actions-4">
           <button class="btn-doc" onclick="openModal('modal-rpl')">Lihat Dokumen</button>
         </div>
         <input type="file" accept=".pdf,.doc,.docx" id="doc-upload-4" class="doc-upload-input" onchange="handleUpload(this,'4')" />
+      </div>
+
+      <!-- CARD MEDIA PEMBELAJARAN -->
+      <div class="lampiran-card" id="doc-card-5">
+        <div class="lampiran-icon">🎨</div>
+        <h3>Media Pembelajaran</h3>
+        <p>Media dan bahan ajar yang digunakan dalam praktik mengajar di kelas</p>
+        <div class="doc-actions" id="doc-actions-5">
+          <button class="btn-doc" onclick="openModal('modal-media')">Lihat Dokumen</button>
+        </div>
+        <input type="file" accept=".pdf,.doc,.docx,.ppt,.pptx" id="doc-upload-5" class="doc-upload-input" onchange="handleUpload(this,'5')" />
       </div>
 
       <!-- CARD VIDEO PEMBELAJARAN -->
@@ -546,6 +559,16 @@
 </div>
 
 <!-- MODAL VIDEO -->
+<div class="modal-overlay" id="modal-media">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-media')">✕</button>
+    <h3>🎨 Media Pembelajaran</h3>
+    <div id="modal-doc-view-5" class="modal-doc-view">
+      <div class="modal-doc-empty">📄 Belum ada dokumen diupload</div>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="modal-rpl">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal('modal-rpl')">✕</button>
