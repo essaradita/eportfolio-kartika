@@ -762,3 +762,41 @@ window.openModal = function(id) {
   if (id === 'modal-rpl') loadRplDocs();
   if (id === 'modal-video') initVideo();
 };
+
+// ===== FOTO DAERAH =====
+async function loadDaerahFoto() {
+  try {
+    const snap = await getDocs(collection(db, 'settings'));
+    snap.forEach(d => {
+      if (d.id === 'daerah_foto' && d.data().url) {
+        const img = document.getElementById('daerah-img');
+        if (img) img.src = d.data().url;
+      }
+    });
+  } catch(e) {}
+  if (isAdmin) {
+    const btn = document.getElementById('btn-upload-daerah');
+    if (btn) btn.style.display = 'inline-block';
+  }
+}
+
+async function uploadDaerahFoto() {
+  const inp = document.createElement('input');
+  inp.type = 'file'; inp.accept = 'image/*';
+  inp.onchange = async () => {
+    const file = inp.files[0];
+    if (!file) return;
+    showToast('⏳ Mengupload foto...');
+    try {
+      const url = await uploadToCloudinary(file);
+      await setDoc(doc(db, 'settings', 'daerah_foto'), { url });
+      const img = document.getElementById('daerah-img');
+      if (img) img.src = url;
+      showToast('✅ Foto daerah diperbarui');
+    } catch(e) { showToast('❌ Gagal: ' + e.message); }
+  };
+  inp.click();
+}
+window.uploadDaerahFoto = uploadDaerahFoto;
+
+loadDaerahFoto();
