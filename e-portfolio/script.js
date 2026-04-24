@@ -26,8 +26,14 @@ async function uploadToCloudinary(file) {
   fd.append('file', file);
   fd.append('upload_preset', UPLOAD_PRESET);
   fd.append('folder', 'eportfolio');
-  const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`, { method: 'POST', body: fd });
-  if (!res.ok) throw new Error('Upload gagal');
+  // file non-gambar (ppt, docx, pdf, dll) pakai resource_type raw
+  const isImage = file.type.startsWith('image/');
+  const resourceType = isImage ? 'image' : 'raw';
+  const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${resourceType}/upload`, { method: 'POST', body: fd });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error?.message || 'Upload gagal');
+  }
   return (await res.json()).secure_url;
 }
 
