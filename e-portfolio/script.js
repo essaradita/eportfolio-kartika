@@ -241,15 +241,22 @@ async function renderGaleri() {
 
 function applyGaleriPhoto(item, url, caption) {
   const id = item.dataset.galeriId;
-  const canDelete = isAdmin && parseInt(id) >= 9;
-  item.innerHTML = `<img src="${url}" alt="${caption}" /><div class="galeri-overlay">${caption}</div>${isAdmin ? `<div class="galeri-admin-btns"><button class="galeri-btn-change" title="Ganti foto">📷</button>${canDelete ? `<button class="galeri-btn-del" title="Hapus foto">🗑️</button>` : ''}</div>` : ''}`;
+  item.innerHTML = `<img src="${url}" alt="${caption}" /><div class="galeri-overlay">${caption}</div>${isAdmin ? `<div class="galeri-admin-btns"><button class="galeri-btn-change" title="Ganti foto">📷</button><button class="galeri-btn-del" title="Hapus foto">🗑️</button></div>` : ''}`;
   if (isAdmin) {
     item.querySelector('.galeri-btn-change').addEventListener('click', e => { e.stopPropagation(); triggerGaleriUpload(item); });
-    if (canDelete) item.querySelector('.galeri-btn-del').addEventListener('click', async e => {
+    item.querySelector('.galeri-btn-del').addEventListener('click', async e => {
       e.stopPropagation();
       if (!confirm('Hapus foto ini?')) return;
       await deleteDoc(doc(db, 'galeri', String(id)));
-      item.remove(); showToast('🗑️ Foto dihapus');
+      // slot default (1-8) kembalikan ke emoji, slot tambahan hapus kotaknya
+      if (parseInt(id) <= 8) {
+        const emojis = ['📸','🎓','✏️','📖','🎤','🌸','👩‍🏫','🏆'];
+        item.innerHTML = `<span class="galeri-emoji">${emojis[(parseInt(id)-1)] || '📷'}</span><div class="galeri-overlay"></div>`;
+        bindGaleriAdmin(item);
+      } else {
+        item.remove();
+      }
+      showToast('🗑️ Foto dihapus');
     });
   }
 }
@@ -284,6 +291,21 @@ function triggerGaleriUpload(item) {
 function bindGaleriAdmin(item) {
   const id = item.dataset.galeriId;
   item.style.cursor = 'pointer';
+  // tambah tombol admin di slot kosong
+  if (!item.querySelector('.galeri-admin-btns')) {
+    const btns = document.createElement('div');
+    btns.className = 'galeri-admin-btns';
+    btns.innerHTML = `<button class="galeri-btn-change" title="Upload foto">📷</button>${parseInt(id) >= 9 ? `<button class="galeri-btn-del" title="Hapus kotak">🗑️</button>` : ''}`;
+    item.appendChild(btns);
+    btns.querySelector('.galeri-btn-change').addEventListener('click', e => { e.stopPropagation(); triggerGaleriUpload(item); });
+    const delBtn = btns.querySelector('.galeri-btn-del');
+    if (delBtn) delBtn.addEventListener('click', async e => {
+      e.stopPropagation();
+      if (!confirm('Hapus kotak ini?')) return;
+      await deleteDoc(doc(db, 'galeri', String(id)));
+      item.remove(); showToast('🗑️ Kotak dihapus');
+    });
+  }
   // klik area kosong (emoji) → upload
   item.addEventListener('click', e => {
     if (e.target.closest('.galeri-admin-btns')) return;
