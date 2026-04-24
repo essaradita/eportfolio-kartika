@@ -668,7 +668,7 @@ function openMediaPreview(url, name, type) {
         <a href="${url.replace('/preview','')}" target="_blank" class="btn-doc" style="background:var(--pink-light);color:var(--pink-dark);">↗️ Buka di Google Drive</a>
       </div>`;
   } else {
-    // PDF, DOCX, PPT via Google Docs Viewer
+    // PDF, DOCX, PPT dari Cloudinary via Google Docs Viewer
     const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(url)}&embedded=true`;
     content = `
       <iframe src="${viewerUrl}" style="width:100%;height:520px;border:none;border-radius:10px;" id="doc-preview-frame"></iframe>
