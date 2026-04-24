@@ -29,6 +29,13 @@ body {
   line-height: 1.7;
 }
 
+p, li, td, blockquote, .section-desc, .subtitle, .analisis-block p,
+.daerah-text p, .profil-tab-content p, .model-card p, .model-card li,
+.riwayat-tempat, .riwayat-judul, .hero-badge {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
 /* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--pink-light); }
