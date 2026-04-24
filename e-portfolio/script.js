@@ -618,15 +618,18 @@ function addMediaItem(grid, id, url, name, type, siklus) {
   const isImg = type && type.startsWith('image');
   const isPdf = type && type.includes('pdf');
   const isPpt = name && (name.endsWith('.ppt') || name.endsWith('.pptx'));
+  // docx, doc, xls, xlsx, dll → pakai Google Docs Viewer
+  const isOffice = !isImg && !isPdf;
 
-  let previewUrl = url;
-  if (isPpt) previewUrl = `https://docs.google.com/gview?url=${encodeURIComponent(url)}&embedded=true`;
-  else if (isPdf) previewUrl = url;
+  const gdocsUrl = `https://docs.google.com/gview?url=${encodeURIComponent(url)}&embedded=true`;
+  const previewUrl = isPdf ? url : gdocsUrl;
+  const previewType = isPdf ? 'pdf' : 'office';
+  const icon = isPdf ? '📄' : isPpt ? '📊' : '📁';
 
   div.innerHTML = `
     ${isImg
       ? `<img src="${url}" alt="${name}" style="cursor:pointer" onclick="openMediaPreview('${url}','${name}','image')" />`
-      : `<div class="media-item-icon" style="cursor:pointer" onclick="openMediaPreview('${previewUrl}','${name}','${isPdf?'pdf':'ppt'}')">${isPdf ? '📄' : isPpt ? '📊' : '📁'}</div>`
+      : `<div class="media-item-icon" style="cursor:pointer" onclick="openMediaPreview('${previewUrl}','${name}','${previewType}')">${icon}</div>`
     }
     <div class="media-item-name">${name}</div>
     <button class="media-item-del" onclick="deleteMedia('${id}','${siklus}',this.closest('.media-item'))">✕</button>
@@ -642,9 +645,9 @@ function openMediaPreview(url, name, type) {
   } else if (type === 'pdf') {
     content = `<iframe src="${url}" style="width:100%;height:500px;border:none;border-radius:10px;"></iframe>`;
   } else {
-    // PPT via Google Docs Viewer
+    // PPT, DOCX, dll via Google Docs Viewer
     content = `<iframe src="${url}" style="width:100%;height:500px;border:none;border-radius:10px;"></iframe>
-    <p style="font-size:0.78rem;color:var(--text-light);text-align:center;margin-top:0.5rem;">Jika tidak tampil, <a href="${url}" target="_blank" style="color:var(--pink-dark);">buka di tab baru</a></p>`;
+    <p style="font-size:0.78rem;color:var(--text-light);text-align:center;margin-top:0.5rem;">Jika tidak tampil, <a href="${url.replace('gview?url=','').replace('&embedded=true','').split('?')[0]}" target="_blank" style="color:var(--pink-dark);">buka di tab baru</a></p>`;
   }
 
   let modal = document.getElementById('modal-media-preview');
@@ -792,6 +795,16 @@ window.deleteSiklusVideo = deleteSiklusVideo;
   loadMedia(siklus + '-file');
   if (isAdmin) {
     ['ppt','file'].forEach(t => {
+      const el = document.getElementById('media-admin-' + siklus + '-' + t);
+      if (el) el.style.display = 'block';
+    });
+  }
+  // Instrumen RPL, Instrumen Praktik, Penilaian Guru Pamong
+  loadMedia(siklus + '-inst-rpl');
+  loadMedia(siklus + '-inst-praktik');
+  loadMedia(siklus + '-pamong');
+  if (isAdmin) {
+    ['inst-rpl','inst-praktik','pamong'].forEach(t => {
       const el = document.getElementById('media-admin-' + siklus + '-' + t);
       if (el) el.style.display = 'block';
     });
