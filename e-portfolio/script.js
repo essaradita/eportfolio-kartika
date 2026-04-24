@@ -234,7 +234,18 @@ async function renderGaleri() {
 }
 
 function applyGaleriPhoto(item, url, caption) {
-  item.innerHTML = `<img src="${url}" alt="${caption}" /><div class="galeri-overlay">${caption}</div>`;
+  const id = item.dataset.galeriId;
+  const canDelete = isAdmin && parseInt(id) >= 9;
+  item.innerHTML = `<img src="${url}" alt="${caption}" /><div class="galeri-overlay">${caption}</div>${isAdmin ? `<div class="galeri-admin-btns"><button class="galeri-btn-change" title="Ganti foto">📷</button>${canDelete ? `<button class="galeri-btn-del" title="Hapus foto">🗑️</button>` : ''}</div>` : ''}`;
+  if (isAdmin) {
+    item.querySelector('.galeri-btn-change').addEventListener('click', e => { e.stopPropagation(); triggerGaleriUpload(item); });
+    if (canDelete) item.querySelector('.galeri-btn-del').addEventListener('click', async e => {
+      e.stopPropagation();
+      if (!confirm('Hapus foto ini?')) return;
+      await deleteDoc(doc(db, 'galeri', String(id)));
+      item.remove(); showToast('🗑️ Foto dihapus');
+    });
+  }
 }
 
 function addGaleriItem(id, url, caption) {
@@ -246,33 +257,32 @@ function addGaleriItem(id, url, caption) {
   if (isAdmin) bindGaleriAdmin(div);
 }
 
+function triggerGaleriUpload(item) {
+  const id = item.dataset.galeriId;
+  const inp = document.createElement('input');
+  inp.type = 'file'; inp.accept = 'image/*';
+  inp.onchange = async () => {
+    const file = inp.files[0]; if (!file) return;
+    const caption = prompt('Keterangan foto:', item.querySelector('.galeri-overlay')?.textContent || '') || 'Dokumentasi PPL';
+    showToast('⏳ Mengupload...');
+    try {
+      const url = await uploadToCloudinary(file);
+      await setDoc(doc(db, 'galeri', String(id)), { url, caption, order: parseInt(id) });
+      applyGaleriPhoto(item, url, caption);
+      showToast('✅ Foto diupload');
+    } catch(e) { showToast('❌ Gagal: ' + e.message); }
+  };
+  inp.click();
+}
+
 function bindGaleriAdmin(item) {
   const id = item.dataset.galeriId;
   item.style.cursor = 'pointer';
-  item.addEventListener('click', async () => {
-    const inp = document.createElement('input');
-    inp.type = 'file'; inp.accept = 'image/*';
-    inp.onchange = async () => {
-      const file = inp.files[0]; if (!file) return;
-      const caption = prompt('Keterangan foto:', item.querySelector('.galeri-overlay')?.textContent || '') || 'Dokumentasi PPL';
-      showToast('⏳ Mengupload...');
-      try {
-        const url = await uploadToCloudinary(file);
-        await setDoc(doc(db, 'galeri', String(id)), { url, caption, order: parseInt(id) });
-        applyGaleriPhoto(item, url, caption);
-        showToast('✅ Foto diupload');
-      } catch(e) { showToast('❌ Gagal: ' + e.message); }
-    };
-    inp.click();
+  // klik area kosong (emoji) → upload
+  item.addEventListener('click', e => {
+    if (e.target.closest('.galeri-admin-btns')) return;
+    if (!item.querySelector('img')) triggerGaleriUpload(item);
   });
-  if (parseInt(id) >= 9) {
-    item.addEventListener('contextmenu', async e => {
-      e.preventDefault();
-      if (!confirm('Hapus foto ini?')) return;
-      await deleteDoc(doc(db, 'galeri', String(id)));
-      item.remove(); showToast('🗑️ Foto dihapus');
-    });
-  }
 }
 
 async function handleGaleriAdd() {
