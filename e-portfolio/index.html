@@ -129,19 +129,19 @@
             <p style="font-size:0.87rem; color:var(--text-mid);">Saya berasal dari Kabupaten Cilacap, Jawa Tengah — sebuah daerah yang kaya akan keindahan alam, mulai dari pantai Teluk Penyu hingga hamparan hutan mangrove yang memukau. Tumbuh di sana membentuk saya menjadi pribadi yang peka, empatik, dan mencintai keberagaman.</p>
           </div>
         </div>
-
         <div class="profil-tab-content" id="tab-daerah">
           <div class="daerah-layout">
             <div class="daerah-text">
               <h3 style="font-size:1rem; font-weight:700; color:var(--text-dark); margin-bottom:0.75rem;">🏡 Kabupaten Cilacap, Jawa Tengah</h3>
-              <p style="font-size:0.87rem; color:var(--text-mid); line-height:1.8; margin-bottom:0.75rem;">Cilacap adalah kabupaten terluas di Jawa Tengah yang terletak di pesisir selatan, berbatasan langsung dengan Samudra Hindia. Kota ini dikenal sebagai kota industri strategis sekaligus menyimpan keindahan alam yang memukau.</p>
-              <p style="font-size:0.87rem; color:var(--text-mid); line-height:1.8; margin-bottom:0.75rem;">Beberapa keistimewaan Cilacap antara lain Pantai Teluk Penyu yang indah, Benteng Pendem peninggalan kolonial Belanda, serta Pulau Nusakambangan yang misterius. Masyarakatnya dikenal hangat, guyub, dan menjunjung tinggi nilai gotong royong.</p>
-              <p style="font-size:0.87rem; color:var(--text-mid); line-height:1.8;">Tumbuh di Cilacap membentuk saya menjadi pribadi yang peka terhadap keberagaman, mencintai alam, dan memiliki semangat untuk berkontribusi bagi masyarakat — nilai-nilai yang kini menjadi fondasi saya sebagai calon pendidik.</p>
+              <p style="font-size:0.87rem; color:var(--text-mid); line-height:1.8; margin-bottom:0.75rem;">Kabupaten Cilacap merupakan kabupaten terluas di Jawa Tengah yang memiliki keunikan tersendiri karena berbatasan langsung dengan Samudra Hindia di sebelah selatan, menjadikannya satu-satunya kabupaten di Jawa Tengah yang memiliki pantai menghadap samudra lepas. Wilayah ini juga dikenal sebagai daerah strategis karena memiliki Kilang Minyak Pertamina terbesar di Indonesia, sehingga menjadi salah satu penyangga energi nasional.</p>
+              <p style="font-size:0.87rem; color:var(--text-mid); line-height:1.8; margin-bottom:0.75rem;">Selain itu, Cilacap memiliki Pulau Nusakambangan yang terkenal dengan keindahan alamnya yang masih sangat terjaga, serta tradisi Sedekah Laut yang rutin digelar setiap tahun sebagai bentuk rasa syukur masyarakat nelayan atas hasil laut yang melimpah.</p>
+              <p style="font-size:0.87rem; color:var(--text-mid); line-height:1.8;">Terlahir dan tumbuh di Cilacap dengan segala kekayaan alam dan budayanya, saya merasa memiliki tanggung jawab besar sebagai pendidik masa depan. Keberagaman potensi daerah ini mengajarkan saya untuk berpikir luas, adaptif, dan peka terhadap kebutuhan peserta didik. Sebagaimana samudra yang luas, saya ingin menjadi pendidik yang mampu menginspirasi dan mengantarkan setiap peserta didik untuk mengenali potensi diri serta berkontribusi nyata bagi masyarakat.</p>
             </div>
             <div class="daerah-foto">
-              <img src="cilacap.jpg" alt="Cilacap" class="daerah-img"
-                onerror="this.style.background='var(--pink-light)'; this.style.display='flex'; this.alt=''" />
+              <img src="cilacap.jpg" alt="Cilacap" class="daerah-img" id="daerah-img"
+                onerror="this.src=''; this.style.background='var(--pink-light)'" />
               <p class="daerah-caption">📍 Kabupaten Cilacap, Jawa Tengah</p>
+              <button class="btn-doc btn-upload-trigger" id="btn-upload-daerah" style="display:none; margin-top:0.5rem;" onclick="uploadDaerahFoto()">📷 Ganti Foto</button>
             </div>
           </div>
         </div>
@@ -218,10 +218,10 @@
         </div>
 
         <div class="profil-tab-content" id="tab-inspirasi">
-          <p style="font-size:0.9rem; color:var(--text-mid); line-height:1.8;">Keinginan saya untuk menjadi guru berawal dari kedua orang tua saya yang juga berprofesi sebagai guru. Sejak kecil, saya menyaksikan langsung bagaimana mereka menjalani profesi ini dengan penuh ketulusan dan dedikasi. Dari merekalah saya memahami bahwa menjadi guru bukan sekadar pekerjaan, melainkan sebuah panggilan jiwa yang mulia.</p>
-          <p style="font-size:0.9rem; color:var(--text-mid); line-height:1.8; margin-top:0.75rem;"> Terinspirasi dari kedua orang tua saya, saya bertekad untuk menjadi guru yang profesional dan berkarakter — pendidik yang tidak hanya menguasai materi, tetapi juga mampu menyentuh hati dan menumbuhkan semangat belajar setiap peserta didik. Saya ingin meneruskan warisan semangat dan dedikasi yang telah mereka tanamkan, serta mengabdikan diri sepenuhnya bagi dunia pendidikan.</p>
+          <p style="font-size:0.9rem; color:var(--text-mid); line-height:1.8;">Keinginan saya untuk menjadi guru berawal dari kedua orang tua saya yang juga berprofesi sebagai guru. Dari merekalah saya memahami bahwa menjadi guru bukan sekadar pekerjaan, melainkan sebuah panggilan jiwa yang mulia. Terinspirasi dari mereka, saya bertekad menjadi pendidik yang tidak hanya menguasai materi, tetapi juga mampu menyentuh hati dan menumbuhkan semangat belajar setiap peserta didik.</p>
+          <p style="font-size:0.9rem; color:var(--text-mid); line-height:1.8; margin-top:0.75rem;">Tujuan saya menjadi guru adalah untuk berkontribusi dalam membentuk generasi yang cerdas, berkarakter, dan percaya diri. Saya ingin menjadi sosok pendidik yang mampu menciptakan ruang belajar yang aman dan bermakna, di mana setiap peserta didik merasa dihargai dan didukung untuk berkembang sesuai potensinya. Melalui profesi ini, saya berharap dapat memberikan dampak positif yang berkelanjutan, bukan hanya bagi peserta didik, tetapi juga bagi keluarga dan masyarakat sekitarnya.</p>
           <div style="margin-top:1.25rem; padding:1.25rem; background:linear-gradient(135deg,var(--pink-light),var(--lavender-light)); border-radius:14px; text-align:center;">
-            <p style="font-size:0.92rem; font-style:italic; color:var(--text-dark); font-weight:500;">"Bagi saya, menjadi pendidik bukan sekadar menyampaikan materi, tetapi hadir sebagai sosok yang dipercaya, menginspirasi, dan mampu menguatkan karakter peserta didik dari dalam"</p>
+            <p style="font-size:0.92rem; font-style:italic; color:var(--text-dark); font-weight:500;">"Guru terbaik bukan yang paling banyak bicara di depan kelas — melainkan yang paling banyak meninggalkan keberanian, kepercayaan diri, dan harapan di dalam dada peserta didiknya."</p>
           </div>
         </div>
 
