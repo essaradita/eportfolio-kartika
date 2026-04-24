@@ -704,3 +704,168 @@ const allMediaKeys = [
   's3-inst-rpl','s3-inst-praktik','s3-pamong','s3-rpl'
 ];
 allMediaKeys.forEach(k => loadMedia(k));
+
+// ===== MEDIA 4 SUB-TAB (PPT, File, Dokumentasi, Video) =====
+function buildMediaContainer(siklus) {
+  const container = document.getElementById('media-' + siklus + '-container');
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="media-inner-tabs">
+      <button class="media-inner-btn active" onclick="switchMediaInner('${siklus}-ppt',this)">📊 PPT</button>
+      <button class="media-inner-btn" onclick="switchMediaInner('${siklus}-file',this)">📁 File</button>
+      <button class="media-inner-btn" onclick="switchMediaInner('${siklus}-dok',this)">📸 Dokumentasi</button>
+      <button class="media-inner-btn" onclick="switchMediaInner('${siklus}-vid',this)">▶️ Video</button>
+    </div>
+
+    <!-- PPT -->
+    <div id="${siklus}-ppt" class="media-inner-content active">
+      <div class="media-grid" id="media-grid-${siklus}-ppt"></div>
+      <div class="media-upload-bar" id="media-admin-${siklus}-ppt" style="display:none;">
+        <button class="btn-doc btn-upload-trigger" onclick="document.getElementById('mi-${siklus}-ppt').click()">📎 Upload PPT</button>
+        <input type="file" id="mi-${siklus}-ppt" accept=".ppt,.pptx,image/*,.pdf" multiple style="display:none" onchange="handleMediaUpload(this,'${siklus}-ppt')" />
+      </div>
+    </div>
+
+    <!-- File -->
+    <div id="${siklus}-file" class="media-inner-content">
+      <div class="media-grid" id="media-grid-${siklus}-file"></div>
+      <div class="media-upload-bar" id="media-admin-${siklus}-file" style="display:none;">
+        <button class="btn-doc btn-upload-trigger" onclick="document.getElementById('mi-${siklus}-file').click()">📎 Upload File</button>
+        <input type="file" id="mi-${siklus}-file" accept=".pdf,.doc,.docx,.ppt,.pptx,image/*" multiple style="display:none" onchange="handleMediaUpload(this,'${siklus}-file')" />
+      </div>
+    </div>
+
+    <!-- Dokumentasi 3 slot foto -->
+    <div id="${siklus}-dok" class="media-inner-content">
+      <div class="dok-grid">
+        ${[1,2,3].map(n => `
+          <div class="dok-slot" id="${siklus}-dok-${n}">
+            <div class="dok-placeholder" onclick="${isAdmin ? `uploadDokSlot('${siklus}',${n})` : ''}">
+              <span>📷</span><p>Foto ${n}</p>
+            </div>
+          </div>`).join('')}
+      </div>
+      ${isAdmin ? `<div class="media-upload-bar" style="margin-top:0.75rem;"><p style="font-size:0.75rem;color:var(--text-light);">Klik slot foto untuk upload</p></div>` : ''}
+    </div>
+
+    <!-- Video YouTube -->
+    <div id="${siklus}-vid" class="media-inner-content">
+      <div id="${siklus}-vid-preview" class="video-preview">
+        <div class="video-empty"><span>▶️</span><p>Belum ada video</p></div>
+      </div>
+      <div class="media-upload-bar" id="media-admin-${siklus}-vid" style="display:none;margin-top:0.75rem;">
+        <button class="btn-video" onclick="addSiklusVideo('${siklus}')">➕ Tambah Video YouTube</button>
+        <button class="btn-doc btn-doc-del" id="${siklus}-vid-del" style="display:none" onclick="deleteSiklusVideo('${siklus}')">🗑️</button>
+      </div>
+    </div>
+  `;
+
+  // Load data
+  loadMedia(siklus + '-ppt');
+  loadMedia(siklus + '-file');
+  loadDokSlots(siklus);
+  loadSiklusVideo(siklus);
+
+  if (isAdmin) {
+    ['ppt','file'].forEach(t => {
+      const el = document.getElementById('media-admin-' + siklus + '-' + t);
+      if (el) el.style.display = 'block';
+    });
+    const vidAdmin = document.getElementById('media-admin-' + siklus + '-vid');
+    if (vidAdmin) vidAdmin.style.display = 'block';
+  }
+}
+
+function switchMediaInner(id, btn) {
+  const wrap = btn.closest('.analisis-block');
+  wrap.querySelectorAll('.media-inner-content').forEach(t => t.classList.remove('active'));
+  wrap.querySelectorAll('.media-inner-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+window.switchMediaInner = switchMediaInner;
+
+// Dokumentasi 3 slot
+async function loadDokSlots(siklus) {
+  try {
+    const snap = await getDocs(collection(db, 'dok_' + siklus));
+    snap.forEach(d => {
+      const slot = d.data().slot;
+      const url = d.data().url;
+      const el = document.getElementById(siklus + '-dok-' + slot);
+      if (el) el.innerHTML = `<img src="${url}" alt="Foto ${slot}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;cursor:pointer" onclick="openMediaPreview('${url}','Foto ${slot}','image')" />
+        ${isAdmin ? `<button class="media-item-del" style="display:flex;position:absolute;top:4px;right:4px;" onclick="deleteDokSlot('${siklus}',${slot},this.closest('.dok-slot'))">✕</button>` : ''}`;
+    });
+  } catch(e) {}
+}
+
+async function uploadDokSlot(siklus, slot) {
+  const inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*';
+  inp.onchange = async () => {
+    const file = inp.files[0]; if (!file) return;
+    showToast('⏳ Mengupload...');
+    try {
+      const url = await uploadToCloudinary(file);
+      await setDoc(doc(db, 'dok_' + siklus, String(slot)), { slot, url });
+      const el = document.getElementById(siklus + '-dok-' + slot);
+      if (el) el.innerHTML = `<img src="${url}" alt="Foto ${slot}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;cursor:pointer" onclick="openMediaPreview('${url}','Foto ${slot}','image')" />
+        <button class="media-item-del" style="display:flex;position:absolute;top:4px;right:4px;" onclick="deleteDokSlot('${siklus}',${slot},this.closest('.dok-slot'))">✕</button>`;
+      showToast('✅ Foto diupload');
+    } catch(e) { showToast('❌ Gagal: ' + e.message); }
+  };
+  inp.click();
+}
+window.uploadDokSlot = uploadDokSlot;
+
+async function deleteDokSlot(siklus, slot, el) {
+  if (!confirm('Hapus foto ini?')) return;
+  await deleteDoc(doc(db, 'dok_' + siklus, String(slot)));
+  el.innerHTML = `<div class="dok-placeholder" onclick="uploadDokSlot('${siklus}',${slot})"><span>📷</span><p>Foto ${slot}</p></div>`;
+  showToast('🗑️ Foto dihapus');
+}
+window.deleteDokSlot = deleteDokSlot;
+
+// Video per siklus
+async function loadSiklusVideo(siklus) {
+  try {
+    const snap = await getDocs(collection(db, 'settings'));
+    snap.forEach(d => {
+      if (d.id === 'vid_' + siklus && d.data().url) {
+        const ytId = getYoutubeId(d.data().url);
+        const preview = document.getElementById(siklus + '-vid-preview');
+        if (preview && ytId) preview.innerHTML = `<iframe src="https://www.youtube.com/embed/${ytId}" allowfullscreen style="width:100%;aspect-ratio:16/9;border:none;border-radius:12px;display:block;"></iframe>`;
+        const delBtn = document.getElementById(siklus + '-vid-del');
+        if (delBtn && isAdmin) delBtn.style.display = 'inline-block';
+      }
+    });
+  } catch(e) {}
+}
+
+async function addSiklusVideo(siklus) {
+  const url = prompt('Paste link YouTube:'); if (!url) return;
+  try {
+    await setDoc(doc(db, 'settings', 'vid_' + siklus), { url });
+    const ytId = getYoutubeId(url);
+    const preview = document.getElementById(siklus + '-vid-preview');
+    if (preview && ytId) preview.innerHTML = `<iframe src="https://www.youtube.com/embed/${ytId}" allowfullscreen style="width:100%;aspect-ratio:16/9;border:none;border-radius:12px;display:block;"></iframe>`;
+    const delBtn = document.getElementById(siklus + '-vid-del');
+    if (delBtn) delBtn.style.display = 'inline-block';
+    showToast('✅ Video ditambahkan');
+  } catch(e) { showToast('❌ Gagal: ' + e.message); }
+}
+window.addSiklusVideo = addSiklusVideo;
+
+async function deleteSiklusVideo(siklus) {
+  if (!confirm('Hapus video?')) return;
+  await deleteDoc(doc(db, 'settings', 'vid_' + siklus));
+  const preview = document.getElementById(siklus + '-vid-preview');
+  if (preview) preview.innerHTML = `<div class="video-empty"><span>▶️</span><p>Belum ada video</p></div>`;
+  const delBtn = document.getElementById(siklus + '-vid-del');
+  if (delBtn) delBtn.style.display = 'none';
+  showToast('🗑️ Video dihapus');
+}
+window.deleteSiklusVideo = deleteSiklusVideo;
+
+// Build semua container media
+['s1','s2','s3'].forEach(s => buildMediaContainer(s));
