@@ -1987,3 +1987,71 @@ footer span { color: var(--pink); }
 }
 
 .ppg-admin .media-item:hover .media-item-del { display: flex; }
+
+/* ===== MEDIA INNER TABS ===== */
+.media-inner-tabs {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.media-inner-btn {
+  background: var(--cream);
+  border: 2px solid var(--pink-light);
+  color: var(--text-mid);
+  padding: 0.35rem 0.9rem;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.2s;
+}
+
+.media-inner-btn.active,
+.media-inner-btn:hover {
+  background: var(--pink-dark);
+  border-color: var(--pink-dark);
+  color: white;
+}
+
+.media-inner-content { display: none; }
+.media-inner-content.active { display: block; animation: fadeIn 0.25s ease; }
+
+.media-upload-bar { margin-top: 0.75rem; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+
+/* Dokumentasi 3 slot */
+.dok-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.dok-slot {
+  aspect-ratio: 4/3;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--pink-light);
+  position: relative;
+  border: 2px dashed var(--pink);
+}
+
+.dok-placeholder {
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dok-placeholder:hover { background: rgba(248,180,200,0.3); }
+.dok-placeholder span { font-size: 1.8rem; }
+.dok-placeholder p { font-size: 0.72rem; color: var(--text-light); }
+
+@media (max-width: 480px) {
+  .dok-grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+}
