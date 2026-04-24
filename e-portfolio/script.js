@@ -855,11 +855,12 @@ window.deleteSiklusVideo = deleteSiklusVideo;
 
 // Load media saat halaman load
 ['s1','s2','s3'].forEach(siklus => {
-  // Media tab: PPT + File
+  // Media tab: PPT + File + File-Media
   loadMedia(siklus + '-ppt');
   loadMedia(siklus + '-file');
+  loadMedia(siklus + '-file-media');
   if (isAdmin) {
-    ['ppt','file'].forEach(t => {
+    ['ppt','file','file-media'].forEach(t => {
       const el = document.getElementById('media-admin-' + siklus + '-' + t);
       if (el) el.style.display = 'block';
     });
