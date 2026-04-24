@@ -660,13 +660,15 @@ function openMediaPreview(url, name, type) {
   let content = '';
   if (type === 'image') {
     content = `<img src="${url}" alt="${name}" style="width:100%;border-radius:10px;" />`;
-  } else if (type === 'pdf') {
-    content = `<iframe src="${url}" style="width:100%;height:500px;border:none;border-radius:10px;"></iframe>`;
   } else {
-    // DOCX, PPT, dll via Microsoft Office Online Viewer (lebih stabil dari Google Docs Viewer)
-    const viewerUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(url)}`;
-    content = `<iframe src="${viewerUrl}" style="width:100%;height:500px;border:none;border-radius:10px;"></iframe>
-    <p style="font-size:0.78rem;color:var(--text-light);text-align:center;margin-top:0.5rem;">Jika tidak tampil, <a href="${url}" target="_blank" style="color:var(--pink-dark);">buka di tab baru</a></p>`;
+    // PDF, DOCX, PPT semua via Google Docs Viewer — support semua format & tidak ada CORS issue
+    const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(url)}&embedded=true`;
+    content = `
+      <iframe src="${viewerUrl}" style="width:100%;height:520px;border:none;border-radius:10px;" id="doc-preview-frame"></iframe>
+      <div style="display:flex;gap:0.75rem;justify-content:center;margin-top:0.75rem;flex-wrap:wrap;">
+        <button class="btn-doc" onclick="document.getElementById('doc-preview-frame').src=document.getElementById('doc-preview-frame').src" style="background:var(--lavender-light);color:#7b5ea7;">🔄 Refresh</button>
+        <a href="${url}" target="_blank" class="btn-doc" style="background:var(--pink-light);color:var(--pink-dark);">↗️ Buka di tab baru</a>
+      </div>`;
   }
 
   let modal = document.getElementById('modal-media-preview');
