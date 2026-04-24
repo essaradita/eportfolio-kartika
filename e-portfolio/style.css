@@ -1788,3 +1788,43 @@ footer span { color: var(--pink); }
 
 .siklus-poin.nilai span { color: var(--pink-dark); }
 .siklus-poin.nilai p { font-style: italic; }
+
+/* ===== ASAL DAERAH TAB ===== */
+.daerah-layout {
+  display: grid;
+  grid-template-columns: 1fr 180px;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.daerah-foto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.daerah-img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  border: 2px solid var(--pink-light);
+  background: var(--pink-light);
+  display: block;
+}
+
+.daerah-caption {
+  font-size: 0.7rem;
+  color: var(--text-light);
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .daerah-layout {
+    grid-template-columns: 1fr;
+  }
+  .daerah-foto { flex-direction: row; align-items: center; }
+  .daerah-img { width: 120px; aspect-ratio: 1; }
+}
