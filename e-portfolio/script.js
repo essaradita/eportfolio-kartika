@@ -696,106 +696,30 @@ async function deleteMedia(id, siklus, el) {
 }
 window.deleteMedia = deleteMedia;
 
-// Load media saat halaman load
-const allMediaKeys = [
-  's1','s2','s3',
-  's1-inst-rpl','s1-inst-praktik','s1-pamong','s1-rpl',
-  's2-inst-rpl','s2-inst-praktik','s2-pamong','s2-rpl',
-  's3-inst-rpl','s3-inst-praktik','s3-pamong','s3-rpl'
-];
-allMediaKeys.forEach(k => loadMedia(k));
-
-// ===== MEDIA 4 SUB-TAB (PPT, File, Dokumentasi, Video) =====
-function buildMediaContainer(siklus) {
-  const container = document.getElementById('media-' + siklus + '-container');
+// ===== DOK SLOTS (foto dokumentasi per siklus) =====
+function buildDokContainer(siklus) {
+  const container = document.getElementById(siklus + '-dok-container');
   if (!container) return;
-
   container.innerHTML = `
-    <div class="media-inner-tabs">
-      <button class="media-inner-btn active" onclick="switchMediaInner('${siklus}-ppt',this)">📊 PPT</button>
-      <button class="media-inner-btn" onclick="switchMediaInner('${siklus}-file',this)">📁 File</button>
-      <button class="media-inner-btn" onclick="switchMediaInner('${siklus}-dok',this)">📸 Dokumentasi</button>
-      <button class="media-inner-btn" onclick="switchMediaInner('${siklus}-vid',this)">▶️ Video</button>
+    <div class="dok-grid">
+      ${[1,2,3].map(n => `
+        <div class="dok-slot" id="${siklus}-dok-${n}">
+          <div class="dok-placeholder" ${isAdmin ? `onclick="uploadDokSlot('${siklus}',${n})"` : ''}>
+            <span>📷</span><p>Foto ${n}</p>
+          </div>
+        </div>`).join('')}
     </div>
-
-    <!-- PPT -->
-    <div id="${siklus}-ppt" class="media-inner-content active">
-      <div class="media-grid" id="media-grid-${siklus}-ppt"></div>
-      <div class="media-upload-bar" id="media-admin-${siklus}-ppt" style="display:none;">
-        <button class="btn-doc btn-upload-trigger" onclick="document.getElementById('mi-${siklus}-ppt').click()">📎 Upload PPT</button>
-        <input type="file" id="mi-${siklus}-ppt" accept=".ppt,.pptx,image/*,.pdf" multiple style="display:none" onchange="handleMediaUpload(this,'${siklus}-ppt')" />
-      </div>
-    </div>
-
-    <!-- File -->
-    <div id="${siklus}-file" class="media-inner-content">
-      <div class="media-grid" id="media-grid-${siklus}-file"></div>
-      <div class="media-upload-bar" id="media-admin-${siklus}-file" style="display:none;">
-        <button class="btn-doc btn-upload-trigger" onclick="document.getElementById('mi-${siklus}-file').click()">📎 Upload File</button>
-        <input type="file" id="mi-${siklus}-file" accept=".pdf,.doc,.docx,.ppt,.pptx,image/*" multiple style="display:none" onchange="handleMediaUpload(this,'${siklus}-file')" />
-      </div>
-    </div>
-
-    <!-- Dokumentasi 3 slot foto -->
-    <div id="${siklus}-dok" class="media-inner-content">
-      <div class="dok-grid">
-        ${[1,2,3].map(n => `
-          <div class="dok-slot" id="${siklus}-dok-${n}">
-            <div class="dok-placeholder" onclick="${isAdmin ? `uploadDokSlot('${siklus}',${n})` : ''}">
-              <span>📷</span><p>Foto ${n}</p>
-            </div>
-          </div>`).join('')}
-      </div>
-      ${isAdmin ? `<div class="media-upload-bar" style="margin-top:0.75rem;"><p style="font-size:0.75rem;color:var(--text-light);">Klik slot foto untuk upload</p></div>` : ''}
-    </div>
-
-    <!-- Video YouTube -->
-    <div id="${siklus}-vid" class="media-inner-content">
-      <div id="${siklus}-vid-preview" class="video-preview">
-        <div class="video-empty"><span>▶️</span><p>Belum ada video</p></div>
-      </div>
-      <div class="media-upload-bar" id="media-admin-${siklus}-vid" style="display:none;margin-top:0.75rem;">
-        <button class="btn-video" onclick="addSiklusVideo('${siklus}')">➕ Tambah Video YouTube</button>
-        <button class="btn-doc btn-doc-del" id="${siklus}-vid-del" style="display:none" onclick="deleteSiklusVideo('${siklus}')">🗑️</button>
-      </div>
-    </div>
+    ${isAdmin ? `<div class="media-upload-bar" style="margin-top:0.75rem;"><p style="font-size:0.75rem;color:var(--text-light);">Klik slot foto untuk upload</p></div>` : ''}
   `;
-
-  // Load data
-  loadMedia(siklus + '-ppt');
-  loadMedia(siklus + '-file');
   loadDokSlots(siklus);
-  loadSiklusVideo(siklus);
-
-  if (isAdmin) {
-    ['ppt','file'].forEach(t => {
-      const el = document.getElementById('media-admin-' + siklus + '-' + t);
-      if (el) el.style.display = 'block';
-    });
-    const vidAdmin = document.getElementById('media-admin-' + siklus + '-vid');
-    if (vidAdmin) vidAdmin.style.display = 'block';
-  }
 }
 
-function switchMediaInner(id, btn) {
-  const wrap = btn.closest('.analisis-block');
-  wrap.querySelectorAll('.media-inner-content').forEach(t => t.classList.remove('active'));
-  wrap.querySelectorAll('.media-inner-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
-}
-window.switchMediaInner = switchMediaInner;
-
-// Dokumentasi 3 slot
 async function loadDokSlots(siklus) {
   try {
     const snap = await getDocs(collection(db, 'dok_' + siklus));
     snap.forEach(d => {
-      const slot = d.data().slot;
-      const url = d.data().url;
-      const el = document.getElementById(siklus + '-dok-' + slot);
-      if (el) el.innerHTML = `<img src="${url}" alt="Foto ${slot}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;cursor:pointer" onclick="openMediaPreview('${url}','Foto ${slot}','image')" />
-        ${isAdmin ? `<button class="media-item-del" style="display:flex;position:absolute;top:4px;right:4px;" onclick="deleteDokSlot('${siklus}',${slot},this.closest('.dok-slot'))">✕</button>` : ''}`;
+      const slot = document.getElementById(siklus + '-dok-' + d.data().slot);
+      if (slot) slot.innerHTML = `<img src="${d.data().url}" alt="Dokumentasi" style="width:100%;height:100%;object-fit:cover;border-radius:10px;cursor:pointer" onclick="openMediaPreview('${d.data().url}','Dokumentasi','image')" />${isAdmin ? `<div class="hobi-gallery-upload-hint" onclick="uploadDokSlot('${siklus}',${d.data().slot})">🔄 Ganti</div>` : ''}`;
     });
   } catch(e) {}
 }
@@ -808,9 +732,8 @@ async function uploadDokSlot(siklus, slot) {
     try {
       const url = await uploadToCloudinary(file);
       await setDoc(doc(db, 'dok_' + siklus, String(slot)), { slot, url });
-      const el = document.getElementById(siklus + '-dok-' + slot);
-      if (el) el.innerHTML = `<img src="${url}" alt="Foto ${slot}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;cursor:pointer" onclick="openMediaPreview('${url}','Foto ${slot}','image')" />
-        <button class="media-item-del" style="display:flex;position:absolute;top:4px;right:4px;" onclick="deleteDokSlot('${siklus}',${slot},this.closest('.dok-slot'))">✕</button>`;
+      const slotEl = document.getElementById(siklus + '-dok-' + slot);
+      if (slotEl) slotEl.innerHTML = `<img src="${url}" alt="Dokumentasi" style="width:100%;height:100%;object-fit:cover;border-radius:10px;cursor:pointer" onclick="openMediaPreview('${url}','Dokumentasi','image')" /><div class="hobi-gallery-upload-hint" onclick="uploadDokSlot('${siklus}',${slot})">🔄 Ganti</div>`;
       showToast('✅ Foto diupload');
     } catch(e) { showToast('❌ Gagal: ' + e.message); }
   };
@@ -818,34 +741,29 @@ async function uploadDokSlot(siklus, slot) {
 }
 window.uploadDokSlot = uploadDokSlot;
 
-async function deleteDokSlot(siklus, slot, el) {
-  if (!confirm('Hapus foto ini?')) return;
-  await deleteDoc(doc(db, 'dok_' + siklus, String(slot)));
-  el.innerHTML = `<div class="dok-placeholder" onclick="uploadDokSlot('${siklus}',${slot})"><span>📷</span><p>Foto ${slot}</p></div>`;
-  showToast('🗑️ Foto dihapus');
-}
-window.deleteDokSlot = deleteDokSlot;
-
-// Video per siklus
+// ===== VIDEO PER SIKLUS =====
 async function loadSiklusVideo(siklus) {
   try {
     const snap = await getDocs(collection(db, 'settings'));
     snap.forEach(d => {
-      if (d.id === 'vid_' + siklus && d.data().url) {
-        const ytId = getYoutubeId(d.data().url);
+      if (d.id === 'video_' + siklus && d.data().url) {
         const preview = document.getElementById(siklus + '-vid-preview');
+        const ytId = getYoutubeId(d.data().url);
         if (preview && ytId) preview.innerHTML = `<iframe src="https://www.youtube.com/embed/${ytId}" allowfullscreen style="width:100%;aspect-ratio:16/9;border:none;border-radius:12px;display:block;"></iframe>`;
         const delBtn = document.getElementById(siklus + '-vid-del');
-        if (delBtn && isAdmin) delBtn.style.display = 'inline-block';
+        if (isAdmin && delBtn) delBtn.style.display = 'inline-block';
+        const addBtn = document.querySelector(`[onclick="addSiklusVideo('${siklus}')"]`);
+        if (addBtn) addBtn.innerHTML = '🔄 Ganti Video';
       }
     });
   } catch(e) {}
 }
 
 async function addSiklusVideo(siklus) {
-  const url = prompt('Paste link YouTube:'); if (!url) return;
+  const url = prompt('Paste link YouTube:\nhttps://youtu.be/xxxxx\nhttps://www.youtube.com/watch?v=xxxxx');
+  if (!url) return;
   try {
-    await setDoc(doc(db, 'settings', 'vid_' + siklus), { url });
+    await setDoc(doc(db, 'settings', 'video_' + siklus), { url });
     const ytId = getYoutubeId(url);
     const preview = document.getElementById(siklus + '-vid-preview');
     if (preview && ytId) preview.innerHTML = `<iframe src="https://www.youtube.com/embed/${ytId}" allowfullscreen style="width:100%;aspect-ratio:16/9;border:none;border-radius:12px;display:block;"></iframe>`;
@@ -854,18 +772,35 @@ async function addSiklusVideo(siklus) {
     showToast('✅ Video ditambahkan');
   } catch(e) { showToast('❌ Gagal: ' + e.message); }
 }
-window.addSiklusVideo = addSiklusVideo;
 
 async function deleteSiklusVideo(siklus) {
-  if (!confirm('Hapus video?')) return;
-  await deleteDoc(doc(db, 'settings', 'vid_' + siklus));
+  if (!confirm('Hapus video ini?')) return;
+  await deleteDoc(doc(db, 'settings', 'video_' + siklus));
   const preview = document.getElementById(siklus + '-vid-preview');
   if (preview) preview.innerHTML = `<div class="video-empty"><span>▶️</span><p>Belum ada video</p></div>`;
   const delBtn = document.getElementById(siklus + '-vid-del');
   if (delBtn) delBtn.style.display = 'none';
   showToast('🗑️ Video dihapus');
 }
+window.addSiklusVideo = addSiklusVideo;
 window.deleteSiklusVideo = deleteSiklusVideo;
 
-// Build semua container media
-['s1','s2','s3'].forEach(s => buildMediaContainer(s));
+// Load media saat halaman load
+['s1','s2','s3'].forEach(siklus => {
+  // Media tab: PPT + File
+  loadMedia(siklus + '-ppt');
+  loadMedia(siklus + '-file');
+  if (isAdmin) {
+    ['ppt','file'].forEach(t => {
+      const el = document.getElementById('media-admin-' + siklus + '-' + t);
+      if (el) el.style.display = 'block';
+    });
+  }
+  // Dokumentasi tab: foto slots + video
+  buildDokContainer(siklus);
+  loadSiklusVideo(siklus);
+  if (isAdmin) {
+    const vidAdmin = document.getElementById('media-admin-' + siklus + '-vid');
+    if (vidAdmin) vidAdmin.style.display = 'block';
+  }
+});
