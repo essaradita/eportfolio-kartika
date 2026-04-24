@@ -1900,11 +1900,14 @@ footer span { color: var(--pink); }
 /* ===== ANALISIS SUB-TAB ===== */
 .analisis-subtab-btns {
   display: flex;
-  gap: 0.5rem;
-  padding: 1rem 1.5rem 0;
+  gap: 0;
+  padding: 0 1rem;
   border-bottom: 2px solid var(--pink-light);
-  margin-bottom: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
+.analisis-subtab-btns::-webkit-scrollbar { display: none; }
 
 .analisis-subtab-btn {
   background: none;
