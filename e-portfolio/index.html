@@ -269,7 +269,11 @@
           <!-- Sub-tab -->
           <div class="analisis-subtab-btns">
             <button class="analisis-subtab-btn active" onclick="switchAnalisisTab('s1-artefak', this)">📋 Artefak</button>
-            <button class="analisis-subtab-btn" onclick="switchAnalisisTab('s1-media', this)">🎨 Media Pembelajaran</button>
+            <button class="analisis-subtab-btn" onclick="switchAnalisisTab('s1-media', this)">🎨 Media</button>
+            <button class="analisis-subtab-btn" onclick="switchAnalisisTab('s1-inst-rpl', this)">📝 Instrumen RPL</button>
+            <button class="analisis-subtab-btn" onclick="switchAnalisisTab('s1-inst-praktik', this)">🎤 Instrumen Praktik</button>
+            <button class="analisis-subtab-btn" onclick="switchAnalisisTab('s1-pamong', this)">⭐ Guru Pamong</button>
+            <button class="analisis-subtab-btn" onclick="switchAnalisisTab('s1-rpl', this)">📄 RPL</button>
           </div>
 
           <!-- Sub-tab: Artefak -->
@@ -320,6 +324,42 @@
             </div>
           </div>
 
+          <div id="s1-inst-rpl" class="analisis-subtab-content">
+            <div class="analisis-block"><div class="analisis-block-title">📝 Instrumen Penilaian Penyusunan RPL — Siklus 1</div>
+            <div class="media-grid" id="media-grid-s1-inst-rpl"></div>
+            <div id="media-admin-s1-inst-rpl" style="display:none;margin-top:1rem;">
+              <button class="btn-doc btn-upload-trigger" onclick="uploadMedia('s1-inst-rpl')">📎 Upload</button>
+              <input type="file" id="media-input-s1-inst-rpl" accept="image/*,.pdf,.ppt,.pptx" multiple style="display:none" onchange="handleMediaUpload(this,'s1-inst-rpl')" />
+            </div></div>
+          </div>
+
+          <div id="s1-inst-praktik" class="analisis-subtab-content">
+            <div class="analisis-block"><div class="analisis-block-title">🎤 Instrumen Penilaian Praktik Mengajar — Siklus 1</div>
+            <div class="media-grid" id="media-grid-s1-inst-praktik"></div>
+            <div id="media-admin-s1-inst-praktik" style="display:none;margin-top:1rem;">
+              <button class="btn-doc btn-upload-trigger" onclick="uploadMedia('s1-inst-praktik')">📎 Upload</button>
+              <input type="file" id="media-input-s1-inst-praktik" accept="image/*,.pdf,.ppt,.pptx" multiple style="display:none" onchange="handleMediaUpload(this,'s1-inst-praktik')" />
+            </div></div>
+          </div>
+
+          <div id="s1-pamong" class="analisis-subtab-content">
+            <div class="analisis-block"><div class="analisis-block-title">⭐ Hasil Penilaian Guru Pamong — Siklus 1</div>
+            <div class="media-grid" id="media-grid-s1-pamong"></div>
+            <div id="media-admin-s1-pamong" style="display:none;margin-top:1rem;">
+              <button class="btn-doc btn-upload-trigger" onclick="uploadMedia('s1-pamong')">📎 Upload</button>
+              <input type="file" id="media-input-s1-pamong" accept="image/*,.pdf,.ppt,.pptx" multiple style="display:none" onchange="handleMediaUpload(this,'s1-pamong')" />
+            </div></div>
+          </div>
+
+          <div id="s1-rpl" class="analisis-subtab-content">
+            <div class="analisis-block"><div class="analisis-block-title">📄 RPL — Siklus 1</div>
+            <div class="media-grid" id="media-grid-s1-rpl"></div>
+            <div id="media-admin-s1-rpl" style="display:none;margin-top:1rem;">
+              <button class="btn-doc btn-upload-trigger" onclick="uploadMedia('s1-rpl')">📎 Upload</button>
+              <input type="file" id="media-input-s1-rpl" accept="image/*,.pdf,.ppt,.pptx" multiple style="display:none" onchange="handleMediaUpload(this,'s1-rpl')" />
+            </div></div>
+          </div>
+
         </div>
       </div>
 
@@ -327,24 +367,20 @@
         <div class="analisis-siklus-card">
           <div class="analisis-subtab-btns">
             <button class="analisis-subtab-btn active" onclick="switchAnalisisTab('s2-artefak', this)">📋 Artefak</button>
-            <button class="analisis-subtab-btn" onclick="switchAnalisisTab('s2-media', this)">🎨 Media Pembelajaran</button>
+            <button class="analisis-subtab-btn" onclick="switchAnalisisTab('s2-media', this)">🎨 Media</button>
+            <button class="analisis-subtab-btn" onclick="switchAnalisisTab('s2-inst-rpl', this)">📝 Instrumen RPL</button>
+            <button class="analisis-subtab-btn" onclick="switchAnalisisTab('s2-inst-praktik', this)">🎤 Instrumen Praktik</button>
+            <button class="analisis-subtab-btn" onclick="switchAnalisisTab('s2-pamong', this)">⭐ Guru Pamong</button>
+            <button class="analisis-subtab-btn" onclick="switchAnalisisTab('s2-rpl', this)">📄 RPL</button>
           </div>
           <div id="s2-artefak" class="analisis-subtab-content active">
-            <div class="analisis-block analisis-empty" style="border:none;">
-              <span>📄</span><p>Belum ada dokumen untuk Siklus 2</p>
-            </div>
+            <div class="analisis-block analisis-empty" style="border:none;"><span>📄</span><p>Belum ada dokumen untuk Siklus 2</p></div>
           </div>
-          <div id="s2-media" class="analisis-subtab-content">
-            <div class="analisis-block">
-              <div class="analisis-block-title">🎨 Media Pembelajaran Siklus 2</div>
-              <p style="margin-bottom:1rem;">Upload PPT, gambar, atau file media pembelajaran yang digunakan pada Siklus 2.</p>
-              <div class="media-grid" id="media-grid-s2"></div>
-              <div id="media-admin-s2" style="display:none; margin-top:1rem;">
-                <button class="btn-doc btn-upload-trigger" onclick="uploadMedia('s2')">📎 Upload Media</button>
-                <input type="file" id="media-input-s2" accept="image/*,.pdf,.ppt,.pptx" multiple style="display:none" onchange="handleMediaUpload(this,'s2')" />
-              </div>
-            </div>
-          </div>
+          <div id="s2-media" class="analisis-subtab-content"><div class="analisis-block"><div class="analisis-block-title">🎨 Media Pembelajaran Siklus 2</div><div class="media-grid" id="media-grid-s2"></div><div id="media-admin-s2" style="display:none;margin-top:1rem;"><button class="btn-doc btn-upload-trigger" onclick="uploadMedia('s2')">📎 Upload</button><input type="file" id="media-input-s2" accept="image/*,.pdf,.ppt,.pptx" multiple style="display:none" onchange="handleMediaUpload(this,'s2')" /></div></div></div>
+          <div id="s2-inst-rpl" class="analisis-subtab-content"><div class="analisis-block"><div class="analisis-block-title">📝 Instrumen Penilaian Penyusunan RPL — Siklus 2</div><div class="media-grid" id="media-grid-s2-inst-rpl"></div><div id="media-admin-s2-inst-rpl" style="display:none;margin-top:1rem;"><button class="btn-doc btn-upload-trigger" onclick="uploadMedia('s2-inst-rpl')">📎 Upload</button><input type="file" id="media-input-s2-inst-rpl" accept="image/*,.pdf,.ppt,.pptx" multiple style="display:none" onchange="handleMediaUpload(this,'s2-inst-rpl')" /></div></div></div>
+          <div id="s2-inst-praktik" class="analisis-subtab-content"><div class="analisis-block"><div class="analisis-block-title">🎤 Instrumen Penilaian Praktik Mengajar — Siklus 2</div><div class="media-grid" id="media-grid-s2-inst-praktik"></div><div id="media-admin-s2-inst-praktik" style="display:none;margin-top:1rem;"><button class="btn-doc btn-upload-trigger" onclick="uploadMedia('s2-inst-praktik')">📎 Upload</button><input type="file" id="media-input-s2-inst-praktik" accept="image/*,.pdf,.ppt,.pptx" multiple style="display:none" onchange="handleMediaUpload(this,'s2-inst-praktik')" /></div></div></div>
+          <div id="s2-pamong" class="analisis-subtab-content"><div class="analisis-block"><div class="analisis-block-title">⭐ Hasil Penilaian Guru Pamong — Siklus 2</div><div class="media-grid" id="media-grid-s2-pamong"></div><div id="media-admin-s2-pamong" style="display:none;margin-top:1rem;"><button class="btn-doc btn-upload-trigger" onclick="uploadMedia('s2-pamong')">📎 Upload</button><input type="file" id="media-input-s2-pamong" accept="image/*,.pdf,.ppt,.pptx" multiple style="display:none" onchange="handleMediaUpload(this,'s2-pamong')" /></div></div></div>
+          <div id="s2-rpl" class="analisis-subtab-content"><div class="analisis-block"><div class="analisis-block-title">📄 RPL — Siklus 2</div><div class="media-grid" id="media-grid-s2-rpl"></div><div id="media-admin-s2-rpl" style="display:none;margin-top:1rem;"><button class="btn-doc btn-upload-trigger" onclick="uploadMedia('s2-rpl')">📎 Upload</button><input type="file" id="media-input-s2-rpl" accept="image/*,.pdf,.ppt,.pptx" multiple style="display:none" onchange="handleMediaUpload(this,'s2-rpl')" /></div></div></div>
         </div>
       </div>
 
@@ -352,24 +388,20 @@
         <div class="analisis-siklus-card">
           <div class="analisis-subtab-btns">
             <button class="analisis-subtab-btn active" onclick="switchAnalisisTab('s3-artefak', this)">📋 Artefak</button>
-            <button class="analisis-subtab-btn" onclick="switchAnalisisTab('s3-media', this)">🎨 Media Pembelajaran</button>
+            <button class="analisis-subtab-btn" onclick="switchAnalisisTab('s3-media', this)">🎨 Media</button>
+            <button class="analisis-subtab-btn" onclick="switchAnalisisTab('s3-inst-rpl', this)">📝 Instrumen RPL</button>
+            <button class="analisis-subtab-btn" onclick="switchAnalisisTab('s3-inst-praktik', this)">🎤 Instrumen Praktik</button>
+            <button class="analisis-subtab-btn" onclick="switchAnalisisTab('s3-pamong', this)">⭐ Guru Pamong</button>
+            <button class="analisis-subtab-btn" onclick="switchAnalisisTab('s3-rpl', this)">📄 RPL</button>
           </div>
           <div id="s3-artefak" class="analisis-subtab-content active">
-            <div class="analisis-block analisis-empty" style="border:none;">
-              <span>📄</span><p>Belum ada dokumen untuk Siklus 3</p>
-            </div>
+            <div class="analisis-block analisis-empty" style="border:none;"><span>📄</span><p>Belum ada dokumen untuk Siklus 3</p></div>
           </div>
-          <div id="s3-media" class="analisis-subtab-content">
-            <div class="analisis-block">
-              <div class="analisis-block-title">🎨 Media Pembelajaran Siklus 3</div>
-              <p style="margin-bottom:1rem;">Upload PPT, gambar, atau file media pembelajaran yang digunakan pada Siklus 3.</p>
-              <div class="media-grid" id="media-grid-s3"></div>
-              <div id="media-admin-s3" style="display:none; margin-top:1rem;">
-                <button class="btn-doc btn-upload-trigger" onclick="uploadMedia('s3')">📎 Upload Media</button>
-                <input type="file" id="media-input-s3" accept="image/*,.pdf,.ppt,.pptx" multiple style="display:none" onchange="handleMediaUpload(this,'s3')" />
-              </div>
-            </div>
-          </div>
+          <div id="s3-media" class="analisis-subtab-content"><div class="analisis-block"><div class="analisis-block-title">🎨 Media Pembelajaran Siklus 3</div><div class="media-grid" id="media-grid-s3"></div><div id="media-admin-s3" style="display:none;margin-top:1rem;"><button class="btn-doc btn-upload-trigger" onclick="uploadMedia('s3')">📎 Upload</button><input type="file" id="media-input-s3" accept="image/*,.pdf,.ppt,.pptx" multiple style="display:none" onchange="handleMediaUpload(this,'s3')" /></div></div></div>
+          <div id="s3-inst-rpl" class="analisis-subtab-content"><div class="analisis-block"><div class="analisis-block-title">📝 Instrumen Penilaian Penyusunan RPL — Siklus 3</div><div class="media-grid" id="media-grid-s3-inst-rpl"></div><div id="media-admin-s3-inst-rpl" style="display:none;margin-top:1rem;"><button class="btn-doc btn-upload-trigger" onclick="uploadMedia('s3-inst-rpl')">📎 Upload</button><input type="file" id="media-input-s3-inst-rpl" accept="image/*,.pdf,.ppt,.pptx" multiple style="display:none" onchange="handleMediaUpload(this,'s3-inst-rpl')" /></div></div></div>
+          <div id="s3-inst-praktik" class="analisis-subtab-content"><div class="analisis-block"><div class="analisis-block-title">🎤 Instrumen Penilaian Praktik Mengajar — Siklus 3</div><div class="media-grid" id="media-grid-s3-inst-praktik"></div><div id="media-admin-s3-inst-praktik" style="display:none;margin-top:1rem;"><button class="btn-doc btn-upload-trigger" onclick="uploadMedia('s3-inst-praktik')">📎 Upload</button><input type="file" id="media-input-s3-inst-praktik" accept="image/*,.pdf,.ppt,.pptx" multiple style="display:none" onchange="handleMediaUpload(this,'s3-inst-praktik')" /></div></div></div>
+          <div id="s3-pamong" class="analisis-subtab-content"><div class="analisis-block"><div class="analisis-block-title">⭐ Hasil Penilaian Guru Pamong — Siklus 3</div><div class="media-grid" id="media-grid-s3-pamong"></div><div id="media-admin-s3-pamong" style="display:none;margin-top:1rem;"><button class="btn-doc btn-upload-trigger" onclick="uploadMedia('s3-pamong')">📎 Upload</button><input type="file" id="media-input-s3-pamong" accept="image/*,.pdf,.ppt,.pptx" multiple style="display:none" onchange="handleMediaUpload(this,'s3-pamong')" /></div></div></div>
+          <div id="s3-rpl" class="analisis-subtab-content"><div class="analisis-block"><div class="analisis-block-title">📄 RPL — Siklus 3</div><div class="media-grid" id="media-grid-s3-rpl"></div><div id="media-admin-s3-rpl" style="display:none;margin-top:1rem;"><button class="btn-doc btn-upload-trigger" onclick="uploadMedia('s3-rpl')">📎 Upload</button><input type="file" id="media-input-s3-rpl" accept="image/*,.pdf,.ppt,.pptx" multiple style="display:none" onchange="handleMediaUpload(this,'s3-rpl')" /></div></div></div>
         </div>
       </div>
     </div>
