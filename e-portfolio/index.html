@@ -324,10 +324,53 @@
       </div>
 
       <div id="analisis-s2" class="tab-content">
-        <div class="analisis-siklus-card analisis-empty"><span>📄</span><p>Belum ada dokumen untuk Siklus 2</p></div>
+        <div class="analisis-siklus-card">
+          <div class="analisis-subtab-btns">
+            <button class="analisis-subtab-btn active" onclick="switchAnalisisTab('s2-artefak', this)">📋 Artefak</button>
+            <button class="analisis-subtab-btn" onclick="switchAnalisisTab('s2-media', this)">🎨 Media Pembelajaran</button>
+          </div>
+          <div id="s2-artefak" class="analisis-subtab-content active">
+            <div class="analisis-block analisis-empty" style="border:none;">
+              <span>📄</span><p>Belum ada dokumen untuk Siklus 2</p>
+            </div>
+          </div>
+          <div id="s2-media" class="analisis-subtab-content">
+            <div class="analisis-block">
+              <div class="analisis-block-title">🎨 Media Pembelajaran Siklus 2</div>
+              <p style="margin-bottom:1rem;">Upload PPT, gambar, atau file media pembelajaran yang digunakan pada Siklus 2.</p>
+              <div class="media-grid" id="media-grid-s2"></div>
+              <div id="media-admin-s2" style="display:none; margin-top:1rem;">
+                <button class="btn-doc btn-upload-trigger" onclick="uploadMedia('s2')">📎 Upload Media</button>
+                <input type="file" id="media-input-s2" accept="image/*,.pdf,.ppt,.pptx" multiple style="display:none" onchange="handleMediaUpload(this,'s2')" />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
       <div id="analisis-s3" class="tab-content">
-        <div class="analisis-siklus-card analisis-empty"><span>📄</span><p>Belum ada dokumen untuk Siklus 3</p></div>
+        <div class="analisis-siklus-card">
+          <div class="analisis-subtab-btns">
+            <button class="analisis-subtab-btn active" onclick="switchAnalisisTab('s3-artefak', this)">📋 Artefak</button>
+            <button class="analisis-subtab-btn" onclick="switchAnalisisTab('s3-media', this)">🎨 Media Pembelajaran</button>
+          </div>
+          <div id="s3-artefak" class="analisis-subtab-content active">
+            <div class="analisis-block analisis-empty" style="border:none;">
+              <span>📄</span><p>Belum ada dokumen untuk Siklus 3</p>
+            </div>
+          </div>
+          <div id="s3-media" class="analisis-subtab-content">
+            <div class="analisis-block">
+              <div class="analisis-block-title">🎨 Media Pembelajaran Siklus 3</div>
+              <p style="margin-bottom:1rem;">Upload PPT, gambar, atau file media pembelajaran yang digunakan pada Siklus 3.</p>
+              <div class="media-grid" id="media-grid-s3"></div>
+              <div id="media-admin-s3" style="display:none; margin-top:1rem;">
+                <button class="btn-doc btn-upload-trigger" onclick="uploadMedia('s3')">📎 Upload Media</button>
+                <input type="file" id="media-input-s3" accept="image/*,.pdf,.ppt,.pptx" multiple style="display:none" onchange="handleMediaUpload(this,'s3')" />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
