@@ -625,9 +625,9 @@ async function loadMedia(siklus) {
 function addMediaItem(grid, id, url, name, type, siklus) {
   const div = document.createElement('div');
   div.className = 'media-item';
-  const isImg = type && type.startsWith('image');
-  const isPdf = type && type.includes('pdf');
-  const isPpt = name && (name.endsWith('.ppt') || name.endsWith('.pptx'));
+  const isImg = (type && type.startsWith('image')) || /\.(jpg|jpeg|png|gif|webp)$/i.test(name);
+  const isPdf = (type && type.includes('pdf')) || /\.pdf$/i.test(name);
+  const isPpt = /\.(ppt|pptx)$/i.test(name);
   const icon = isPdf ? '📄' : isPpt ? '📊' : '📁';
 
   if (isImg) {
@@ -642,8 +642,7 @@ function addMediaItem(grid, id, url, name, type, siklus) {
       <div class="media-item-name">${name}</div>
       <button class="media-item-del">✕</button>`;
     div.querySelector('.media-item-icon').addEventListener('click', () => {
-      const previewType = isPdf ? 'pdf' : 'office';
-      openMediaPreview(url, name, previewType);
+      openMediaPreview(url, name, isPdf ? 'pdf' : 'office');
     });
   }
   div.querySelector('.media-item-del').addEventListener('click', () => deleteMedia(id, siklus, div));
