@@ -635,6 +635,29 @@ section {
 
 .galeri-item:hover .galeri-overlay { opacity: 1; }
 
+.galeri-admin-btns {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  display: flex;
+  gap: 0.3rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+.galeri-item:hover .galeri-admin-btns { opacity: 1; }
+.galeri-btn-change, .galeri-btn-del {
+  background: rgba(255,255,255,0.9);
+  border: none;
+  border-radius: 6px;
+  padding: 0.25rem 0.4rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  line-height: 1;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+.galeri-btn-del { background: rgba(255,80,80,0.85); }
+
 /* ===== MODEL GURU ===== */
 #model { background: var(--white); }
 
