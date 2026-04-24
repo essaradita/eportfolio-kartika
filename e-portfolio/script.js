@@ -656,3 +656,5 @@ window.deleteMedia = deleteMedia;
 
 // Load media saat halaman load
 loadMedia('s1');
+loadMedia('s2');
+loadMedia('s3');
