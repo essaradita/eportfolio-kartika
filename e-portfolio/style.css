@@ -1896,3 +1896,91 @@ footer span { color: var(--pink); }
 }
 
 .analisis-empty span { font-size: 2.5rem; }
+
+/* ===== ANALISIS SUB-TAB ===== */
+.analisis-subtab-btns {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem 0;
+  border-bottom: 2px solid var(--pink-light);
+  margin-bottom: 0;
+}
+
+.analisis-subtab-btn {
+  background: none;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-light);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.2s;
+}
+
+.analisis-subtab-btn.active,
+.analisis-subtab-btn:hover {
+  color: var(--pink-dark);
+  border-bottom-color: var(--pink-dark);
+}
+
+.analisis-subtab-content { display: none; }
+.analisis-subtab-content.active { display: block; animation: fadeIn 0.3s ease; }
+
+/* ===== MEDIA GRID ===== */
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.media-item {
+  background: var(--cream);
+  border-radius: 12px;
+  padding: 0.75rem;
+  text-align: center;
+  border: 1px solid var(--pink-light);
+  position: relative;
+  transition: all 0.2s;
+}
+
+.media-item:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+
+.media-item-icon { font-size: 2rem; margin-bottom: 0.4rem; }
+
+.media-item-name {
+  font-size: 0.7rem;
+  color: var(--text-mid);
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.media-item img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 0.4rem;
+}
+
+.media-item-del {
+  position: absolute;
+  top: 4px; right: 4px;
+  background: rgba(232,120,154,0.9);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px; height: 20px;
+  font-size: 0.65rem;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.ppg-admin .media-item:hover .media-item-del { display: flex; }
