@@ -36,6 +36,8 @@ p, li, td, blockquote, .section-desc, .subtitle, .analisis-block p,
   text-justify: inter-word;
 }
 
+footer p { text-align: center; }
+
 /* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--pink-light); }
