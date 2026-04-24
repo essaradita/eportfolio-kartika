@@ -632,9 +632,11 @@ function addMediaItem(grid, id, url, name, type, siklus) {
   const div = document.createElement('div');
   div.className = 'media-item';
   const isImg = (type && type.startsWith('image')) || /\.(jpg|jpeg|png|gif|webp)$/i.test(name);
+  const isDrive = type === 'drive';
   const isPdf = (type && type.includes('pdf')) || /\.pdf$/i.test(name);
   const isPpt = /\.(ppt|pptx)$/i.test(name);
-  const icon = isPdf ? '📄' : isPpt ? '📊' : '📁';
+  const icon = isDrive ? '📁' : isPdf ? '📄' : isPpt ? '📊' : '📁';
+  const previewType = isDrive ? 'drive' : isPdf ? 'pdf' : 'office';
 
   if (isImg) {
     div.innerHTML = `
@@ -647,9 +649,7 @@ function addMediaItem(grid, id, url, name, type, siklus) {
       <div class="media-item-icon" style="cursor:pointer">${icon}</div>
       <div class="media-item-name">${name}</div>
       <button class="media-item-del">✕</button>`;
-    div.querySelector('.media-item-icon').addEventListener('click', () => {
-      openMediaPreview(url, name, isPdf ? 'pdf' : 'office');
-    });
+    div.querySelector('.media-item-icon').addEventListener('click', () => openMediaPreview(url, name, previewType));
   }
   div.querySelector('.media-item-del').addEventListener('click', () => deleteMedia(id, siklus, div));
   grid.appendChild(div);
@@ -660,8 +660,15 @@ function openMediaPreview(url, name, type) {
   let content = '';
   if (type === 'image') {
     content = `<img src="${url}" alt="${name}" style="width:100%;border-radius:10px;" />`;
+  } else if (type === 'drive') {
+    // Google Drive preview — langsung embed
+    content = `
+      <iframe src="${url}" style="width:100%;height:520px;border:none;border-radius:10px;" allowfullscreen></iframe>
+      <div style="text-align:center;margin-top:0.75rem;">
+        <a href="${url.replace('/preview','')}" target="_blank" class="btn-doc" style="background:var(--pink-light);color:var(--pink-dark);">↗️ Buka di Google Drive</a>
+      </div>`;
   } else {
-    // PDF, DOCX, PPT semua via Google Docs Viewer — support semua format & tidak ada CORS issue
+    // PDF, DOCX, PPT via Google Docs Viewer
     const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(url)}&embedded=true`;
     content = `
       <iframe src="${viewerUrl}" style="width:100%;height:520px;border:none;border-radius:10px;" id="doc-preview-frame"></iframe>
@@ -695,6 +702,43 @@ function uploadMedia(siklus) {
   document.getElementById('media-input-' + siklus).click();
 }
 window.uploadMedia = uploadMedia;
+
+// ===== GOOGLE DRIVE LINK =====
+function parseDriveUrl(url) {
+  // Ekstrak file ID dari berbagai format URL Google Drive
+  const patterns = [
+    /drive\.google\.com\/file\/d\/([^/]+)/,
+    /drive\.google\.com\/open\?id=([^&]+)/,
+    /docs\.google\.com\/(?:document|spreadsheets|presentation)\/d\/([^/]+)/,
+  ];
+  for (const p of patterns) {
+    const m = url.match(p);
+    if (m) return m[1];
+  }
+  return null;
+}
+
+function getDrivePreviewUrl(fileId) {
+  return `https://drive.google.com/file/d/${fileId}/preview`;
+}
+
+async function addMediaByLink(siklus) {
+  const input = prompt('Paste link Google Drive:\n(pastikan sudah di-share "Anyone with link can view")');
+  if (!input) return;
+  const fileId = parseDriveUrl(input.trim());
+  if (!fileId) { showToast('❌ Link tidak valid. Gunakan link Google Drive.'); return; }
+  const name = prompt('Nama file:', 'Dokumen') || 'Dokumen';
+  const previewUrl = getDrivePreviewUrl(fileId);
+  const grid = document.getElementById('media-grid-' + siklus);
+  if (!grid) return;
+  try {
+    const id = Date.now() + '_' + Math.random().toString(36).slice(2);
+    await setDoc(doc(db, 'media_' + siklus, id), { url: previewUrl, name, type: 'drive' });
+    addMediaItem(grid, id, previewUrl, name, 'drive', siklus);
+    showToast('✅ ' + name + ' ditambahkan');
+  } catch(e) { showToast('❌ Gagal: ' + e.message); }
+}
+window.addMediaByLink = addMediaByLink;
 
 async function handleMediaUpload(input, siklus) {
   const grid = document.getElementById('media-grid-' + siklus);
