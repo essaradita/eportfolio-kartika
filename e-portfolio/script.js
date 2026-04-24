@@ -618,22 +618,25 @@ function addMediaItem(grid, id, url, name, type, siklus) {
   const isImg = type && type.startsWith('image');
   const isPdf = type && type.includes('pdf');
   const isPpt = name && (name.endsWith('.ppt') || name.endsWith('.pptx'));
-  // docx, doc, xls, xlsx, dll → pakai Google Docs Viewer
-  const isOffice = !isImg && !isPdf;
-
-  const gdocsUrl = `https://docs.google.com/gview?url=${encodeURIComponent(url)}&embedded=true`;
-  const previewUrl = isPdf ? url : gdocsUrl;
-  const previewType = isPdf ? 'pdf' : 'office';
   const icon = isPdf ? '📄' : isPpt ? '📊' : '📁';
 
-  div.innerHTML = `
-    ${isImg
-      ? `<img src="${url}" alt="${name}" style="cursor:pointer" onclick="openMediaPreview('${url}','${name}','image')" />`
-      : `<div class="media-item-icon" style="cursor:pointer" onclick="openMediaPreview('${previewUrl}','${name}','${previewType}')">${icon}</div>`
-    }
-    <div class="media-item-name">${name}</div>
-    <button class="media-item-del" onclick="deleteMedia('${id}','${siklus}',this.closest('.media-item'))">✕</button>
-  `;
+  if (isImg) {
+    div.innerHTML = `
+      <img src="${url}" alt="${name}" style="cursor:pointer" />
+      <div class="media-item-name">${name}</div>
+      <button class="media-item-del">✕</button>`;
+    div.querySelector('img').addEventListener('click', () => openMediaPreview(url, name, 'image'));
+  } else {
+    div.innerHTML = `
+      <div class="media-item-icon" style="cursor:pointer">${icon}</div>
+      <div class="media-item-name">${name}</div>
+      <button class="media-item-del">✕</button>`;
+    div.querySelector('.media-item-icon').addEventListener('click', () => {
+      const previewType = isPdf ? 'pdf' : 'office';
+      openMediaPreview(url, name, previewType);
+    });
+  }
+  div.querySelector('.media-item-del').addEventListener('click', () => deleteMedia(id, siklus, div));
   grid.appendChild(div);
 }
 
@@ -645,9 +648,10 @@ function openMediaPreview(url, name, type) {
   } else if (type === 'pdf') {
     content = `<iframe src="${url}" style="width:100%;height:500px;border:none;border-radius:10px;"></iframe>`;
   } else {
-    // PPT, DOCX, dll via Google Docs Viewer
-    content = `<iframe src="${url}" style="width:100%;height:500px;border:none;border-radius:10px;"></iframe>
-    <p style="font-size:0.78rem;color:var(--text-light);text-align:center;margin-top:0.5rem;">Jika tidak tampil, <a href="${url.replace('gview?url=','').replace('&embedded=true','').split('?')[0]}" target="_blank" style="color:var(--pink-dark);">buka di tab baru</a></p>`;
+    // DOCX, PPT, dll via Microsoft Office Online Viewer (lebih stabil dari Google Docs Viewer)
+    const viewerUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(url)}`;
+    content = `<iframe src="${viewerUrl}" style="width:100%;height:500px;border:none;border-radius:10px;"></iframe>
+    <p style="font-size:0.78rem;color:var(--text-light);text-align:center;margin-top:0.5rem;">Jika tidak tampil, <a href="${url}" target="_blank" style="color:var(--pink-dark);">buka di tab baru</a></p>`;
   }
 
   let modal = document.getElementById('modal-media-preview');
