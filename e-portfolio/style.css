@@ -136,7 +136,7 @@ nav {
 }
 
 .hero-split {
-  max-width: 1400px;
+  max-width: 1280px;
   margin: 0 auto;
   width: 100%;
   display: grid;
@@ -306,7 +306,7 @@ section {
 }
 
 .section-inner {
-  max-width: 1400px;
+  max-width: 1280px;
   margin: 0 auto;
   padding-left: 2rem;
   padding-right: 2rem;
@@ -2151,7 +2151,7 @@ footer span { color: var(--pink); }
 }
 
 .ep1-banner-inner {
-  max-width: 1400px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 
@@ -2395,4 +2395,60 @@ footer span { color: var(--pink); }
 @media (max-width: 768px) {
   .ep2-challenge-grid { grid-template-columns: 1fr; }
   .ep2-filosofi-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== RESPONSIVE TABEL ARTEFAK (HP) ===== */
+@media (max-width: 600px) {
+  /* Tabel artefak jadi layout vertikal */
+  .analisis-subtab-content .info-table,
+  .analisis-subtab-content .info-table tbody,
+  .analisis-subtab-content .info-table tr,
+  .analisis-subtab-content .info-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .analisis-subtab-content .info-table tr {
+    margin-bottom: 0.75rem;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .analisis-subtab-content .info-table tr td:first-child {
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+    text-align: center;
+    white-space: normal;
+    padding: 0.5rem 1rem;
+  }
+
+  .analisis-subtab-content .info-table td:last-child {
+    border-radius: 0 0 10px 10px;
+  }
+
+  /* Sub-tab tombol scroll horizontal */
+  .analisis-subtab-btns {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.25rem;
+  }
+
+  .analisis-subtab-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Section padding lebih kecil di HP */
+  section { padding: 50px 1rem; }
+
+  .section-inner {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Hero split jadi satu kolom */
+  .hero-split {
+    grid-template-columns: 1fr;
+  }
 }
