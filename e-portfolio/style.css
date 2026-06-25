@@ -20,7 +20,7 @@
   --radius-sm: 10px;
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; font-size: 20px; }
 
 body {
   font-family: 'Poppins', 'Segoe UI', sans-serif;
@@ -82,6 +82,7 @@ nav {
   padding: 0.4rem 0.85rem;
   border-radius: 20px;
   transition: all 0.25s ease;
+  white-space: nowrap;
 }
 
 .nav-links a:hover,
@@ -135,11 +136,11 @@ nav {
 }
 
 .hero-split {
-  max-width: 960px;
+  max-width: 1400px;
   margin: 0 auto;
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 420px;
+  grid-template-columns: 1fr 480px;
   align-items: center;
   gap: 3rem;
   position: relative;
@@ -305,8 +306,10 @@ section {
 }
 
 .section-inner {
-  max-width: 960px;
+  max-width: 1400px;
   margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .section-label {
@@ -1478,8 +1481,8 @@ footer span { color: var(--pink); }
 /* ===== HERO CARD ===== */
 .hero-card-glow {
   position: relative;
-  max-width: 260px;
-  margin-left: auto;
+  max-width: 310px;
+  margin: 0 auto;
   animation: floatCard 4s ease-in-out infinite;
 }
 
@@ -2135,4 +2138,261 @@ footer span { color: var(--pink); }
 }
 .analisis-refleksi {
   background: linear-gradient(135deg, var(--lavender-light), var(--pink-light)) !important;
+}
+
+/* ===== E-PORTFOLIO 2 ===== */
+#eportfolio2 { background: linear-gradient(180deg, var(--lavender-light) 0%, var(--cream) 100%); }
+
+/* ===== E-PORTFOLIO 1 BANNER ===== */
+#ep1-banner, #ep2-banner {
+  background: linear-gradient(135deg, var(--pink-dark) 0%, var(--lavender) 100%);
+  padding: 1.25rem 1.5rem;
+  text-align: left;
+}
+
+.ep1-banner-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.ep1-banner-label {
+  display: inline-block;
+  background: rgba(255,255,255,0.25);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 0.4rem 1.5rem;
+  border-radius: 20px;
+}
+
+#eportfolio2 .section-label,
+#analisis .section-label {
+  font-size: 1rem;
+  letter-spacing: 1.5px;
+  padding: 0.45rem 1.4rem;
+  background: linear-gradient(135deg, var(--pink-dark), var(--lavender));
+  color: white;
+}
+
+.ep2-section { margin-top: 2rem; }
+
+.ep2-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.ep2-badge {
+  background: linear-gradient(135deg, var(--pink-dark), var(--lavender));
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.4rem 1.25rem;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.ep2-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+/* EP2 Cards */
+.ep2-card {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+  border-left: 4px solid var(--pink-dark);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.ep2-card:nth-child(2) { border-left-color: #6c5ce7; }
+.ep2-card:nth-child(3) { border-left-color: #00b894; }
+.ep2-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+
+.ep2-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, rgba(253,232,240,0.6), rgba(237,232,248,0.4));
+  border-bottom: 1px solid rgba(248,180,200,0.2);
+}
+
+.ep2-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.ep2-card-header h4 {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.ep2-card-body {
+  padding: 1.25rem 1.5rem;
+}
+
+.ep2-card-body p {
+  font-size: 0.87rem;
+  color: var(--text-mid);
+  line-height: 1.85;
+  margin-bottom: 0.85rem;
+}
+.ep2-card-body p:last-child { margin-bottom: 0; }
+
+/* Challenge Grid */
+.ep2-challenge-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.ep2-challenge-item {
+  background: var(--cream);
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid var(--pink-light);
+}
+
+.ep2-challenge-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(135deg, var(--pink-dark), var(--lavender));
+  display: inline-block;
+  padding: 0.2rem 0.8rem;
+  border-radius: 20px;
+  margin-bottom: 0.6rem;
+}
+
+.ep2-challenge-item:last-child .ep2-challenge-label {
+  background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+}
+
+.ep2-challenge-item p {
+  font-size: 0.83rem;
+  color: var(--text-mid);
+  line-height: 1.75;
+  margin: 0 0 0.75rem 0;
+}
+
+.ep2-solution {
+  background: linear-gradient(135deg, rgba(0,184,148,0.08), rgba(85,239,196,0.08));
+  border-left: 3px solid #00b894;
+  border-radius: 0 8px 8px 0;
+  padding: 0.6rem 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.ep2-solution-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #00b894;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.ep2-solution p { margin: 0; font-size: 0.82rem; }
+
+/* Feedback List */
+.ep2-feedback-list { margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem; }
+
+.ep2-feedback-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  background: var(--cream);
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid var(--lavender-light);
+}
+
+.ep2-feedback-num {
+  font-size: 1.4rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--pink-dark), var(--lavender));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  flex-shrink: 0;
+  line-height: 1;
+  min-width: 30px;
+}
+
+.ep2-feedback-item strong {
+  font-size: 0.88rem;
+  color: var(--text-dark);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.ep2-feedback-item p {
+  font-size: 0.84rem;
+  color: var(--text-mid);
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* Filosofi Grid */
+.ep2-filosofi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.ep2-filosofi-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.ep2-filosofi-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+
+.ep2-filosofi-card:nth-child(1) { border-top: 4px solid var(--pink-dark); }
+.ep2-filosofi-card:nth-child(2) { border-top: 4px solid #6c5ce7; }
+.ep2-filosofi-card:nth-child(3) { border-top: 4px solid #00b894; }
+
+.ep2-filosofi-num {
+  font-size: 3rem;
+  font-weight: 900;
+  opacity: 0.07;
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  line-height: 1;
+  color: var(--text-dark);
+}
+
+.ep2-filosofi-card h4 {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 0.75rem;
+}
+
+.ep2-filosofi-card p {
+  font-size: 0.84rem;
+  color: var(--text-mid);
+  line-height: 1.85;
+}
+
+@media (max-width: 768px) {
+  .ep2-challenge-grid { grid-template-columns: 1fr; }
+  .ep2-filosofi-grid { grid-template-columns: 1fr; }
 }
